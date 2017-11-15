@@ -1,5 +1,6 @@
 package exerciciosjavatime;
 
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.TUESDAY;
@@ -25,6 +26,7 @@ import java.time.chrono.MinguoDate;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalUnit;
@@ -46,18 +48,20 @@ public class Util_Datas {
         
     }
 
-    public void ex1(){
-        LocalDateTime dataNasc = LocalDateTime.of(1996,6,24,9,0);
-        System.out.println("Data de Nascimento: " + dataNasc);
+    public static Instant LocalDateTimeToInstant(TemporalAccessor temporal){
+        LocalDateTime date;
+        try{
+            date = LocalDateTime.from(temporal);
+        }
+        catch(DateTimeException e){
+            return null;
+        } 
         
-        Instant inst = dataNasc.toInstant(ZoneOffset.UTC);
-        System.out.println("ToInstant: " + inst);
-        
-        LocalDateTime dataNasc2 = dataNasc.ofInstant(inst, ZoneOffset.UTC);
-        System.out.println("Data de Nascimento2: " + dataNasc2);
+        Instant inst = date.toInstant(ZoneOffset.UTC);
+        return inst;
     }
     
-    public void ex2(){
+    public static void ex2(){
         Duration d = Duration.ofHours(1);
         Duration d2 = Duration.of(1, ChronoUnit.HOURS);
         
@@ -65,7 +69,7 @@ public class Util_Datas {
         System.out.println("Min: " + d2.toMinutes() + "\tSec: " + d2.getSeconds() + "\tNano: " + d2.toNanos());    
     }
     
-    public void ex3(){
+    public static void ex3(){
         LocalDate eu = LocalDate.of(1996, 6, 24);
         LocalDate pai = eu.minusYears(33).minusMonths(6);        
         LocalDate mae = eu.minusYears(31).minusMonths(9);
@@ -81,7 +85,7 @@ public class Util_Datas {
         System.out.println("Idade(Irma): " + Period.between(irma, agora).getYears());
     }
     
-    public void ex4(){
+    public static void ex4(){
         LocalDateTime time1 = LocalDateTime.of(1996, Month.JUNE, 24, 9, 0,0,0);
         LocalDateTime time2 = LocalDateTime.of(1994, Month.FEBRUARY, 4, 22, 30,0,0);
         
@@ -102,13 +106,13 @@ public class Util_Datas {
         
     }
     
-    public void ex5(){
+    public static void ex5(){
         LocalDate hoje = LocalDate.now();
         
         System.out.println("Era: " + hoje.getEra());
     }
     
-    public void ex6(){
+    public static void ex6(){
         LocalDateTime time1 = LocalDateTime.of(1996, Month.JUNE, 24, 9, 0,0,0);
         LocalDateTime time2 = LocalDateTime.of(1994, Month.FEBRUARY, 4, 22, 30,0,0);
         
@@ -121,7 +125,7 @@ public class Util_Datas {
         System.out.println("------------------------------------------");
     }
     
-    public void ex7(){
+    public static void ex7(){
         LocalDate seguro = LocalDate.of(2018, Month.JULY, 14);
         LocalDate hoje = LocalDate.now();
         
@@ -132,7 +136,7 @@ public class Util_Datas {
         System.out.println("Dias " + dias);
     }
     
-    public void ex8(){
+    public static void ex8(){
         LocalDate segCarro = LocalDate.of(2017, Month.DECEMBER, 17);
         LocalDate hoje = LocalDate.of(2017, 1, 1);
         
@@ -155,7 +159,7 @@ public class Util_Datas {
         System.out.println("Pagar na data " + segCarro.with(TemporalAdjusters.previous(MONDAY)));
     }
     
-    public void ex9(){
+    public static void ex9(){
         LocalTime agora = LocalTime.now();
         System.out.println("Agora : " + agora);
         ChronoField[] campos = ChronoField.values();
@@ -171,7 +175,7 @@ public class Util_Datas {
                             + LocalDate.now().isSupported(ChronoField.MINUTE_OF_DAY));
     }
     
-    public void ex10(){
+    public static void ex10(){
         Instant agora = Instant.now();
         ZoneOffset zoffPortugal = OffsetDateTime.now().getOffset();
         ZonedDateTime agoraNossaZona = ZonedDateTime.ofInstant(agora, zoffPortugal);
@@ -186,11 +190,11 @@ public class Util_Datas {
         System.out.println("---   TIRE AS CONCLUSÕES ---");
     }
             
-    public void ex11(){
+    public static void ex11(){
        
     }
     
-    public void ex12(){
+    public static void ex12(){
         LocalDate data = LocalDate.of(2017, Month.SEPTEMBER, 30);
         System.out.println("Inicio Seguro: " + data);
         System.out.println("Trimestre: " + data.get(IsoFields.QUARTER_OF_YEAR));
@@ -208,7 +212,7 @@ public class Util_Datas {
     
     }
     
-    public void ex13(){
+    public static void ex13(){
         double valorDias = 29.530589;
         int diasTotais = (int) valorDias;
         double restoDias = valorDias - diasTotais;
@@ -224,11 +228,11 @@ public class Util_Datas {
         System.out.println("NANOS da Duration : " + dura.getNano());
     }
     
-    public void ex14(){
+    public static void ex14(){
        
     }
     
-    public void ex15(){
+    public static void ex15(){
         LocalDateTime agora = LocalDateTime.of(2017, Month.DECEMBER, 31, 23, 30, 0);
         
         ZoneId santi = ZoneId.of("America/Santiago");
@@ -247,7 +251,7 @@ public class Util_Datas {
 
     }
     
-    public void ex16(){
+    public static void ex16(){
         LocalDate hoje = LocalDate.now();
         LocalDate fimDoAno = LocalDate.of(2018,1,1);
         TemporalAdjuster lastDay = TemporalAdjusters.lastDayOfYear();
@@ -267,11 +271,11 @@ public class Util_Datas {
         System.out.println("Total : " + total);
     }
     
-    public void ex17(){
+    public static void ex17(){
        
     }
     
-    public void ex18(){
+    public static void ex18(){
         LocalDate data = LocalDate.of(2017, 4, 1);
         LocalDate primDiaAno = data.with(TemporalAdjusters.firstDayOfYear());
         LocalDate fimAno = data.with(TemporalAdjusters.lastDayOfYear());
@@ -294,7 +298,7 @@ public class Util_Datas {
 	          WeekFields.ISO.weekOfWeekBasedYear().getFrom(data));
     }
     
-    public void ex19(){
+    public static void ex19(){
         // É preciso saber o dia em que começa a 1ª semana de Dezembro 
         YearMonth ym = YearMonth.of(2017, 12);
         LocalDate primDiaSemDez = ym.atDay(1).with(TemporalAdjusters.firstInMonth(MONDAY));
@@ -304,19 +308,19 @@ public class Util_Datas {
             primDiaSemDez.plus(1, ChronoUnit.WEEKS).plusDays(2));
     }
     
-    public void ex20(){
+    public static void ex20(){
        
     }
     
-    public void ex21(){
+    public static void ex21(){
        
     }
     
-    public void ex22(){
+    public static void ex22(){
        
     }
     
-    public void ex23(){
+    public static void ex23(){
         // DEZ DIAS UTEIS MAIS TARDE
         LocalDate dataRef = LocalDate.of(2017, 12, 25);
         int conta = 0;  // conta dias úteis
@@ -328,7 +332,7 @@ public class Util_Datas {
         System.out.println("Data após 10 dias úteis : " + dataRef);
     }
     
-    public void ex24(){
+    public static void ex24(){
         int ano = 2017;
         int diasDoAno = Year.of(ano).length();
         System.out.println("Nº de dias do ano de " + ano + " = " + diasDoAno);
@@ -340,11 +344,11 @@ public class Util_Datas {
 
     }
     
-    public void ex25(){
+    public static void ex25(){
        
     }
     
-    public void ex26(){
+    public static void ex26(){
         LocalDate localDate = LocalDate.of(1975, 4, 25);
         MinguoDate minguo = MinguoDate.from(localDate);
         System.out.println("Data Local : " + localDate);
@@ -363,11 +367,11 @@ public class Util_Datas {
 
     }
     
-    public void ex27(){
+    public static void ex27(){
        
     }
     
-    public void ex28(){
+    public static void ex28(){
         // Criar um ajustador que ajuste qualquer data para 15 dias antes.
         // Comparar com um que ajuste para 2 semanas antes.
         TemporalAdjuster menos15Dias = 
@@ -383,11 +387,11 @@ public class Util_Datas {
         System.out.println(" Hoje - 2 WEEKS : " + hojeMenos2S);
     }
     
-    public void ex29(){
+    public static void ex29(){
        
     }
     
-    public void ex30(){
+    public static void ex30(){
        Comparator<LocalDate> compMenorData = 
            (LocalDate ld1, LocalDate ld2) -> { if(ld1.equals(ld2)) return 0;
                                                else if(ld1.isBefore(ld2)) return -1; 

@@ -8,6 +8,7 @@ package exerciciosjavatime;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -22,10 +23,10 @@ public class Teste {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = null;
         Util_Datas ejt = new Util_Datas();
-        
+        System.out.println("Start..");
         while( (line = br.readLine()) != null){
             switch(line){
-                case "1": ejt.ex1();
+                case "1": System.out.println(""+LocalDateTime.now().query(Util_Datas::LocalDateTimeToInstant));
                           break;
                 case "2": ejt.ex2();
                           break;
