@@ -1,5 +1,8 @@
 package exerciciosjavatime;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import static java.time.DayOfWeek.MONDAY;
@@ -415,6 +418,30 @@ public class Util_Datas {
         for(LocalDate ld : datas) 
             System.out.println(ld + " ");
 
+    }
+    
+    public static void crono() throws IOException{
+        boolean power = true;
+        boolean cronoOn = false;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = null;
+        ThreadCrono tc = new ThreadCrono();
+        
+        while(power){
+            line = br.readLine();
+            switch(line){
+                case "start" :  if(!cronoOn) { 
+                                    tc.start(); 
+                                    cronoOn = true;
+                                }
+                                else tc.on();
+                                break;
+                case "stop" :   tc.off();
+                                break;
+                case "reset":   tc.reset();
+                                break;
+            }
+        }
     }
     
  }
