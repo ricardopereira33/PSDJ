@@ -14,6 +14,12 @@ public interface Interval {
     //Calcula um conjunto de datas ou tempos distanciadas entre si por um dado intervalo
     public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates);
     
+    //Intervalo entre dois tempos, numa unidade dada
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit);
+    
+    // numero de dias uteis, num dado intervalo
+    public int numWorkingDays(Temporal t1, Temporal t2);
+    
+    
     
 }

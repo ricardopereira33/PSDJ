@@ -38,6 +38,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -49,7 +50,7 @@ public class Util_Datas {
     
     public Util_Datas(){ }
 
-    public static Instant LocalDateTimeToInstant(TemporalAccessor temporal){
+    public static Instant ToInstant(TemporalAccessor temporal){
         LocalDateTime date;
         try{
             date = LocalDateTime.from(temporal);
@@ -152,8 +153,7 @@ public class Util_Datas {
         int diaDaSemana = segCarro.getDayOfWeek().getValue();
         System.out.println("Termina no dia da semana = " + diaDaSemana + " que é " + segCarro.getDayOfWeek());
         
-        System.out.println("Devo pagar em : " + 
-			segCarro.minusDays(diaDaSemana - 1));
+        System.out.println("Devo pagar em : " +  segCarro.minusDays(diaDaSemana - 1));
         System.out.println("Pagar em : " + segCarro.with(TemporalAdjusters.previous(MONDAY)));
         
         // com importações
@@ -181,6 +181,13 @@ public class Util_Datas {
         ZoneOffset zoffPortugal = OffsetDateTime.now().getOffset();
         ZonedDateTime agoraNossaZona = ZonedDateTime.ofInstant(agora, zoffPortugal);
         System.out.println(agoraNossaZona);
+        
+        System.out.println("----------------");
+        for(Map.Entry<String,String> e : ZoneId.SHORT_IDS.entrySet()){
+            System.out.println("Key: "+e.getKey()+"\tValue: "+e.getValue()+".");
+        }
+        System.out.println("----------------");
+
         
         ZoneId zonaAustralia = ZoneId.of("Australia/Canberra" );
         ZonedDateTime zdtAust = agora.atZone(zonaAustralia);

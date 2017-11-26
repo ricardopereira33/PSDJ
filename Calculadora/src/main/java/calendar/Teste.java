@@ -16,7 +16,7 @@ public class Teste {
      */
     public static void main(String[] args) {
         try{
-            Util_Datas.ex6();
+            Util_Datas.ex10();
         }
         catch(Exception e){
             System.out.println("Msg: "+ e.getMessage());
