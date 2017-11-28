@@ -5,16 +5,17 @@
  */
 package calendar.Modes;
 
-import calendar.Interfaces.TimeZoneConverter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import calendar.Interfaces.Converter;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
  * @author Ricardo
  */
-public class TimeZoneConverterMode implements TimeZoneConverter {
+public class ConverterMode implements Converter {
 
     @Override
     public ZonedDateTime TimeIn(String zone) {
@@ -25,5 +26,10 @@ public class TimeZoneConverterMode implements TimeZoneConverter {
     public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone) {
         return null;
     }
+    
+    public long converterUnit(ChronoUnit in,ChronoUnit out, long value){
+        return 0;
+    }
+    
     
 }

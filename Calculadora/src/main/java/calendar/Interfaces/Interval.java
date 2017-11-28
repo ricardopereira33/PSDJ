@@ -20,4 +20,5 @@ public interface Interval {
     // numero de dias uteis, num dado intervalo
     public int numWorkingDays(Temporal t1, Temporal t2);
     
+    
 }
