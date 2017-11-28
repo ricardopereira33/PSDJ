@@ -35,5 +35,10 @@ public class IntervalMode implements Interval{
         }
         return dates;
     }
+
+    @Override
+    public int numWorkingDays(Temporal t1, Temporal t2) {
+        return 0;
+    }
     
 }  

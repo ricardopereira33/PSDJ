@@ -19,7 +19,5 @@ public interface TimeZoneConverter {
     
     /*duração de uma viagem entre dois locais */
     public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
-    
-    
-    
+   
 }
