@@ -2,7 +2,7 @@ package calendar.Modes;
 
 import calendar.Interfaces.Calendar;
 import java.time.*;
-import java.time.temporal.TemporalAccessor;
+import java.time.temporal.*;
 
 public class CalendarMode implements Calendar {
 
@@ -34,5 +34,16 @@ public class CalendarMode implements Calendar {
     public Month getMonthOfYear(int dayOfYear, Year y){
         LocalDate ld = LocalDate.ofYearDay(y.getValue(),dayOfYear);
         return ld.getMonth();
+    }
+
+    public Duration getTimeTillEndYear(){
+        return Duration.between(LocalDateTime.now(),LocalDateTime.of(2017,12,31,23,0,0,0));
+    }
+
+    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
+        long numDays = ChronoUnit.DAYS.between(start,end);
+        numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
+        float numDayOfWeek = numDays/7;
+        return (int)numDayOfWeek;
     }
 }
