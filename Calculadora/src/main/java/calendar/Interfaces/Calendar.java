@@ -3,6 +3,7 @@ package calendar.Interfaces;
 import java.time.*;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
+import java.util.List;
 
 public interface Calendar {
     //Calcula o primeiro dia da semana de um ano
@@ -17,9 +18,13 @@ public interface Calendar {
     //Calcula o mes correspondente a um dia do ano
     public Month getMonthOfYear(int dayOfYear, Year y);
 
-    //Calcula quanto tempo falta para acabar o ano
-    public Duration getTimeTillEndYear();
-
-    //Calcula o numero de vezes que um dia da semana existe num dado intervalo
-    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
+    //Calcula quanto tempo falta para acabar o ano (dias)
+    public long getTimeTillEndYear();
+    
+    //Calcula quanto tempo passou desde o inicio do ano
+    public long getTimePassedStartYear();
+    
+    //Calcula os anos bissextos num dado seculo
+    public List<Integer> getLeapYearInCentury();
+    
 }

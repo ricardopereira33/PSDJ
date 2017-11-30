@@ -6,6 +6,7 @@
 package calendar.Interfaces;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,11 +16,22 @@ import java.time.temporal.ChronoUnit;
  * @author Ricardo
  */
 public interface Converter {
-    /*devolve a hora atual numa dada zona*/
+    // Devolve a hora atual numa dada zona 
     public ZonedDateTime TimeIn(String zone);
     
-    /*duração de uma viagem entre dois locais */
+    // Duração de uma viagem entre dois locais 
     public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
     
-    public long converterUnit(ChronoUnit in,ChronoUnit out, long value);
+    // Converter um valor dado em uma unidade para outra unidade 
+    public long converterUnit(ChronoUnit in, ChronoUnit out, long value);
+    
+    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    public LocalDate addDate(LocalDate d, ChronoUnit unit, int value);
+    
+    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    public LocalDate subDate(LocalDate d, ChronoUnit unit, int value);
+    
+    
+    
+    
 }

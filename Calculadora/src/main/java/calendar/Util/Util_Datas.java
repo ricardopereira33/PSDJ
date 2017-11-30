@@ -26,6 +26,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.chrono.MinguoDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
@@ -41,6 +42,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import static java.time.format.DateTimeFormatter.ISO_DATE;
+import static java.time.format.DateTimeFormatter.ISO_TIME;
+import static java.time.format.DateTimeFormatter.ofPattern;
+
 
 /**
  *
@@ -61,6 +66,26 @@ public class Util_Datas {
         
         Instant inst = date.toInstant(ZoneOffset.UTC);
         return inst;
+    }
+    
+    public static String actualHour(TemporalAccessor temporal){
+        LocalDateTime dateLDT;
+        String date, time, offset;
+        
+        try{
+            dateLDT = LocalDateTime.from(temporal);            
+        }
+        catch(DateTimeException e){
+            return null;
+        }
+        
+        date = dateLDT.format(ISO_DATE);
+        time = dateLDT.format(ISO_TIME);
+        
+        ZoneId id = ZoneId.systemDefault();
+        ZonedDateTime zdt = ZonedDateTime.of(dateLDT, id);
+
+        return "Date: "+ date +"\tTime: "+ time +"\tOffset: " + zdt.getOffset();
     }
     
     public static void ex6(){
@@ -171,6 +196,9 @@ public class Util_Datas {
                   System.out.println(cf);
         
         System.out.println(agora.get(ChronoField.MINUTE_OF_DAY));
+        System.out.println(agora.get(ChronoField.MINUTE_OF_HOUR));
+        System.out.println(agora.getLong(ChronoField.NANO_OF_DAY));
+
         System.out.println("Não existe ChronoUnit correspondente a MINUTE_OF_DAY !");
         System.out.println("Gama : " + ChronoField.MINUTE_OF_DAY.range() + " Data tem MINUTE_OF_DAY ? " 
                             + LocalDate.now().isSupported(ChronoField.MINUTE_OF_DAY));
@@ -337,6 +365,7 @@ public class Util_Datas {
             if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
             dataRef = dataRef.plus(1, ChronoUnit.DAYS);
         }
+        
         System.out.println("Data após 10 dias úteis : " + dataRef);
     }
     

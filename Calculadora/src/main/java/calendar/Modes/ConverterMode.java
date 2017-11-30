@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import calendar.Interfaces.Converter;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -27,9 +28,22 @@ public class ConverterMode implements Converter {
         return null;
     }
     
+    @Override
     public long converterUnit(ChronoUnit in,ChronoUnit out, long value){
         return 0;
     }
+
+    @Override
+    public LocalDate addDate(LocalDate d, ChronoUnit unit, int value) {
+        return null;
+    }
+
+    @Override
+    public LocalDate subDate(LocalDate d, ChronoUnit unit, int value) {
+        return null;
+    }
+    
+    
     
     
 }

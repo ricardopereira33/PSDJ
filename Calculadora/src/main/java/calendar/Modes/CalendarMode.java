@@ -3,6 +3,7 @@ package calendar.Modes;
 import calendar.Interfaces.Calendar;
 import java.time.*;
 import java.time.temporal.*;
+import java.util.List;
 
 public class CalendarMode implements Calendar {
 
@@ -36,14 +37,27 @@ public class CalendarMode implements Calendar {
         return ld.getMonth();
     }
 
-    public Duration getTimeTillEndYear(){
-        return Duration.between(LocalDateTime.now(),LocalDateTime.of(2017,12,31,23,0,0,0));
+    @Override
+    public long getTimeTillEndYear(){
+        TemporalAdjuster end = TemporalAdjusters.lastDayOfYear();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime dateEnd = now.with(end);
+           
+        return Duration.between(now,dateEnd).toDays();
     }
 
-    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
-        long numDays = ChronoUnit.DAYS.between(start,end);
-        numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
-        float numDayOfWeek = numDays/7;
-        return (int)numDayOfWeek;
+    @Override
+    public long getTimePassedStartYear() {
+        TemporalAdjuster start = TemporalAdjusters.firstDayOfYear();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime dateStart = now.with(start);
+        
+        return Duration.between(dateStart, now).toDays();
     }
+
+    @Override
+    public List<Integer> getLeapYearInCentury() {
+        return null;
+    }
+    
 }

@@ -1,5 +1,6 @@
 package calendar.Interfaces;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public interface Interval {
     
     // numero de dias uteis, num dado intervalo
     public int numWorkingDays(Temporal t1, Temporal t2);
+    
+    //Calcula o numero de vezes que um dia da semana existe num dado intervalo
+    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
     
     
 }

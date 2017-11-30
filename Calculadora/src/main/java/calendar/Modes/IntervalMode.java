@@ -1,9 +1,14 @@
 package calendar.Modes;
 
 import calendar.Interfaces.Interval;
+import java.time.DayOfWeek;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
@@ -38,7 +43,25 @@ public class IntervalMode implements Interval{
 
     @Override
     public int numWorkingDays(Temporal t1, Temporal t2) {
-        return 0;
+        LocalDate time1 = LocalDate.from(t1);
+        LocalDate time2 = LocalDate.from(t2);
+        int conta = 0;
+        
+        while(time1.isBefore(time2)){
+            DayOfWeek dia = time1.getDayOfWeek();
+            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
+            time1 = time1.plus(1, ChronoUnit.DAYS);
+        }
+        
+        return conta;
+    }
+
+    @Override
+    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
+        long numDays = ChronoUnit.DAYS.between(start,end);
+        numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
+        float numDayOfWeek = numDays/7;
+        return (int)numDayOfWeek;
     }
     
 }  
