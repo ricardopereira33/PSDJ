@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import calendar.Interfaces.Converter;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -19,31 +20,37 @@ import java.time.temporal.ChronoUnit;
 public class ConverterMode implements Converter {
 
     @Override
-    public ZonedDateTime TimeIn(String zone) {
-        return null;
+    public ZonedDateTime timeIn(String zone) {
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zone_id = ZoneId.of(zone);
+        ZonedDateTime zone_date_time = now.atZone(zone_id);
+        return zone_date_time;
     }
 
     @Override
     public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone) {
-        return null;
+        ZoneId start_zone_id = ZoneId.of(startZone);
+        ZonedDateTime start_date_time = start.atZone(start_zone_id);
+        ZoneId end_zone_id = ZoneId.of(endZone);
+        ZonedDateTime end_date_time = end.atZone(end_zone_id);
+        Duration duration = Duration.between(start_date_time, end_date_time);
+        return duration;
     }
     
     @Override
-    public long converterUnit(ChronoUnit in,ChronoUnit out, long value){
+    public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
         return 0;
     }
 
     @Override
-    public LocalDate addDate(LocalDate d, ChronoUnit unit, int value) {
-        return null;
+    public LocalDateTime addDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, value);
+        return result;
     }
 
     @Override
-    public LocalDate subDate(LocalDate d, ChronoUnit unit, int value) {
-        return null;
+    public LocalDateTime subDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, -value);
+        return result;
     }
-    
-    
-    
-    
 }
