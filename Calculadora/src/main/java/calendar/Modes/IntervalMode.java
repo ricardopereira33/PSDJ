@@ -28,7 +28,6 @@ public class IntervalMode implements Interval{
         return unit.between(time2, time1);
     }
    
-    /*intervalo pode ser semestral, trimestral...*/
     @Override
     public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates){
         ArrayList<Temporal> dates = new ArrayList<>();
@@ -61,7 +60,6 @@ public class IntervalMode implements Interval{
         long numDays = ChronoUnit.DAYS.between(start,end);
         numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
         float numDayOfWeek = numDays/7;
-        return (int)numDayOfWeek;
+        return (int) numDayOfWeek;
     }
-    
 }  
