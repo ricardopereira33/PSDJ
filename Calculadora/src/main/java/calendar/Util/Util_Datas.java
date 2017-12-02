@@ -360,7 +360,7 @@ public class Util_Datas {
         // DEZ DIAS UTEIS MAIS TARDE
         LocalDate dataRef = LocalDate.of(2017, 12, 25);
         int conta = 0;  // conta dias úteis
-        while(conta < 10) {
+        while(conta < 10){
             DayOfWeek dia = dataRef.getDayOfWeek();
             if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
             dataRef = dataRef.plus(1, ChronoUnit.DAYS);
