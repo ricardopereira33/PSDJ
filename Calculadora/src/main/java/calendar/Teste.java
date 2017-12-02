@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 
 /**
@@ -29,9 +31,10 @@ public class Teste {
             Interval i = new IntervalMode();
             Converter converter = new ConverterMode();
             //System.out.println("Num: " + i.numWorkingDays(data, end));
-            
-            Duration teste1 = converter.timeTravel(data,"Portugal" ,data,"America/Santiago");
-            System.out.println(teste1.toString());
+
+            ArrayList<Integer> list = (ArrayList<Integer>) c.getLeapYear(ChronoUnit.CENTURIES, 20);
+            for(Integer o : list)
+                System.out.println("> "+ o + " .");
         }
         catch(Exception e){
             System.out.println("Msg: "+ e.getMessage());

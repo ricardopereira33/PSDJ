@@ -39,7 +39,10 @@ public class ConverterMode implements Converter {
     
     @Override
     public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
-        return 0;
+        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time2= time.plus(value,in);
+
+        return out.between(time,time2);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package calendar.Interfaces;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -25,6 +26,6 @@ public interface Calendar {
     public long getTimePassedStartYear();
     
     //Calcula os anos bissextos num dado seculo
-    public List<Integer> getLeapYearInCentury();
+    public List<Integer> getLeapYear(ChronoUnit unit, int value);
     
 }

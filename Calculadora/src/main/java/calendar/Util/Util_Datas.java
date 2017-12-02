@@ -35,13 +35,8 @@ import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalUnit;
 import java.time.temporal.WeekFields;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
+
 import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static java.time.format.DateTimeFormatter.ISO_TIME;
 import static java.time.format.DateTimeFormatter.ofPattern;
@@ -453,4 +448,15 @@ public class Util_Datas {
             System.out.println(ld + " ");
 
     }
- }
+
+    public static ArrayList<Integer> leapYear(TemporalAccessor temporalAccessor) {
+        ArrayList<Integer> list = new ArrayList<>();
+        LocalDate date = LocalDate.from(temporalAccessor);
+
+
+
+        return list;
+    }
+
+
+}
