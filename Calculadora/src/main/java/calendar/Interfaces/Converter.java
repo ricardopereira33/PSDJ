@@ -11,16 +11,9 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-/**
- *
- * @author Ricardo
- */
 public interface Converter {
     // Devolve a hora atual numa dada zona 
     public ZonedDateTime timeIn(String zone);
-    
-    // Duração de uma viagem entre dois locais 
-    public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
     
     // Converter um valor dado em uma unidade para outra unidade 
     public long converterUnit(ChronoUnit in, ChronoUnit out, long value);
@@ -30,8 +23,4 @@ public interface Converter {
     
     // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
     public LocalDateTime subDateTime(LocalDateTime d, ChronoUnit unit, int value);
-    
-    
-    
-    
 }

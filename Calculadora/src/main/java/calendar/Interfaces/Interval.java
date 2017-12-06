@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface Interval {
     //Intervalo entre LocalDate ou LocalDateTime
-    public Duration getIntervalDateTime(Temporal d1, Temporal d2);
+    //public Duration getIntervalDateTime(Temporal d1, Temporal d2);
 
     //Calcula um conjunto de datas ou tempos distanciadas entre si por um dado intervalo
     public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates);
@@ -19,10 +19,14 @@ public interface Interval {
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit);
     
     // numero de dias uteis, num dado intervalo
-    public int numWorkingDays(Temporal t1, Temporal t2);
+    public long numWorkingDays(Temporal t1, Temporal t2);
+
+    // numero de dias da semana, num dado intervalo
+    public long numNonWorkingDays(Temporal t1, Temporal t2);
     
     //Calcula o numero de vezes que um dia da semana existe num dado intervalo
     public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
-    
-    
+
+    // Duração de uma viagem entre dois locais
+    public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
 }
