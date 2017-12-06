@@ -7,19 +7,23 @@ package calendar.Modes;
 
 import calendar.Interfaces.Chronometer;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  *
  * @author Ricardo
  */
 public class ChronometerMode extends Thread implements Chronometer {
-    private int h, m, s;
+    private int hour, min, sec;
     private long mili;
     private boolean power;
     
     public ChronometerMode(){
-        this.h = 0;        
-        this.m = 0;
-        this.s = 0;
+        this.hour = 0;
+        this.min = 0;
+        this.sec = 0;
         this.mili = 0;
         this.power = true;        
     }
@@ -37,9 +41,9 @@ public class ChronometerMode extends Thread implements Chronometer {
     
     @Override
     public synchronized void reset(){
-        this.h = 0;        
-        this.m = 0;
-        this.s = 0;
+        this.hour = 0;
+        this.min = 0;
+        this.sec = 0;
         this.mili = 0;
     }
     
@@ -52,15 +56,13 @@ public class ChronometerMode extends Thread implements Chronometer {
                 init = System.nanoTime();
                 if(mili%7 == 0){
                     clearScreen();
-                    System.out.println(h + " : " + m + " : " + s +", " + mili);
+                    System.out.println(hour + " : " + min + " : " + sec +", " + mili);
                 }
                 sleep();
                 end = System.nanoTime();
-                updateTime((long) ((end-init)/1e6d));
-                mili+=(long) (((System.nanoTime()-end)+5e5d)/1e6d);
+                updateTime((long) ((end-init+5e5d)/1e6d));
             }
             System.out.println("OFF");
-            
             waitOff();            
         }
     }
@@ -69,15 +71,15 @@ public class ChronometerMode extends Thread implements Chronometer {
         mili+=time;
         if(mili >= 1000){
             mili = mili%1000;
-            s++;
-            if (s == 59){
-                s = 0;
-                m++;
-                if (m == 59){
-                    m = 0;
-                    h++;
-                    if (h == 23)
-                        h = 0; 
+            sec++;
+            if (sec == 59){
+                sec = 0;
+                min++;
+                if (min == 59){
+                    min = 0;
+                    hour++;
+                    if (hour == 23)
+                        hour = 0;
                 }
             }
         }
@@ -97,19 +99,20 @@ public class ChronometerMode extends Thread implements Chronometer {
         }
     }
     private void clearScreen() {
-       for(int i = 0; i<20; i++){
+       for(int i = 0; i<10; i++){
            System.out.println();
        } 
     }
     
     /** Example **/
-    /*
-    public void crono() throws IOException{
+
+    public static void main(String[] args) throws IOException {
         boolean power = true;
         boolean cronoOn = false;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = null;
-        ThreadCrono tc = new ThreadCrono();
+        System.out.println("start");
+        ChronometerMode tc = new ChronometerMode();
         
         while(power){
             line = br.readLine();
@@ -125,7 +128,7 @@ public class ChronometerMode extends Thread implements Chronometer {
                 case "reset":   tc.reset();
                                 break;
             }
+            System.out.println("cmd: "+line);
         }
     }
-    */
 }
