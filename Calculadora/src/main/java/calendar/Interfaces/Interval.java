@@ -23,9 +23,6 @@ public interface Interval {
     
     //Calcula o numero de vezes que um dia da semana existe num dado intervalo
     public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
-
-    // Duração de uma viagem entre dois locais
-    public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
     
     // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
     public LocalDateTime addDateTime(LocalDateTime d, ChronoUnit unit, int value);
