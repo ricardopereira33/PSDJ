@@ -1,6 +1,7 @@
 package calendar;
 
 import calendar.Interfaces.*;
+import calendar.Modes.IntervalMode;
 import calendar.Presentation.CalendarInterface;
 import calendar.Presentation.Home;
 import calendar.Presentation.IntervalInterface;
@@ -28,7 +29,8 @@ public class Teste {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CalendarInterface home = new CalendarInterface();
+        IntervalMode intervalMode = new IntervalMode(); 
+        IntervalInterface home = new IntervalInterface(intervalMode);
         home.setVisible(true);
     }
 }

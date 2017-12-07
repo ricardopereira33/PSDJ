@@ -19,6 +19,9 @@ public class IntervalMode implements Interval{
 //        return Duration.between(d1, d2);
 //    }
     
+    public IntervalMode(){
+    }
+    
     @Override
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit){
         LocalDateTime time1 = LocalDateTime.from(t1);
