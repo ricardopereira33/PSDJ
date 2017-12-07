@@ -124,9 +124,13 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
         jLabel5.setText("Time travel");
 
+        jXDatePicker1.setFormats("EEE dd-MM-yyyy");
+
         jLabel9.setText("First");
 
         jLabel10.setText("Second");
+
+        jXDatePicker2.setFormats("EEE dd-MM-yyyy");
 
         jTextField1.setText("00");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {

@@ -5,6 +5,7 @@
  */
 package calendar.Presentation;
 
+import calendar.Modes.CalendarMode;
 import calendar.Modes.IntervalMode;
 
 /**
@@ -14,11 +15,13 @@ import calendar.Modes.IntervalMode;
 public class Menu extends javax.swing.JFrame {
 
     IntervalMode intervalMode;
+    CalendarMode calendarMode;
     /**
      * Creates new form Menu
      */
-    public Menu(IntervalMode intervalMode) {
+    public Menu(IntervalMode intervalMode, CalendarMode calendarMode) {
         this.intervalMode = intervalMode;
+        this.calendarMode = calendarMode;
         initComponents();
     }
 
@@ -163,7 +166,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CalendarInterface calendarMode = new CalendarInterface();
+        CalendarInterface calendarMode = new CalendarInterface(this.calendarMode);
         this.dispose();
         calendarMode.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -213,10 +216,11 @@ public class Menu extends javax.swing.JFrame {
         }
         //</editor-fold>
         IntervalMode intervalMode = new IntervalMode();
+        CalendarMode calendarMode = new CalendarMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu(intervalMode).setVisible(true);
+                new Menu(intervalMode, calendarMode).setVisible(true);
             }
         });
     }

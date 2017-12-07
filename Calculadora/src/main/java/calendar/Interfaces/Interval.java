@@ -21,12 +21,6 @@ public interface Interval {
     // Converter um valor dado em uma unidade para outra unidade 
     public long converterUnit(ChronoUnit in, ChronoUnit out, long value);
     
-    // numero de dias uteis, num dado intervalo
-    public long numWorkingDays(Temporal t1, Temporal t2);
-
-    // numero de dias da semana, num dado intervalo
-    public long numNonWorkingDays(Temporal t1, Temporal t2);
-    
     //Calcula o numero de vezes que um dia da semana existe num dado intervalo
     public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
 

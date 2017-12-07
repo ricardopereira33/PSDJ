@@ -101,13 +101,6 @@ public class IntervalInterface extends javax.swing.JFrame {
             }
         });
 
-        jXDatePicker3.setFormats("EEE dd-MM-yyyy");
-        jXDatePicker3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker3ActionPerformed(evt);
-            }
-        });
-
         firstHour.setText("00");
         firstHour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,8 +150,6 @@ public class IntervalInterface extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Second");
-
-        jXDatePicker4.setFormats("EEE dd-MM-yyyy");
 
         secondHour.setText("00");
         secondHour.addActionListener(new java.awt.event.ActionListener() {
@@ -370,8 +361,6 @@ public class IntervalInterface extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setText("Time operations");
-
-        dateOperation.setFormats("EEE dd-MM-yyyy");
 
         hourOperation.setText("00");
         hourOperation.addActionListener(new java.awt.event.ActionListener() {
@@ -587,38 +576,6 @@ public class IntervalInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void firstSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstSecondActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstSecondActionPerformed
-
-    private void firstMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstMinuteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstMinuteActionPerformed
-
-    private void firstHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstHourActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstHourActionPerformed
-
-    private void secondHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondHourActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondHourActionPerformed
-
-    private void secondMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondMinuteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondMinuteActionPerformed
-
-    private void secondSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondSecondActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondSecondActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -662,7 +619,6 @@ public class IntervalInterface extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Date firstDate = jXDatePicker3.getDate();
         Date secondDate = jXDatePicker4.getDate();                
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         LocalDate firstLocalDate = firstDate.toInstant()
                                              .atZone(ZoneId.systemDefault())
@@ -726,9 +682,37 @@ public class IntervalInterface extends javax.swing.JFrame {
         jTextField27.setText(result.toString());
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jXDatePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker3ActionPerformed
+    private void secondHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondHourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_secondHourActionPerformed
 
-    }//GEN-LAST:event_jXDatePicker3ActionPerformed
+    private void secondMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondMinuteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_secondMinuteActionPerformed
+
+    private void secondSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondSecondActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_secondSecondActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void firstSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstSecondActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstSecondActionPerformed
+
+    private void firstMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstMinuteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstMinuteActionPerformed
+
+    private void firstHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstHourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstHourActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

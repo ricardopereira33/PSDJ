@@ -212,14 +212,6 @@
               </Events>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker3">
-              <Properties>
-                <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXDatePicker3ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="firstHour">
               <Properties>
@@ -300,11 +292,6 @@
               </Properties>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker4">
-              <Properties>
-                <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="secondHour">
               <Properties>
@@ -585,11 +572,6 @@
               </Properties>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="dateOperation">
-              <Properties>
-                <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="hourOperation">
               <Properties>

@@ -39,7 +39,7 @@ public class IntervalMode implements Interval{
         LocalDateTime time1 = LocalDateTime.from(t1);
         LocalDateTime time2 = LocalDateTime.from(t2);
         
-        return unit.between(time2, time1);
+        return unit.between(time1, time2);
     }
     
     @Override
@@ -60,30 +60,6 @@ public class IntervalMode implements Interval{
             dates.add(date);
         }
         return dates;
-    }
-
-    @Override
-    public long numWorkingDays(Temporal t1, Temporal t2) {
-        LocalDate time1 = LocalDate.from(t1);
-        LocalDate time2 = LocalDate.from(t2);
-        int conta = 0;
-        
-        while(time1.isBefore(time2)){
-            DayOfWeek dia = time1.getDayOfWeek();
-            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
-            time1 = time1.plus(1, ChronoUnit.DAYS);
-        }
-        
-        return conta;
-    }
-
-    @Override
-    public long numNonWorkingDays(Temporal t1, Temporal t2){
-        LocalDate time1 = LocalDate.from(t1);
-        LocalDate time2 = LocalDate.from(t2);
-
-        long workingdays = numWorkingDays(t1,t2);
-        return ChronoUnit.DAYS.between(t1,t2) - workingdays;
     }
 
     @Override
