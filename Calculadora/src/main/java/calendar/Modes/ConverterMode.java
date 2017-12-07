@@ -23,13 +23,6 @@ public class ConverterMode implements Converter {
         return zone_date_time;
     }
     
-    @Override
-    public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
-        LocalDateTime time = LocalDateTime.now();
-        LocalDateTime time2= time.plus(value,in);
-
-        return out.between(time,time2);
-    }
 
     @Override
     public LocalDateTime addDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {

@@ -29,6 +29,14 @@ public class IntervalMode implements Interval{
         
         return unit.between(time2, time1);
     }
+    
+    @Override
+    public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
+        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time2= time.plus(value,in);
+
+        return out.between(time,time2);
+    }
    
     @Override
     public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates){

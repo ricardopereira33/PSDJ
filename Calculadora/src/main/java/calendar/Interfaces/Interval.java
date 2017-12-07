@@ -18,6 +18,9 @@ public interface Interval {
     //Intervalo entre dois tempos, numa unidade dada
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit);
     
+    // Converter um valor dado em uma unidade para outra unidade 
+    public long converterUnit(ChronoUnit in, ChronoUnit out, long value);
+    
     // numero de dias uteis, num dado intervalo
     public long numWorkingDays(Temporal t1, Temporal t2);
 
