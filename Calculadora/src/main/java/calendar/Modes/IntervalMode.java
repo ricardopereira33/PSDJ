@@ -23,6 +23,18 @@ public class IntervalMode implements Interval{
     }
     
     @Override
+    public LocalDateTime addDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, value);
+        return result;
+    }
+
+    @Override
+    public LocalDateTime subDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, -value);
+        return result;
+    }
+    
+    @Override
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit){
         LocalDateTime time1 = LocalDateTime.from(t1);
         LocalDateTime time2 = LocalDateTime.from(t2);

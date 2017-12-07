@@ -32,4 +32,10 @@ public interface Interval {
 
     // Duração de uma viagem entre dois locais
     public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone);
+    
+    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    public LocalDateTime addDateTime(LocalDateTime d, ChronoUnit unit, int value);
+    
+    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    public LocalDateTime subDateTime(LocalDateTime d, ChronoUnit unit, int value);
 }

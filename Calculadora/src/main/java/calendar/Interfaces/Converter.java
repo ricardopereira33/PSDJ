@@ -15,9 +15,5 @@ public interface Converter {
     // Devolve a hora atual numa dada zona 
     public ZonedDateTime timeIn(String zone);
     
-    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
-    public LocalDateTime addDateTime(LocalDateTime d, ChronoUnit unit, int value);
-    
-    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
-    public LocalDateTime subDateTime(LocalDateTime d, ChronoUnit unit, int value);
+
 }

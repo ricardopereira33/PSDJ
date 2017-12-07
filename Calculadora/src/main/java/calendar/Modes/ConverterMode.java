@@ -24,15 +24,5 @@ public class ConverterMode implements Converter {
     }
     
 
-    @Override
-    public LocalDateTime addDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
-        LocalDateTime result = unit.addTo(date_time, value);
-        return result;
-    }
 
-    @Override
-    public LocalDateTime subDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
-        LocalDateTime result = unit.addTo(date_time, -value);
-        return result;
-    }
 }
