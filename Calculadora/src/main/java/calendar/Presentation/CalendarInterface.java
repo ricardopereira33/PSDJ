@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package calendar.Presentation;
+import calendar.Interfaces.Calendar;
 import calendar.Modes.CalendarMode;
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -21,13 +22,13 @@ import java.util.Date;
  */
 public class CalendarInterface extends javax.swing.JFrame {
 
-    private CalendarMode calendarMode;
+    private Calendar calendar;
 
     /**
      * Creates new form Interval
      */
-    public CalendarInterface(CalendarMode calendarMode) {
-        this.calendarMode = calendarMode;
+    public CalendarInterface(Calendar calendar) {
+        this.calendar = calendar;
         initComponents();
     }
 
@@ -421,13 +422,13 @@ public class CalendarInterface extends javax.swing.JFrame {
                                              .toLocalDateTime()
                                              .toLocalDate();
         
-        int result = calendarMode.numNonWorkingDays(firstLocalDate, secondLocalDate);
+        int result = calendar.numNonWorkingDays(firstLocalDate, secondLocalDate);
         jTextField1.setText(Integer.toString(result));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
-        Duration result = calendarMode.timeUntil(ChronoUnit.valueOf(unit));
+        Duration result = calendar.timeUntil(ChronoUnit.valueOf(unit));
         jTextField2.setText(result.toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -466,7 +467,7 @@ public class CalendarInterface extends javax.swing.JFrame {
                                              .toLocalDateTime()
                                              .toLocalDate();
         
-        int result = calendarMode.numWorkingDays(firstLocalDate, secondLocalDate);
+        int result = calendar.numWorkingDays(firstLocalDate, secondLocalDate);
         jTextField1.setText(Integer.toString(result));
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -476,7 +477,7 @@ public class CalendarInterface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
-        Duration result = calendarMode.timeSince(ChronoUnit.valueOf(unit));
+        Duration result = calendar.timeSince(ChronoUnit.valueOf(unit));
         jTextField2.setText(result.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -509,11 +510,11 @@ public class CalendarInterface extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        CalendarMode calendarMode = new CalendarMode();
+        Calendar calendar = new CalendarMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CalendarInterface(calendarMode).setVisible(true);
+                new CalendarInterface(calendar).setVisible(true);
             }
         });
     }

@@ -32,9 +32,9 @@ public class Teste {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        IntervalMode intervalMode = new IntervalMode(); 
-        CalendarMode calendarMode = new CalendarMode();
-        TimeZoneMode timeZoneMode = new TimeZoneMode();
+        Interval intervalMode = new IntervalMode(); 
+        Calendar calendarMode = new CalendarMode();
+        TimeZone timeZoneMode = new TimeZoneMode();
         Menu home = new Menu(intervalMode, calendarMode, timeZoneMode);
         home.setVisible(true);
     }
