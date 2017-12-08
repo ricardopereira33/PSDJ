@@ -34,5 +34,16 @@ public interface Calendar {
     
     //Calcula os anos bissextos num dado seculo
     public List<Integer> getLeapYear(ChronoUnit unit, int value);
-    
+
+    //Calcula o tempo que passou relativamente a um dada unidade de tempo
+    public Duration timeSince(ChronoUnit unit);
+
+    //Calcula o tempo que falta para acabar uma dada unidade de tempo
+    public Duration timeUntil(ChronoUnit unit);
+
+    //Primeiro dia de uma dada unidade
+    public LocalDate firstDayInfo(ChronoUnit unit, LocalDate date);
+
+    //Ultimo dia de uma dada unidade
+    public LocalDate lastDayInfo(ChronoUnit unit, LocalDate date);
 }
