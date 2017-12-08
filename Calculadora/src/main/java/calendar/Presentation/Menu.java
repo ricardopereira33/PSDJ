@@ -5,6 +5,9 @@
  */
 package calendar.Presentation;
 
+import calendar.Interfaces.Calendar;
+import calendar.Interfaces.Interval;
+import calendar.Interfaces.TimeZone;
 import calendar.Modes.CalendarMode;
 import calendar.Modes.ChronometerMode;
 import calendar.Modes.IntervalMode;
@@ -16,15 +19,14 @@ import calendar.Interfaces.Chronometer;
  * @author dinispeixoto
  */
 public class Menu extends javax.swing.JFrame {
-
-    IntervalMode intervalMode;
-    CalendarMode calendarMode;
-    TimeZoneMode timeZoneMode;
+    Interval intervalMode;
+    Calendar calendarMode;
+    TimeZone timeZoneMode;
     Chronometer chronoMode;
     /**
      * Creates new form Menu
      */
-    public Menu(IntervalMode intervalMode, CalendarMode calendarMode, TimeZoneMode timeZoneMode, Chronometer chronoMode) {
+    public Menu(Interval intervalMode, Calendar calendarMode, TimeZone timeZoneMode, Chronometer chronoMode) {
         this.intervalMode = intervalMode;
         this.calendarMode = calendarMode;
         this.timeZoneMode = timeZoneMode;

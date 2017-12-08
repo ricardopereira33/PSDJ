@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package calendar.Presentation;
+import calendar.Interfaces.Interval;
 import calendar.Modes.IntervalMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,12 +23,12 @@ import java.util.Date;
  */
 public class IntervalInterface extends javax.swing.JFrame {
 
-    IntervalMode intervalMode;
+    Interval interval;
     /**
      * Creates new form Interval
      */
-    public IntervalInterface(IntervalMode intervalMode) {
-        this.intervalMode = intervalMode;
+    public IntervalInterface(Interval interval) {
+        this.interval = interval;
         initComponents();
     }
 
@@ -644,7 +645,7 @@ public class IntervalInterface extends javax.swing.JFrame {
 
         String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
         if(unit.equals("HALFDAYS")) unit = "HALF_DAYS";
-        long result = intervalMode.getIntervalTimeUnit(firstLocalDateTime, secondLocalDateTime, ChronoUnit.valueOf(unit));
+        long result = interval.getIntervalTimeUnit(firstLocalDateTime, secondLocalDateTime, ChronoUnit.valueOf(unit));
         jTextField1.setText(Long.toString(result));
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -654,7 +655,7 @@ public class IntervalInterface extends javax.swing.JFrame {
         if(unitIn.equals("HALFDAYS")) unitIn = "HALF_DAYS";
         String unitOut = jComboBox5.getSelectedItem().toString().toUpperCase();
         if(unitOut.equals("HALFDAYS")) unitOut = "HALF_DAYS";
-        long result = intervalMode.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value);   
+        long result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value);   
         convertFinal.setText(Long.toString(result));
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -680,9 +681,9 @@ public class IntervalInterface extends javax.swing.JFrame {
         int value = Integer.parseInt(valueOperation.getText());
         
         if(operationComboBox.getSelectedIndex() == 0)
-            result = intervalMode.addDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
+            result = interval.addDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
         else
-            result = intervalMode.subDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
+            result = interval.subDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
         jTextField27.setText(result.toString());
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -745,11 +746,11 @@ public class IntervalInterface extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        IntervalMode intervalMode = new IntervalMode();
+        Interval interval = new IntervalMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IntervalInterface(intervalMode).setVisible(true);
+                new IntervalInterface(interval).setVisible(true);
             }
         });
     }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package calendar.Presentation;
+import calendar.Interfaces.TimeZone;
 import calendar.Modes.TimeZoneMode;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -24,12 +25,12 @@ import java.util.List;
  */
 public class TimeZoneInterface extends javax.swing.JFrame {
 
-    TimeZoneMode timeZoneMode;
+    TimeZone timeZone;
     /**
      * Creates new form Time
      */
-    public TimeZoneInterface(TimeZoneMode timeZoneMode) {
-        this.timeZoneMode = timeZoneMode;
+    public TimeZoneInterface(TimeZone timeZone) {
+        this.timeZone = timeZone;
         initComponents();
     }
 
@@ -436,7 +437,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String zone = (String) jComboBox1.getSelectedItem();
-        jTextField3.setText(timeZoneMode.timeIn(zone).toString());
+        jTextField3.setText(timeZone.timeIn(zone).toString());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void firstHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstHourActionPerformed
@@ -487,7 +488,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         
         String startZone = jTextField6.getText();
         String endZone = jTextField2.getText();
-        Duration duration = timeZoneMode.timeTravel(firstLocalDateTime, startZone, secondLocalDateTime, endZone);
+        Duration duration = timeZone.timeTravel(firstLocalDateTime, startZone, secondLocalDateTime, endZone);
         jTextField14.setText(duration.toString());
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -538,11 +539,11 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        TimeZoneMode timeZoneMode = new TimeZoneMode();
+        TimeZone timeZone = new TimeZoneMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TimeZoneInterface(timeZoneMode).setVisible(true);
+                new TimeZoneInterface(timeZone).setVisible(true);
             }
         });
     }
