@@ -5,16 +5,26 @@
  */
 package calendar.Presentation;
 
+import calendar.Modes.CalendarMode;
+import calendar.Modes.IntervalMode;
+import calendar.Modes.TimeZoneMode;
+
 /**
  *
  * @author dinispeixoto
  */
 public class Menu extends javax.swing.JFrame {
 
+    IntervalMode intervalMode;
+    CalendarMode calendarMode;
+    TimeZoneMode timeZoneMode;
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(IntervalMode intervalMode, CalendarMode calendarMode, TimeZoneMode timeZoneMode) {
+        this.intervalMode = intervalMode;
+        this.calendarMode = calendarMode;
+        this.timeZoneMode = timeZoneMode;
         initComponents();
     }
 
@@ -58,6 +68,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jButton4.setText("Chronometer");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Time\n");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +82,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jButton7.setText("Interval");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,16 +165,28 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        CalendarInterface calendarMode = new CalendarInterface(this.calendarMode);
+        calendarMode.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        TimeZoneInterface timeZoneMode = new TimeZoneInterface(this.timeZoneMode);
+        timeZoneMode.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ChronometerInterface chronometerMode = new ChronometerInterface();
+        chronometerMode.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        IntervalInterface intervalMode = new IntervalInterface(this.intervalMode);
+        intervalMode.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,11 +214,13 @@ public class Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        IntervalMode intervalMode = new IntervalMode();
+        CalendarMode calendarMode = new CalendarMode();
+        TimeZoneMode timeZoneMode = new TimeZoneMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new Menu(intervalMode, calendarMode, timeZoneMode).setVisible(true);
             }
         });
     }

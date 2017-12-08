@@ -1,16 +1,46 @@
 package calendar.Modes;
 
 import calendar.Interfaces.Calendar;
-import calendar.Interfaces.Converter;
 import calendar.Util.Util_Datas;
 
 import java.time.*;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.List;
+import calendar.Interfaces.TimeZone;
 
 public class CalendarMode implements Calendar {
 
+    public CalendarMode(){
+        
+    }
+    
+    @Override
+    public int numWorkingDays(Temporal t1, Temporal t2) {
+        LocalDate time1 = LocalDate.from(t1);
+        LocalDate time2 = LocalDate.from(t2);
+        int conta = 0;
+        
+        while(time1.isBefore(time2)){
+            DayOfWeek dia = time1.getDayOfWeek();
+            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
+            time1 = time1.plus(1, ChronoUnit.DAYS);
+        }
+        
+        return conta;
+    }
+
+    @Override
+    public int numNonWorkingDays(Temporal t1, Temporal t2){
+        LocalDate time1 = LocalDate.from(t1);
+        LocalDate time2 = LocalDate.from(t2);
+
+        long workingdays = numWorkingDays(t1,t2);
+        return (int) (ChronoUnit.DAYS.between(t1,t2) - workingdays);
+    }
+    
     @Override
     public DayOfWeek getFistDayOfTheYear(Year y){
         LocalDate ld = LocalDate.ofYearDay(y.getValue(), 1);

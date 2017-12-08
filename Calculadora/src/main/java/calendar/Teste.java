@@ -1,9 +1,13 @@
 package calendar;
 
 import calendar.Interfaces.*;
+import calendar.Modes.CalendarMode;
+import calendar.Modes.IntervalMode;
+import calendar.Modes.TimeZoneMode;
 import calendar.Presentation.CalendarInterface;
 import calendar.Presentation.Home;
 import calendar.Presentation.IntervalInterface;
+import calendar.Presentation.Menu;
 import calendar.Presentation.TimeZoneInterface;
 import calendar.Util.*;
 import java.time.Duration;
@@ -28,7 +32,10 @@ public class Teste {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CalendarInterface home = new CalendarInterface();
+        IntervalMode intervalMode = new IntervalMode(); 
+        CalendarMode calendarMode = new CalendarMode();
+        TimeZoneMode timeZoneMode = new TimeZoneMode();
+        Menu home = new Menu(intervalMode, calendarMode, timeZoneMode);
         home.setVisible(true);
     }
 }

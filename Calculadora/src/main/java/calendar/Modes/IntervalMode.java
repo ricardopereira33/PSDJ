@@ -19,12 +19,35 @@ public class IntervalMode implements Interval{
 //        return Duration.between(d1, d2);
 //    }
     
+    public IntervalMode(){
+    }
+    
+    @Override
+    public LocalDateTime addDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, value);
+        return result;
+    }
+
+    @Override
+    public LocalDateTime subDateTime(LocalDateTime date_time, ChronoUnit unit, int value) {
+        LocalDateTime result = unit.addTo(date_time, -value);
+        return result;
+    }
+    
     @Override
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit){
         LocalDateTime time1 = LocalDateTime.from(t1);
         LocalDateTime time2 = LocalDateTime.from(t2);
         
-        return unit.between(time2, time1);
+        return unit.between(time1, time2);
+    }
+    
+    @Override
+    public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
+        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time2= time.plus(value,in);
+
+        return out.between(time,time2);
     }
    
     @Override
@@ -40,30 +63,6 @@ public class IntervalMode implements Interval{
     }
 
     @Override
-    public long numWorkingDays(Temporal t1, Temporal t2) {
-        LocalDate time1 = LocalDate.from(t1);
-        LocalDate time2 = LocalDate.from(t2);
-        int conta = 0;
-        
-        while(time1.isBefore(time2)){
-            DayOfWeek dia = time1.getDayOfWeek();
-            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
-            time1 = time1.plus(1, ChronoUnit.DAYS);
-        }
-        
-        return conta;
-    }
-
-    @Override
-    public long numNonWorkingDays(Temporal t1, Temporal t2){
-        LocalDate time1 = LocalDate.from(t1);
-        LocalDate time2 = LocalDate.from(t2);
-
-        long workingdays = numWorkingDays(t1,t2);
-        return ChronoUnit.DAYS.between(t1,t2) - workingdays;
-    }
-
-    @Override
     public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
         long numDays = ChronoUnit.DAYS.between(start,end);
         numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
@@ -71,13 +70,4 @@ public class IntervalMode implements Interval{
         return (int) numDayOfWeek;
     }
 
-    @Override
-    public Duration timeTravel(LocalDateTime start, String startZone, LocalDateTime end, String endZone) {
-        ZoneId start_zone_id = ZoneId.of(startZone);
-        ZonedDateTime start_date_time = start.atZone(start_zone_id);
-        ZoneId end_zone_id = ZoneId.of(endZone);
-        ZonedDateTime end_date_time = end.atZone(end_zone_id);
-        Duration duration = Duration.between(start_date_time, end_date_time);
-        return duration;
-    }
 }  

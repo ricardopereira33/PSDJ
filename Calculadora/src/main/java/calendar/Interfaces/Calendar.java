@@ -7,6 +7,13 @@ import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public interface Calendar {
+    
+    // numero de dias uteis, num dado intervalo
+    public int numWorkingDays(Temporal t1, Temporal t2);
+
+    // numero de dias da semana, num dado intervalo
+    public int numNonWorkingDays(Temporal t1, Temporal t2); 
+    
     //Calcula o primeiro dia da semana de um ano
     public DayOfWeek getFistDayOfTheYear(Year y);
 
