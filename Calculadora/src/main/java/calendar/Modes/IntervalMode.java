@@ -64,10 +64,14 @@ public class IntervalMode implements Interval{
 
     @Override
     public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
-        long numDays = ChronoUnit.DAYS.between(start,end);
-        numDays = numDays - Math.abs(start.get(ChronoField.DAY_OF_WEEK) - day.getValue());
-        float numDayOfWeek = numDays/7;
-        return (int) numDayOfWeek;
+        LocalDate time1 = LocalDate.from(start);
+        LocalDate time2 = LocalDate.from(end);
+        int numDayOfWeek = 0;
+        while(time1.isBefore(time2)){
+            DayOfWeek dia = time1.getDayOfWeek();
+            if(dia.equals(day))  numDayOfWeek++;
+            time1 = time1.plus(1, ChronoUnit.DAYS);
+        }
+        return numDayOfWeek;
     }
-
 }  

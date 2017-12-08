@@ -12,7 +12,10 @@ public interface Calendar {
     public int numWorkingDays(Temporal t1, Temporal t2);
 
     // numero de dias da semana, num dado intervalo
-    public int numNonWorkingDays(Temporal t1, Temporal t2); 
+    public int numNonWorkingDays(Temporal t1, Temporal t2);
+
+    //Numero de fins de semana, num dado intervalo
+    public int numWeekends(Temporal t1, Temporal t2);
     
     //Calcula o primeiro dia da semana de um ano
     public DayOfWeek getFistDayOfTheYear(Year y);

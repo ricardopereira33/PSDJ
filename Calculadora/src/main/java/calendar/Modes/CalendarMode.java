@@ -21,24 +21,37 @@ public class CalendarMode implements Calendar {
     public int numWorkingDays(Temporal t1, Temporal t2) {
         LocalDate time1 = LocalDate.from(t1);
         LocalDate time2 = LocalDate.from(t2);
-        int conta = 0;
+        int workingDays = 0;
         
         while(time1.isBefore(time2)){
             DayOfWeek dia = time1.getDayOfWeek();
-            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  conta++; 
+            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  workingDays++;
             time1 = time1.plus(1, ChronoUnit.DAYS);
         }
         
-        return conta;
+        return workingDays;
     }
 
     @Override
     public int numNonWorkingDays(Temporal t1, Temporal t2){
+        int workingDays = numWorkingDays(t1,t2);
+        return (int) ChronoUnit.DAYS.between(t1,t2) - workingDays;
+    }
+
+    public int numWeekends(Temporal t1, Temporal t2){
         LocalDate time1 = LocalDate.from(t1);
         LocalDate time2 = LocalDate.from(t2);
+        int weekends = 0;
 
-        long workingdays = numWorkingDays(t1,t2);
-        return (int) (ChronoUnit.DAYS.between(t1,t2) - workingdays);
+        while(time1.isBefore(time2)){
+            DayOfWeek dia = time1.getDayOfWeek();
+            if(dia.equals(SATURDAY) || dia.equals(SUNDAY)) {
+                time1 = time1.plus(1, ChronoUnit.DAYS);
+                weekends++;
+            }
+            time1 = time1.plus(1, ChronoUnit.DAYS);
+        }
+        return weekends;
     }
     
     @Override
@@ -113,7 +126,6 @@ public class CalendarMode implements Calendar {
             return Duration.between(l,LocalDateTime.now());
         }
         else if(unit == ChronoUnit.WEEKS){
-
             int day = LocalDateTime.now().getDayOfWeek().getValue();
             LocalDateTime l = LocalDateTime.now().minusDays(day-1).withHour(0).withMinute(0).withSecond(0).withNano(0);
             return Duration.between(l,LocalDateTime.now());
@@ -153,11 +165,13 @@ public class CalendarMode implements Calendar {
             return Duration.between(l,LocalDateTime.now());
         }
         else if(unit == ChronoUnit.MONTHS){
-            LocalDateTime l = LocalDateTime.now().withDayOfMonth(31).withHour(59).withMinute(59).withSecond(59).withNano(999999);
+            int maxDayMonth = LocalDateTime.now().getMonth().maxLength();
+            LocalDateTime l = LocalDateTime.now().withDayOfMonth(maxDayMonth).withHour(59).withMinute(59).withSecond(59).withNano(999999);
             return Duration.between(l,LocalDateTime.now());
         }
         else if(unit == ChronoUnit.YEARS){
-            LocalDateTime l = LocalDateTime.now().withDayOfYear(365).withHour(59).withMinute(59).withSecond(59).withNano(999999);
+            int maxDayYear = Year.now().length();
+            LocalDateTime l = LocalDateTime.now().withDayOfYear(maxDayYear).withHour(59).withMinute(59).withSecond(59).withNano(999999);
             return Duration.between(LocalDateTime.now(),l);
         }
         else if(unit == ChronoUnit.DECADES){
@@ -205,11 +219,13 @@ public class CalendarMode implements Calendar {
             return l;
         }
         else if(unit == ChronoUnit.MONTHS){
-            LocalDate l = date.withDayOfMonth(31);
+            int maxDayMonth = LocalDateTime.now().getMonth().maxLength();
+            LocalDate l = date.withDayOfMonth(maxDayMonth);
             return l;
         }
         else if(unit == ChronoUnit.YEARS){
-            LocalDate l = date.withDayOfYear(365);
+            int maxDayYear = Year.now().length();
+            LocalDate l = date.withDayOfYear(maxDayYear);
             return l;
         }
         else if(unit == ChronoUnit.DECADES){
