@@ -6,10 +6,8 @@
 package calendar.Modes;
 
 import calendar.Interfaces.Chronometer;
+import javax.swing.JTextField;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  *
@@ -18,14 +16,16 @@ import java.io.InputStreamReader;
 public class ChronometerMode extends Thread implements Chronometer {
     private int hour, min, sec;
     private long mili;
-    private boolean power;
+    private boolean power,chronoOn;
+    private JTextField h, m, s, mil;
     
     public ChronometerMode(){
         this.hour = 0;
         this.min = 0;
         this.sec = 0;
         this.mili = 0;
-        this.power = true;        
+        this.power = true;
+        this.chronoOn = false;
     }
     
     @Override
@@ -34,9 +34,19 @@ public class ChronometerMode extends Thread implements Chronometer {
     }
     
     @Override
-    public synchronized void on(){
-        power = true;
-        notifyAll();
+    public synchronized void on(JTextField h, JTextField m, JTextField s, JTextField mil){
+        if(!chronoOn) { 
+            this.start(); 
+            chronoOn = true;
+        }
+        else{ 
+            power = true;
+            notifyAll();
+        }
+        this.h = h;
+        this.m = m;
+        this.s = s;
+        this.mil = mil;
     }
     
     @Override
@@ -45,39 +55,45 @@ public class ChronometerMode extends Thread implements Chronometer {
         this.min = 0;
         this.sec = 0;
         this.mili = 0;
+        updateTextField();
     }
     
     @Override
     public void run(){
         long init, end;
         while(true){
-            System.out.println("ON");
             while(power){
                 init = System.nanoTime();
-                if(mili%7 == 0){
-                    clearScreen();
-                    System.out.println(hour + " : " + min + " : " + sec +", " + mili);
-                }
                 sleep();
                 end = System.nanoTime();
                 updateTime((long) ((end-init+5e5d)/1e6d));
             }
-            System.out.println("OFF");
             waitOff();            
         }
+    }
+    
+    private void updateTextField() {
+        this.h.setText(""+hour);
+        this.m.setText(""+min);
+        this.s.setText(""+sec);
+        this.mil.setText(""+mili);
     }
 
     private void updateTime(long time){
         mili+=time;
+        mil.setText(""+mili);
         if(mili >= 1000){
             mili = mili%1000;
             sec++;
+            s.setText(""+sec);
             if (sec == 59){
                 sec = 0;
                 min++;
+                m.setText(""+min);
                 if (min == 59){
                     min = 0;
                     hour++;
+                    h.setText(""+hour);
                     if (hour == 23)
                         hour = 0;
                 }
@@ -93,42 +109,9 @@ public class ChronometerMode extends Thread implements Chronometer {
     }
     private void sleep(){
         try {
-            Thread.sleep(9);
+            Thread.sleep(10);
         } catch (InterruptedException ex) {
             System.out.println("Erro: " + ex.getMessage());
-        }
-    }
-    private void clearScreen() {
-       for(int i = 0; i<10; i++){
-           System.out.println();
-       } 
-    }
-    
-    /** Example **/
-
-    public static void main(String[] args) throws IOException {
-        boolean power = true;
-        boolean cronoOn = false;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = null;
-        System.out.println("start");
-        ChronometerMode tc = new ChronometerMode();
-        
-        while(power){
-            line = br.readLine();
-            switch(line){
-                case "start" :  if(!cronoOn) { 
-                                    tc.start(); 
-                                    cronoOn = true;
-                                }
-                                else tc.on();
-                                break;
-                case "stop" :   tc.off();
-                                break;
-                case "reset":   tc.reset();
-                                break;
-            }
-            System.out.println("cmd: "+line);
         }
     }
 }

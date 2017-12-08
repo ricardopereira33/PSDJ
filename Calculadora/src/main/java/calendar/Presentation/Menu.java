@@ -6,8 +6,10 @@
 package calendar.Presentation;
 
 import calendar.Modes.CalendarMode;
+import calendar.Modes.ChronometerMode;
 import calendar.Modes.IntervalMode;
 import calendar.Modes.TimeZoneMode;
+import calendar.Interfaces.Chronometer;
 
 /**
  *
@@ -18,13 +20,15 @@ public class Menu extends javax.swing.JFrame {
     IntervalMode intervalMode;
     CalendarMode calendarMode;
     TimeZoneMode timeZoneMode;
+    Chronometer chronoMode;
     /**
      * Creates new form Menu
      */
-    public Menu(IntervalMode intervalMode, CalendarMode calendarMode, TimeZoneMode timeZoneMode) {
+    public Menu(IntervalMode intervalMode, CalendarMode calendarMode, TimeZoneMode timeZoneMode, Chronometer chronoMode) {
         this.intervalMode = intervalMode;
         this.calendarMode = calendarMode;
         this.timeZoneMode = timeZoneMode;
+        this.chronoMode = chronoMode;
         initComponents();
     }
 
@@ -179,7 +183,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ChronometerInterface chronometerMode = new ChronometerInterface();
+        ChronometerInterface chronometerMode = new ChronometerInterface(this.chronoMode);
         chronometerMode.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -217,10 +221,11 @@ public class Menu extends javax.swing.JFrame {
         IntervalMode intervalMode = new IntervalMode();
         CalendarMode calendarMode = new CalendarMode();
         TimeZoneMode timeZoneMode = new TimeZoneMode();
+        Chronometer chronoMode = new ChronometerMode();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu(intervalMode, calendarMode, timeZoneMode).setVisible(true);
+                new Menu(intervalMode, calendarMode, timeZoneMode, chronoMode).setVisible(true);
             }
         });
     }

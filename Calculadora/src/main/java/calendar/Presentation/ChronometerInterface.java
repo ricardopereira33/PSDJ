@@ -5,16 +5,20 @@
  */
 package calendar.Presentation;
 
+import calendar.Interfaces.Chronometer;
+import calendar.Modes.ChronometerMode;
+
 /**
  *
  * @author dinispeixoto
  */
 public class ChronometerInterface extends javax.swing.JFrame {
-
+    private static Chronometer chrono;
     /**
      * Creates new form Chronometer
      */
-    public ChronometerInterface() {
+    public ChronometerInterface(Chronometer chrono) {
+        this.chrono = chrono;
         initComponents();
     }
 
@@ -140,6 +144,11 @@ public class ChronometerInterface extends javax.swing.JFrame {
         );
 
         jButton4.setText("Stop");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Reset");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +158,11 @@ public class ChronometerInterface extends javax.swing.JFrame {
         });
 
         jButton6.setText("Start");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -303,23 +317,23 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
+        // hours
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
+        // min
     }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
+        // sec
     }//GEN-LAST:event_jTextField8ActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
+        // mili
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+       chrono.reset();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -330,6 +344,15 @@ public class ChronometerInterface extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        chrono.on(jTextField9, jTextField10, jTextField8, jTextField11);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        chrono.off();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,7 +385,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChronometerInterface().setVisible(true);
+                new ChronometerInterface(chrono).setVisible(true);
             }
         });
     }

@@ -5,12 +5,14 @@
  */
 package calendar.Interfaces;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author Ricardo
  */
 public interface Chronometer {
     public void off();
-    public void on();
+    public void on(JTextField h, JTextField m, JTextField s, JTextField mili);
     public void reset();
 }
