@@ -18,24 +18,32 @@ public class CalendarMode implements Calendar {
     }
     
     @Override
-    public int numWorkingDays(Temporal t1, Temporal t2) {
+    public int numOfDaysOfWeek(Temporal t1, Temporal t2, DayOfWeek day) {
         LocalDate time1 = LocalDate.from(t1);
         LocalDate time2 = LocalDate.from(t2);
-        int workingDays = 0;
+        int numDaysOfWeek = 0;
         
         while(time1.isBefore(time2)){
-            DayOfWeek dia = time1.getDayOfWeek();
-            if(! (dia.equals(SATURDAY) || dia.equals(SUNDAY)))  workingDays++;
+            DayOfWeek time1Day = time1.getDayOfWeek();
+            if(time1Day.equals(day)) numDaysOfWeek++;
             time1 = time1.plus(1, ChronoUnit.DAYS);
         }
+        if(time2.getDayOfWeek().equals(day)) numDaysOfWeek++;
         
-        return workingDays;
+        return numDaysOfWeek;
+    }
+    
+    @Override
+    public int numWorkingDays(Temporal t1, Temporal t2) {
+        int nonWorkingDays = numNonWorkingDays(t1, t2);
+        return (int) ChronoUnit.DAYS.between(t1, t2) + 1 - nonWorkingDays;
     }
 
     @Override
     public int numNonWorkingDays(Temporal t1, Temporal t2){
-        int workingDays = numWorkingDays(t1,t2);
-        return (int) ChronoUnit.DAYS.between(t1,t2) - workingDays;
+        int saturdays = numOfDaysOfWeek(t1, t2, DayOfWeek.SATURDAY);
+        int sundays = numOfDaysOfWeek(t1, t2, DayOfWeek.SUNDAY);
+        return saturdays + sundays;
     }
 
     public int numWeekends(Temporal t1, Temporal t2){

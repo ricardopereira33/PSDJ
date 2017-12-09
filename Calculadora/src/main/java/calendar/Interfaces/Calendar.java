@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface Calendar {
     
+    // número de um determinado dia da semana num dado intervalo
+    public int numOfDaysOfWeek(Temporal t1, Temporal t2, DayOfWeek day);
+    
     // numero de dias uteis, num dado intervalo
     public int numWorkingDays(Temporal t1, Temporal t2);
 

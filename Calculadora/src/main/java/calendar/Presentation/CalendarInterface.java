@@ -143,13 +143,18 @@ public class CalendarInterface extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
 
         jButton8.setText("Number of Days of the Week");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
@@ -164,6 +169,7 @@ public class CalendarInterface extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(secondDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -172,7 +178,7 @@ public class CalendarInterface extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,7 +514,21 @@ public class CalendarInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        Date firstDate = firstDatePicker.getDate();
+        Date secondDate = secondDatePicker.getDate();                
+        
+        LocalDate firstLocalDate = firstDate.toInstant()
+                                             .atZone(ZoneId.systemDefault())
+                                             .toLocalDateTime()
+                                             .toLocalDate();
+        
+        LocalDate secondLocalDate = secondDate.toInstant()
+                                             .atZone(ZoneId.systemDefault())
+                                             .toLocalDateTime()
+                                             .toLocalDate();
+        
+        int result = calendar.numWeekends(firstLocalDate, secondLocalDate);
+        jTextField1.setText(Integer.toString(result));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -529,6 +549,26 @@ public class CalendarInterface extends javax.swing.JFrame {
         LocalDate result = calendar.firstDayInfo(ChronoUnit.valueOf(unit), date);
         jTextField3.setText(result.toString());
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        Date firstDate = firstDatePicker.getDate();
+        Date secondDate = secondDatePicker.getDate();                
+        
+        LocalDate firstLocalDate = firstDate.toInstant()
+                                             .atZone(ZoneId.systemDefault())
+                                             .toLocalDateTime()
+                                             .toLocalDate();
+        
+        LocalDate secondLocalDate = secondDate.toInstant()
+                                             .atZone(ZoneId.systemDefault())
+                                             .toLocalDateTime()
+                                             .toLocalDate();
+        
+        String dayOfWeek = jComboBox2.getSelectedItem().toString().toUpperCase();
+        
+        int result = calendar.numOfDaysOfWeek(firstLocalDate, secondLocalDate, DayOfWeek.valueOf(dayOfWeek));
+        jTextField1.setText(Integer.toString(result));
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
