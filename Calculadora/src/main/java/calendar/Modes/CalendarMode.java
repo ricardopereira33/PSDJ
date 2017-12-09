@@ -164,22 +164,22 @@ public class CalendarMode implements Calendar {
     @Override
     public Duration timeUntil(ChronoUnit unit){
         if(unit == ChronoUnit.DAYS){
-            LocalDateTime l = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999999);
+            LocalDateTime l = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
             return Duration.between(LocalDateTime.now(),l);
         }
         else if(unit == ChronoUnit.WEEKS){
             int day = LocalDateTime.now().getDayOfWeek().getValue();
-            LocalDateTime l = LocalDateTime.now().plusDays(7-day).withHour(59).withMinute(59).withSecond(59).withNano(999999);
+            LocalDateTime l = LocalDateTime.now().plusDays(1).plusDays(7-day).withHour(0).withMinute(0).withSecond(0).withNano(0);
             return Duration.between(l,LocalDateTime.now());
         }
         else if(unit == ChronoUnit.MONTHS){
             int maxDayMonth = LocalDateTime.now().getMonth().maxLength();
-            LocalDateTime l = LocalDateTime.now().withDayOfMonth(maxDayMonth).withHour(59).withMinute(59).withSecond(59).withNano(999999);
+            LocalDateTime l = LocalDateTime.now().plusDays(1).withDayOfMonth(maxDayMonth).withHour(0).withMinute(0).withSecond(0).withNano(0);
             return Duration.between(l,LocalDateTime.now());
         }
         else if(unit == ChronoUnit.YEARS){
             int maxDayYear = Year.now().length();
-            LocalDateTime l = LocalDateTime.now().withDayOfYear(maxDayYear).withHour(59).withMinute(59).withSecond(59).withNano(999999);
+            LocalDateTime l = LocalDateTime.now().plusDays(1).withDayOfYear(maxDayYear).withHour(0).withMinute(0).withSecond(0).withNano(0);
             return Duration.between(LocalDateTime.now(),l);
         }
         else if(unit == ChronoUnit.DECADES){
