@@ -7,6 +7,8 @@ package calendar.Presentation;
 
 import calendar.Interfaces.Chronometer;
 import calendar.Modes.ChronometerMode;
+import calendar.Util.Util_Datas;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -20,6 +22,8 @@ public class ChronometerInterface extends javax.swing.JFrame {
     public ChronometerInterface(Chronometer chrono) {
         this.chrono = chrono;
         initComponents();
+        String time = LocalDateTime.now().query(Util_Datas::actualHour);
+        jLabel2.setText(time);
     }
 
     /**
@@ -333,6 +337,8 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       String time = LocalDateTime.now().query(Util_Datas::actualHour);
+       jLabel2.setText(time);
        chrono.reset();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -347,11 +353,14 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        String time = LocalDateTime.now().query(Util_Datas::actualHour);
+        jLabel2.setText(time);
         chrono.on(jTextField9, jTextField10, jTextField8, jTextField11);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String time = LocalDateTime.now().query(Util_Datas::actualHour);
+        jLabel2.setText(time);
         chrono.off();
     }//GEN-LAST:event_jButton4ActionPerformed
 

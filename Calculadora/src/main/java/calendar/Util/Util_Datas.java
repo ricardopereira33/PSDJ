@@ -65,7 +65,7 @@ public class Util_Datas {
     
     public static String actualHour(TemporalAccessor temporal){
         LocalDateTime dateLDT;
-        String date, time, offset;
+        String date, time;
         
         try{
             dateLDT = LocalDateTime.from(temporal);            
@@ -75,7 +75,8 @@ public class Util_Datas {
         }
         
         date = dateLDT.format(ISO_DATE);
-        time = dateLDT.format(ISO_TIME);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        time = dateLDT.format(formatter);
         
         ZoneId id = ZoneId.systemDefault();
         ZonedDateTime zdt = ZonedDateTime.of(dateLDT, id);
