@@ -25,8 +25,15 @@ public class ChronometerMode extends Thread implements Chronometer {
         this.sec = 0;
         this.mili = 0;
         this.power = true;
-        this.chronoOn = false;
-
+        this.chronoOn = false; 
+    }
+    
+        @Override
+    public void setComponents(JTextField hour, JTextField minute, JTextField second, JTextField milisecond) {
+        this.h = hour;
+        this.m = minute;
+        this.s = second;
+        this.mil = milisecond;
     }
     
     @Override
@@ -35,7 +42,7 @@ public class ChronometerMode extends Thread implements Chronometer {
     }
     
     @Override
-    public synchronized void on(JTextField h, JTextField m, JTextField s, JTextField mil){
+    public synchronized void on(){
         if(!chronoOn) { 
             this.start(); 
             chronoOn = true;
@@ -121,5 +128,5 @@ public class ChronometerMode extends Thread implements Chronometer {
         } catch (InterruptedException ex) {
             System.out.println("Erro: " + ex.getMessage());
         }
-    }
+    }    
 }

@@ -22,8 +22,8 @@ public class Calculator {
         Interval intervalMode = new IntervalMode(); 
         Calendar calendarMode = new CalendarMode();
         TimeZone timeZoneMode = new TimeZoneMode();
-        Chronometer chrono = new ChronometerMode();
-        Menu home = new Menu(intervalMode, calendarMode, timeZoneMode, chrono);
+        Chronometer chronometerMode = new ChronometerMode();
+        Menu home = new Menu(intervalMode, calendarMode, timeZoneMode, chronometerMode);
 
         home.setVisible(true);
     }
