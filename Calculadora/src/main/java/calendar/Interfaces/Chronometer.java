@@ -15,4 +15,5 @@ public interface Chronometer {
     public void off();
     public void on(JTextField h, JTextField m, JTextField s, JTextField mili);
     public void reset();
+    public void exit();
 }

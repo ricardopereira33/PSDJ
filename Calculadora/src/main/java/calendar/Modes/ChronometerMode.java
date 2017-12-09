@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public class ChronometerMode extends Thread implements Chronometer {
     private int hour, min, sec;
     private long mili;
-    private boolean power,chronoOn;
+    private boolean power,chronoOn, end;
     private JTextField h, m, s, mil;
     
     public ChronometerMode(){
@@ -26,6 +26,7 @@ public class ChronometerMode extends Thread implements Chronometer {
         this.mili = 0;
         this.power = true;
         this.chronoOn = false;
+        this.end = false;
     }
     
     @Override
@@ -51,32 +52,41 @@ public class ChronometerMode extends Thread implements Chronometer {
     
     @Override
     public synchronized void reset(){
-        this.hour = 0;
-        this.min = 0;
-        this.sec = 0;
-        this.mili = 0;
-        updateTextField();
+        power = false;
+        hour = 0;
+        min = 0;
+        sec = 0;
+        mili = 0;
+        updateTextField(); 
+    }
+    
+    @Override
+    public synchronized void exit(){
+        reset();
+        power = false;
+        end = true;
     }
     
     @Override
     public void run(){
-        long init, end;
+        long initTime, endTime;
         while(true){
             while(power){
-                init = System.nanoTime();
+                initTime = System.nanoTime();
                 sleep();
-                end = System.nanoTime();
-                updateTime((long) ((end-init+5e5d)/1e6d));
+                endTime = System.nanoTime();
+                updateTime((long) ((endTime-initTime+5e5d)/1e6d));
             }
-            waitOff();            
+            if(end) break;
+            waitOff();   
         }
     }
     
     private void updateTextField() {
-        this.h.setText(""+hour);
-        this.m.setText(""+min);
-        this.s.setText(""+sec);
-        this.mil.setText(""+mili);
+        h.setText(""+hour);
+        m.setText(""+min);
+        s.setText(""+sec);
+        mil.setText(""+mili);
     }
 
     private void updateTime(long time){
