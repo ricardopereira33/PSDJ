@@ -74,17 +74,17 @@ public class ChronometerMode extends Thread implements Chronometer {
                 initTime = System.nanoTime();
                 sleep();
                 endTime = System.nanoTime();
-                updateTime((long) ((endTime-initTime+5e5d)/1e6d));
+                if(power) updateTime((long) ((endTime-initTime+5e5d)/1e6d));
             }
             waitOff();   
         }
     }
     
     private void updateTextField() {
-        h.setText(""+hour);
-        m.setText(""+min);
-        s.setText(""+sec);
-        mil.setText(""+mili);
+        h.setText("0"+hour);
+        m.setText("0"+min);
+        s.setText("0"+sec);
+        mil.setText("0"+mili);
     }
 
     private void updateTime(long time){
