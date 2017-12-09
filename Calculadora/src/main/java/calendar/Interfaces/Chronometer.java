@@ -13,7 +13,8 @@ import javax.swing.JTextField;
  */
 public interface Chronometer {
     public void off();
-    public void on(JTextField h, JTextField m, JTextField s, JTextField mili);
+    public void on();
     public void reset();
     public void exit();
+    public void setComponents(JTextField hour, JTextField minute, JTextField second, JTextField milisecond);
 }

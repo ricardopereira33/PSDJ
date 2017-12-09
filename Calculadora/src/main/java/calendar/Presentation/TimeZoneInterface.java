@@ -6,6 +6,9 @@
 package calendar.Presentation;
 import calendar.Interfaces.TimeZone;
 import calendar.Modes.TimeZoneMode;
+import calendar.Util.Util_Datas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +19,8 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 
 
 
@@ -32,6 +37,19 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     public TimeZoneInterface(TimeZone timeZone) {
         this.timeZone = timeZone;
         initComponents();
+        
+        updateTimer(timerLabel);
+    }
+    
+    public void updateTimer(JLabel label){
+        int delay = 1000; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            label.setText(datetime);
+          }
+        };
+        new Timer(delay, taskPerformer).start();
     }
 
     /**
@@ -75,7 +93,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        timerLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -353,7 +371,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("DateTime");
+        timerLabel.setText("DateTime");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -361,7 +379,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel3)
+                .addComponent(timerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -380,7 +398,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
-                    .addComponent(jLabel3)))
+                    .addComponent(timerLabel)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 31, Short.MAX_VALUE)
@@ -567,7 +585,6 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -584,5 +601,6 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     private javax.swing.JTextField secondMinute;
     private javax.swing.JTextField secondSecond;
     private javax.swing.JPanel timeConverterPanel;
+    private javax.swing.JLabel timerLabel;
     // End of variables declaration//GEN-END:variables
 }

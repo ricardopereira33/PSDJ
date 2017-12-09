@@ -8,7 +8,11 @@ package calendar.Presentation;
 import calendar.Interfaces.Chronometer;
 import calendar.Modes.ChronometerMode;
 import calendar.Util.Util_Datas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
@@ -22,8 +26,20 @@ public class ChronometerInterface extends javax.swing.JFrame {
     public ChronometerInterface(Chronometer chrono) {
         this.chrono = chrono;
         initComponents();
-        String time = LocalDateTime.now().query(Util_Datas::actualHour);
-        jLabel2.setText(time);
+        chrono.setComponents(jTextField9, jTextField10, jTextField8, jTextField11);
+        
+        updateTimer(timerLabel);
+    }
+    
+    public void updateTimer(JLabel label){
+        int delay = 1000; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            label.setText(datetime);
+          }
+        };
+        new Timer(delay, taskPerformer).start();
     }
 
     /**
@@ -53,7 +69,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        timerLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,7 +293,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("DateTime");
+        timerLabel.setText("DateTime");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -295,7 +311,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
                         .addGap(22, 22, 22))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel2)
+                .addComponent(timerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
@@ -313,7 +329,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jLabel2))
+                    .addComponent(timerLabel))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -338,8 +354,8 @@ public class ChronometerInterface extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        String time = LocalDateTime.now().query(Util_Datas::actualHour);
-       jLabel2.setText(time);
        chrono.reset();
+       timerLabel.setText(time);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -354,13 +370,13 @@ public class ChronometerInterface extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         String time = LocalDateTime.now().query(Util_Datas::actualHour);
-        jLabel2.setText(time);
-        chrono.on(jTextField9, jTextField10, jTextField8, jTextField11);
+        timerLabel.setText(time);
+        chrono.on();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String time = LocalDateTime.now().query(Util_Datas::actualHour);
-        jLabel2.setText(time);
+        timerLabel.setText(time);
         chrono.off();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -407,7 +423,6 @@ public class ChronometerInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -420,5 +435,6 @@ public class ChronometerInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel timerLabel;
     // End of variables declaration//GEN-END:variables
 }

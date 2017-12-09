@@ -6,6 +6,9 @@
 package calendar.Presentation;
 import calendar.Interfaces.Interval;
 import calendar.Modes.IntervalMode;
+import calendar.Util.Util_Datas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -16,6 +19,8 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
@@ -30,6 +35,18 @@ public class IntervalInterface extends javax.swing.JFrame {
     public IntervalInterface(Interval interval) {
         this.interval = interval;
         initComponents();
+        updateTimer(timerLabel);
+    }
+    
+    public void updateTimer(JLabel label){
+        int delay = 1000; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            label.setText(datetime);
+          }
+        };
+        new Timer(delay, taskPerformer).start();
     }
 
     /**
@@ -65,7 +82,7 @@ public class IntervalInterface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        timerLabel = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         convertInit = new javax.swing.JTextField();
         jComboBox4 = new javax.swing.JComboBox<>();
@@ -285,7 +302,7 @@ public class IntervalInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("DateTime");
+        timerLabel.setText("DateTime");
 
         jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -508,7 +525,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(timerLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -533,7 +550,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(jLabel4))
+                    .addComponent(timerLabel))
                 .addGap(10, 10, 10))
         );
 
@@ -786,7 +803,6 @@ public class IntervalInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -804,6 +820,7 @@ public class IntervalInterface extends javax.swing.JFrame {
     private javax.swing.JTextField secondMinute;
     private javax.swing.JTextField secondOperation;
     private javax.swing.JTextField secondSecond;
+    private javax.swing.JLabel timerLabel;
     private javax.swing.JTextField valueOperation;
     // End of variables declaration//GEN-END:variables
 }
