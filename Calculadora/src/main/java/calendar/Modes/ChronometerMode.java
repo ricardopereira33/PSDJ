@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public class ChronometerMode extends Thread implements Chronometer {
     private int hour, min, sec;
     private long mili;
-    private boolean power,chronoOn, end;
+    private boolean power,chronoOn;
     private JTextField h, m, s, mil;
     
     public ChronometerMode(){
@@ -26,7 +26,7 @@ public class ChronometerMode extends Thread implements Chronometer {
         this.mili = 0;
         this.power = true;
         this.chronoOn = false;
-        this.end = false;
+
     }
     
     @Override
@@ -64,7 +64,6 @@ public class ChronometerMode extends Thread implements Chronometer {
     public synchronized void exit(){
         reset();
         power = false;
-        end = true;
     }
     
     @Override
@@ -77,7 +76,6 @@ public class ChronometerMode extends Thread implements Chronometer {
                 endTime = System.nanoTime();
                 updateTime((long) ((endTime-initTime+5e5d)/1e6d));
             }
-            if(end) break;
             waitOff();   
         }
     }
@@ -91,19 +89,19 @@ public class ChronometerMode extends Thread implements Chronometer {
 
     private void updateTime(long time){
         mili+=time;
-        mil.setText(""+mili);
+        mil.setText(String.valueOf(mili));
         if(mili >= 1000){
             mili = mili%1000;
             sec++;
-            s.setText(""+sec);
+            s.setText(String.valueOf(sec));
             if (sec == 59){
                 sec = 0;
                 min++;
-                m.setText(""+min);
+                m.setText(String.valueOf(min));
                 if (min == 59){
                     min = 0;
                     hour++;
-                    h.setText(""+hour);
+                    h.setText(String.valueOf(hour));
                     if (hour == 23)
                         hour = 0;
                 }
