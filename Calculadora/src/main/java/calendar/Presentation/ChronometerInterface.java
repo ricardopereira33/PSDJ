@@ -353,9 +353,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       String time = LocalDateTime.now().query(Util_Datas::actualHour);
-       chrono.reset();
-       timerLabel.setText(time);
+        chrono.reset();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -369,14 +367,10 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String time = LocalDateTime.now().query(Util_Datas::actualHour);
-        timerLabel.setText(time);
         chrono.on();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String time = LocalDateTime.now().query(Util_Datas::actualHour);
-        timerLabel.setText(time);
         chrono.off();
     }//GEN-LAST:event_jButton4ActionPerformed
 
