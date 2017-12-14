@@ -10,6 +10,7 @@
  */
 
 import Structure.TransCaixa;
+import Utils.Crono;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -115,29 +116,29 @@ public class Trans_Caixa_Exs {
         // EXERCICIOS
         
         /* Transações a 0 
-        Crono.start();
+        Utils.Crono.start();
         long num = ltc.stream().filter( t -> t.getValor() == 0.0)
                                .count();
-        out.println("Setup com Streams: " + Crono.stop()*1000 + " ms");
+        out.println("Setup com Streams: " + Utils.Crono.stop()*1000 + " ms");
         System.out.println("Num: "+ num);
        
-        Crono.start();
+        Utils.Crono.start();
         boolean nun = ltc.stream().anyMatch( t -> t.getValor() == 0.0);
-        out.println("Setup com Streams: " + Crono.stop()*1000 + " ms");
+        out.println("Setup com Streams: " + Utils.Crono.stop()*1000 + " ms");
         
         System.out.println("Existe: "+nun);
         */
         /****/
         
         /* Caixas com transações*/
-        /*Crono.start();
+        /*Utils.Crono.start();
         List<Integer> set = ltc.stream().map(t -> Integer.valueOf(t.getCaixa()))
                                         .distinct()
                                         .sorted((l1,l2) -> l1.compareTo(l2))
                                         .collect(toList());
         int numCaixas = set.size();
                                     
-        out.println("Setup com Streams: " + Crono.stop()*1000 + " ms");
+        out.println("Setup com Streams: " + Utils.Crono.stop()*1000 + " ms");
         System.out.println("Num: "+ numCaixas +"\t\tFirst: "+set.get(0)+"\tLast: "+set.get(numCaixas-1));
         */
         
