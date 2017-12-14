@@ -1,6 +1,6 @@
 
 
-public class benchmark {
+public class Benchmark {
 
 
 }
