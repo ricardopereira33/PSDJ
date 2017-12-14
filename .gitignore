@@ -2,3 +2,8 @@
 /Calculadora/target/
 Calculadora/.idea/
 workspace.xml
+Benchmark/.idea
+Benchmark/transCaixa1M.txt
+Benchmark/transCaixa2M.txt
+Benchmark/transCaixa4M.txt
+Benchmark/transCaixa8M.txt
