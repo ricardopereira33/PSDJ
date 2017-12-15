@@ -4,7 +4,7 @@ import static java.lang.System.out;
 
 public class Printer {
     public void printMenu(){
-        for(int i = 0; i<100; i++) out.println();
+        clear();
         out.println("========= MENU ==========");
         out.println("1.\tTeste 1");
         out.println("2.\tTeste 2");
@@ -19,5 +19,20 @@ public class Printer {
         out.println("11.\tTeste 11");
         out.println("12.\tTeste 12");
         out.print("Opção: ");
+    }
+
+    public void printFileChoose() {
+        clear();
+        out.println("========= FILE ==========");
+        out.println("1. 1M");
+        out.println("2. 2M");
+        out.println("3. 4M");
+        out.println("4. 8M");
+        out.print("Opção: ");
+    }
+
+    private void clear(){
+        for(int i = 0; i<100; i++)
+            out.println();
     }
 }

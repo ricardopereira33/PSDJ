@@ -2,69 +2,78 @@ package Utils;
 
 import Structure.TransCaixa;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class TestUtils implements Interfaces.Test{
+    private final Tools t;
+    public List<TransCaixa> ltc;
+
+    public TestUtils(List<TransCaixa> l, Tools t){
+        this.ltc = new ArrayList<TransCaixa>();
+        this.ltc.addAll(l);
+        this.t = t;
+    }
 
     @Override
-    public Supplier<Double> test1(List<TransCaixa> ltc) {
+    public void test1() {
 
     }
 
     @Override
-    public Supplier<Collection> test2() {
-        return null;
+    public void test2() {
+
     }
 
     @Override
-    public Supplier<Integer> test3() {
-        return null;
+    public void test3() {
+
     }
 
     @Override
-    public Supplier<Double> test4() {
-        return null;
+    public void test4() {
+
     }
 
     @Override
-    public Supplier<Double> test5() {
-        return null;
+    public void test5() {
+
     }
 
     @Override
-    public Supplier<Double> test6() {
-        return null;
+    public void test6() {
+
     }
 
     @Override
-    public Supplier<Double> test7() {
-        return null;
+    public void test7() {
+
     }
 
     @Override
-    public Supplier<Double> test8() {
-        return null;
+    public void test8() {
+
     }
 
     @Override
-    public Supplier<Double> test9() {
-        return null;
+    public void test9() {
+
     }
 
     @Override
-    public Supplier<Double> test10() {
-        return null;
+    public void test10() {
+
     }
 
     @Override
-    public Supplier<Double> test11() {
-        return null;
+    public void test11() {
+
     }
 
     @Override
-    public Supplier<Double> test12() {
-        return null;
+    public void test12() {
+
     }
 }
