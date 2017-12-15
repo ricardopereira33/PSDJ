@@ -1,13 +1,16 @@
 package Utils;
 
+import Structure.TransCaixa;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class TestUtils implements Interfaces.Test{
 
     @Override
-    public Supplier<Double> test1() {
-        return null;
+    public Supplier<Double> test1(List<TransCaixa> ltc) {
+
     }
 
     @Override

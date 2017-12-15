@@ -1,4 +1,4 @@
-/*
+package Utils;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,7 +10,6 @@
  */
 
 import Structure.TransCaixa;
-import Utils.Crono;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -37,7 +36,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.function.*;
 
 
-public class Trans_Caixa_Exs {
+public class Tools {
     
     public static void memoryUsage() {
         final int mByte = 1024*1024;
@@ -50,7 +49,7 @@ public class Trans_Caixa_Exs {
         out.println("Memoria Usada:" + (runtime.totalMemory() - runtime.freeMemory())/mByte);	
     }
    
-    public static List<TransCaixa> setup(String nomeFich) {
+    public static List<TransCaixa> setupStream(String nomeFich) {
       List<TransCaixa> ltc = new ArrayList<>();
       try (Stream<String> sTrans = Files.lines(Paths.get(nomeFich))) {
                ltc = sTrans.map(linha -> strToTransCaixa(linha)).collect(toList());
@@ -61,7 +60,7 @@ public class Trans_Caixa_Exs {
       return ltc;
     }
     
-    public static List<TransCaixa> setup1(String nomeFich) {
+    public static List<TransCaixa> setupNStream(String nomeFich) {
       List<String> lines = new ArrayList<>();
       try {
           lines = Files.readAllLines(Paths.get(nomeFich), StandardCharsets.UTF_8);
@@ -69,17 +68,10 @@ public class Trans_Caixa_Exs {
       catch(IOException exc) {
           System.out.println(exc.getMessage());
       }
-      // List<String> -> List<Structure.TransCaixa>
+
       List<TransCaixa> lTrans = new ArrayList<>();
       lines.forEach(line -> lTrans.add(strToTransCaixa(line)));
       return lTrans;
-    }
-    
-    public static <R> SimpleEntry<Double,R> testeBoxGen(Supplier<? extends R> supplier) {
-        Crono.start();
-        R resultado = supplier.get();
-        Double tempo = Crono.stop();
-        return new SimpleEntry<Double,R>(tempo, resultado);
     }
     
     public static <R> SimpleEntry<Double,R> testeBoxGenW(Supplier<? extends R> supplier) {
@@ -100,14 +92,14 @@ public class Trans_Caixa_Exs {
         
         // LE O FICHEIRO DE TRANSACÇOES PARA List<Structure.TransCaixa> sem Streams
         Crono.start();
-        ltc = setup1(nomeFich);
+        ltc = setupNStream(nomeFich);
         out.println("Setup com List<String>: " + Crono.stop()*1000 + " ms");
         out.println("Transacções lidas Lists: " + ltc.size());
         ltc.clear();
        
         // LE O FICHEIRO DE TRANSACÇOES PARA List<Structure.TransCaixa> com Streams
         Crono.start();
-        ltc = setup(nomeFich);
+        ltc = setupStream(nomeFich);
         out.println("Setup com Streams: " + Crono.stop()*1000 + " ms");
         out.println("Transacções lidas (Streams): " + ltc.size());
         memoryUsage();
@@ -218,7 +210,7 @@ public class Trans_Caixa_Exs {
         Crono.start();
         Function<TransCaixa, Long> txToSeconds = t -> {
             LocalDateTime lt = t.getData();
-            return lt.query(Trans_Caixa_Exs::parseSegundos);
+            return lt.query(Tools::parseSegundos);
         };
 
         final String numCaixa = "14";
