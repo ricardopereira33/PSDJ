@@ -25,16 +25,44 @@ public class TestUtils implements Interfaces.Test{
     public void test1() {
         // double[]
         double[] array = getArray(ltc);
+
+        // 1. for
+        Crono.start();
         double total = 0;
         for(int i = 0; i < array.length; i++)
             total += array[i];
+        System.out.println("Time: "+ Crono.stop());
+
+        // 2. forEach
+        Crono.start();
+        total = 0;
+        for(double v : array){
+            total += v;
+        }
+        System.out.println("Time: "+ Crono.stop());
+        /* Sequenical */
 
         // DoubleStream
+        Crono.start();
         double res = ltc.stream().mapToDouble(TransCaixa::getValor).sum();
+        System.out.println("Time: "+ Crono.stop());
 
         // Stream<Double>
-        Stream<Double> d = ltc.stream().map(TransCaixa::getValor);
-        double res2 = d.reduce(0.0, (v1, v2) -> v1 + v2);
+        Crono.start();
+        double res2 = ltc.stream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
+        System.out.println("Time: "+ Crono.stop());
+
+        /* Parallel */
+
+        // DoubleStream
+        Crono.start();
+        double resPar = ltc.parallelStream().mapToDouble(TransCaixa::getValor).sum();
+        System.out.println("Time: "+ Crono.stop());
+
+        // Stream<Double>
+        Crono.start();
+        double res2Par = ltc.parallelStream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
+        System.out.println("Time: "+ Crono.stop());
     }
 
     private double[] getArray(List<TransCaixa> ltc) {
