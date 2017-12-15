@@ -26,13 +26,13 @@ public class Benchmark {
             input = br.readLine();
             switch(input){
                 case "1":
-                    return file+"1M.txt";
+                    return file + "1M.txt";
                 case "2":
-                    return file+"2M.txt";
+                    return file + "2M.txt";
                 case "4":
-                    return file+"4M.txt";
+                    return file + "4M.txt";
                 case "8":
-                    return file+"8M.txt";
+                    return file + "8M.txt";
                 default:
                     System.out.println("Comando inválido");
             }

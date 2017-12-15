@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class TestUtils implements Interfaces.Test{
     private final Tools t;
@@ -19,7 +23,28 @@ public class TestUtils implements Interfaces.Test{
 
     @Override
     public void test1() {
+        // double[]
+        double[] array = getArray(ltc);
+        double total = 0;
+        for(int i = 0; i < array.length; i++)
+            total += array[i];
 
+        // DoubleStream
+        double res = ltc.stream().mapToDouble(TransCaixa::getValor).sum();
+
+        // Stream<Double>
+        Stream<Double> d = ltc.stream().map(TransCaixa::getValor);
+        double res2 = d.reduce(0.0, (v1, v2) -> v1 + v2);
+    }
+
+    private double[] getArray(List<TransCaixa> ltc) {
+        double[] list = new double[ltc.size()];
+        int i = 0;
+        for(TransCaixa t : ltc){
+            list[i] = t.getValor();
+            i++;
+        }
+        return list;
     }
 
     @Override
