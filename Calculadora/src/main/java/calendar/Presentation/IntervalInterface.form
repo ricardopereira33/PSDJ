@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -122,7 +122,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="jXDatePicker4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="endDatePicker" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="secondHour" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -139,7 +139,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel2" min="-2" pref="51" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                      <Component id="jXDatePicker3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="startDatePicker" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="firstHour" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -192,7 +192,7 @@
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jXDatePicker3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="startDatePicker" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="firstHour" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="firstMinute" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="firstSecond" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -203,7 +203,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jXDatePicker4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="endDatePicker" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="secondHour" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="secondMinute" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="secondSecond" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -233,10 +233,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker3">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="startDatePicker">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXDatePicker3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startDatePickerActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="startDatePicker.setFormats(options.getDateFormat());"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="firstHour">
               <Properties>
@@ -316,7 +319,10 @@
                 <Property name="text" type="java.lang.String" value="End"/>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker4">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="endDatePicker">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="endDatePicker.setFormats(options.getDateFormat());"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="secondHour">
               <Properties>
@@ -566,7 +572,7 @@
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="jButton10" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="dateOperation" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dateOperationPicker" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="hourOperation" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -612,7 +618,7 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="dateOperation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dateOperationPicker" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hourOperation" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="minuteOperation" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="secondOperation" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -643,7 +649,10 @@
                 <Property name="text" type="java.lang.String" value="Time operations"/>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="dateOperation">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="dateOperationPicker">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="dateOperationPicker.setFormats(options.getDateFormat());"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hourOperation">
               <Properties>

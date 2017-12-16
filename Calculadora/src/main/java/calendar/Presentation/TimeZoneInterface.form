@@ -186,7 +186,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;String&gt; zoneList = new ArrayList&lt;&gt;(ZoneId.getAvailableZoneIds());&#xa;for(String zone: zoneList)&#xa;    jComboBox1.addItem(zone);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="TreeSet&lt;String&gt; zoneList = new TreeSet&lt;&gt;(ZoneId.getAvailableZoneIds());&#xa;for(String zone: zoneList)&#xa;    jComboBox1.addItem(zone);"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
@@ -247,7 +247,7 @@
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                           <Component id="firstSecond" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="now2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jComboBox4" pref="115" max="32767" attributes="0"/>
                                       </Group>
@@ -264,7 +264,7 @@
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                           <Component id="secondSecond" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="now3" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jComboBox5" pref="115" max="32767" attributes="0"/>
                                       </Group>
@@ -306,7 +306,7 @@
                                       <Component id="firstSecond" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="now2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -319,7 +319,7 @@
                                       <Component id="secondSecond" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="now3" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -343,7 +343,7 @@
                 <Component class="org.jdesktop.swingx.JXDatePicker" name="firstDatePicker">
                   <Properties>
                     <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
+                      <Connection code="options.getDateFormat()" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -360,7 +360,7 @@
                 <Component class="org.jdesktop.swingx.JXDatePicker" name="secondDatePicker">
                   <Properties>
                     <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
+                      <Connection code="options.getDateFormat()" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -477,18 +477,21 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton4">
+                <Component class="javax.swing.JButton" name="now2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Now"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="now2ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton5">
+                <Component class="javax.swing.JButton" name="now3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Now"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="now3ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
                   <Properties>
@@ -556,19 +559,19 @@
                                           <EmptySpace min="0" pref="132" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="secondDatePicker1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="initialDatePicker" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                          <Component id="secondHour1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="initialHour" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                           <Component id="jLabel19" min="-2" pref="7" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="secondMinute1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="initialMinute" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                          <Component id="secondSecond1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="initialSecond" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                                          <Component id="now1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jComboBox3" pref="126" max="32767" attributes="0"/>
                                       </Group>
@@ -596,13 +599,13 @@
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="secondDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="secondHour1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="secondMinute1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="secondSecond1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="initialDatePicker" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="initialHour" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="initialMinute" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="initialSecond" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="now1" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -631,19 +634,19 @@
                     <Property name="text" type="java.lang.String" value="Inital DateTime and its ZoneID"/>
                   </Properties>
                 </Component>
-                <Component class="org.jdesktop.swingx.JXDatePicker" name="secondDatePicker1">
+                <Component class="org.jdesktop.swingx.JXDatePicker" name="initialDatePicker">
                   <Properties>
                     <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="&quot;EEE dd-MM-yyyy&quot;" type="code"/>
+                      <Connection code="options.getDateFormat()" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="secondHour1">
+                <Component class="javax.swing.JTextField" name="initialHour">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="00"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="secondHour1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="initialHourActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel19">
@@ -651,20 +654,20 @@
                     <Property name="text" type="java.lang.String" value=":"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="secondMinute1">
+                <Component class="javax.swing.JTextField" name="initialMinute">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="00"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="secondMinute1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="initialMinuteActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="secondSecond1">
+                <Component class="javax.swing.JTextField" name="initialSecond">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="00"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="secondSecond1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="initialSecondActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
@@ -718,10 +721,13 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton9">
+                <Component class="javax.swing.JButton" name="now1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Now"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="now1ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>

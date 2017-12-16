@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package calendar.Presentation;
+import calendar.Interfaces.Options;
 import calendar.Interfaces.TimeZone;
 import calendar.Modes.TimeZoneMode;
 import calendar.Util.Util_Datas;
@@ -16,9 +17,11 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -30,12 +33,15 @@ import javax.swing.Timer;
  */
 public class TimeZoneInterface extends javax.swing.JFrame {
 
-    TimeZone timeZone;
+    private TimeZone timeZone;
+    private Options options;
+    
     /**
      * Creates new form Time
      */
-    public TimeZoneInterface(TimeZone timeZone) {
+    public TimeZoneInterface(TimeZone timeZone, Options options) {
         this.timeZone = timeZone;
+        this.options = options;
         initComponents();
         
         updateTimer(timerLabel);
@@ -43,9 +49,11 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
-            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
         };
@@ -88,8 +96,8 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jTextField14 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        now2 = new javax.swing.JButton();
+        now3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox<>();
@@ -97,16 +105,16 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        secondDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        secondHour1 = new javax.swing.JTextField();
+        initialDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        initialHour = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        secondMinute1 = new javax.swing.JTextField();
-        secondSecond1 = new javax.swing.JTextField();
+        initialMinute = new javax.swing.JTextField();
+        initialSecond = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jTextField15 = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        now1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -125,7 +133,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel2.setText("Current time in");
 
-        List<String> zoneList = new ArrayList<>(ZoneId.getAvailableZoneIds());
+        TreeSet<String> zoneList = new TreeSet<>(ZoneId.getAvailableZoneIds());
         for(String zone: zoneList)
         jComboBox1.addItem(zone);
         jComboBox1.setSelectedIndex(0);
@@ -181,13 +189,13 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel5.setText("Time travel");
 
-        firstDatePicker.setFormats("EEE dd-MM-yyyy");
+        firstDatePicker.setFormats(options.getDateFormat());
 
         jLabel9.setText("First DateTime ant its ZoneID");
 
         jLabel10.setText("Second DateTime and its ZoneID");
 
-        secondDatePicker.setFormats("EEE dd-MM-yyyy");
+        secondDatePicker.setFormats(options.getDateFormat());
 
         firstHour.setText("00");
         firstHour.addActionListener(new java.awt.event.ActionListener() {
@@ -273,14 +281,19 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                 .addGap(45, 45, 45))
         );
 
-        jButton4.setText("Now");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        now2.setText("Now");
+        now2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                now2ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Now");
+        now3.setText("Now");
+        now3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                now3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Calculate the time travel between two DateTimes (with their given ZoneIDs).");
 
@@ -319,7 +332,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(firstSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
+                                .addComponent(now2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox4, 0, 115, Short.MAX_VALUE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -335,7 +348,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(secondSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5)
+                                .addComponent(now3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox5, 0, 115, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -369,7 +382,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                             .addComponent(firstSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
-                            .addComponent(jButton4)
+                            .addComponent(now2)
                             .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addComponent(jLabel10)
@@ -381,7 +394,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                             .addComponent(secondSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)
                             .addComponent(jLabel14)
-                            .addComponent(jButton5)
+                            .addComponent(now3)
                             .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, Short.MAX_VALUE))
@@ -395,28 +408,28 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
         jLabel16.setText("Inital DateTime and its ZoneID");
 
-        secondDatePicker1.setFormats("EEE dd-MM-yyyy");
+        initialDatePicker.setFormats(options.getDateFormat());
 
-        secondHour1.setText("00");
-        secondHour1.addActionListener(new java.awt.event.ActionListener() {
+        initialHour.setText("00");
+        initialHour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondHour1ActionPerformed(evt);
+                initialHourActionPerformed(evt);
             }
         });
 
         jLabel19.setText(":");
 
-        secondMinute1.setText("00");
-        secondMinute1.addActionListener(new java.awt.event.ActionListener() {
+        initialMinute.setText("00");
+        initialMinute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondMinute1ActionPerformed(evt);
+                initialMinuteActionPerformed(evt);
             }
         });
 
-        secondSecond1.setText("00");
-        secondSecond1.addActionListener(new java.awt.event.ActionListener() {
+        initialSecond.setText("00");
+        initialSecond.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondSecond1ActionPerformed(evt);
+                initialSecondActionPerformed(evt);
             }
         });
 
@@ -457,7 +470,12 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        jButton9.setText("Now");
+        now1.setText("Now");
+        now1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                now1ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Calculate the time in a certain ZoneID, given an atual DateTime.");
 
@@ -494,19 +512,19 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                                 .addComponent(jLabel22)
                                 .addGap(0, 132, Short.MAX_VALUE))
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(secondDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(initialDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
-                                .addComponent(secondHour1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(initialHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(secondMinute1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(initialMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel20)
                                 .addGap(5, 5, 5)
-                                .addComponent(secondSecond1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(initialSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9)
+                                .addComponent(now1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox3, 0, 126, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -528,13 +546,13 @@ public class TimeZoneInterface extends javax.swing.JFrame {
                         .addComponent(jLabel16)
                         .addGap(2, 2, 2)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(secondDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(secondHour1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(secondMinute1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(secondSecond1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(initialDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(initialHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(initialMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(initialSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19)
                             .addComponent(jLabel20)
-                            .addComponent(jButton9)
+                            .addComponent(now1)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel22)
@@ -660,7 +678,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String zone = (String) jComboBox1.getSelectedItem();
-        jTextField3.setText(timeZone.timeIn(zone).toString());
+        jTextField3.setText(timeZone.currentTimeIn(zone).toString());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void firstHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstHourActionPerformed
@@ -724,9 +742,14 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void now2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_now2ActionPerformed
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        firstDatePicker.setDate(date);
+        firstHour.setText(String.valueOf(now.getHour()));
+        firstMinute.setText(String.valueOf(now.getMinute()));
+        firstSecond.setText(String.valueOf(now.getSecond()));
+    }//GEN-LAST:event_now2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
@@ -734,17 +757,17 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void secondHour1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondHour1ActionPerformed
+    private void initialHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initialHourActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_secondHour1ActionPerformed
+    }//GEN-LAST:event_initialHourActionPerformed
 
-    private void secondMinute1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondMinute1ActionPerformed
+    private void initialMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initialMinuteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_secondMinute1ActionPerformed
+    }//GEN-LAST:event_initialMinuteActionPerformed
 
-    private void secondSecond1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondSecond1ActionPerformed
+    private void initialSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initialSecondActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_secondSecond1ActionPerformed
+    }//GEN-LAST:event_initialSecondActionPerformed
 
     private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
         // TODO add your handling code here:
@@ -752,58 +775,57 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        
+        Date firstDate = initialDatePicker.getDate();
+        
+        LocalDate initalLocalDate = firstDate.toInstant()
+                                             .atZone(ZoneId.systemDefault())
+                                             .toLocalDateTime()
+                                             .toLocalDate();
+        LocalTime initialLocalTime = LocalTime.of(Integer.parseInt(initialHour.getText()),
+                                                Integer.parseInt(initialMinute.getText()),
+                                                Integer.parseInt(initialSecond.getText()));
+        LocalDateTime initialLocalDateTime = LocalDateTime.of(initalLocalDate, initialLocalTime);
+        
+        String startZone = (String) jComboBox3.getSelectedItem();
+        String endZone = (String) jComboBox2.getSelectedItem();
+        ZonedDateTime result = timeZone.timeIn(initialLocalDateTime, startZone, endZone);
+        jTextField15.setText(result.toString());
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TimeZoneInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TimeZoneInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TimeZoneInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TimeZoneInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void now1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_now1ActionPerformed
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        initialDatePicker.setDate(date);
+        initialHour.setText(String.valueOf(now.getHour()));
+        initialMinute.setText(String.valueOf(now.getMinute()));
+        initialSecond.setText(String.valueOf(now.getSecond()));
+    }//GEN-LAST:event_now1ActionPerformed
 
-        TimeZone timeZone = new TimeZoneMode();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TimeZoneInterface(timeZone).setVisible(true);
-            }
-        });
-    }
+    private void now3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_now3ActionPerformed
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        secondDatePicker.setDate(date);
+        secondHour.setText(String.valueOf(now.getHour()));
+        secondMinute.setText(String.valueOf(now.getMinute()));
+        secondSecond.setText(String.valueOf(now.getSecond()));
+    }//GEN-LAST:event_now3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker firstDatePicker;
     private javax.swing.JTextField firstHour;
     private javax.swing.JTextField firstMinute;
     private javax.swing.JTextField firstSecond;
+    private org.jdesktop.swingx.JXDatePicker initialDatePicker;
+    private javax.swing.JTextField initialHour;
+    private javax.swing.JTextField initialMinute;
+    private javax.swing.JTextField initialSecond;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -838,14 +860,13 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton now1;
+    private javax.swing.JButton now2;
+    private javax.swing.JButton now3;
     private org.jdesktop.swingx.JXDatePicker secondDatePicker;
-    private org.jdesktop.swingx.JXDatePicker secondDatePicker1;
     private javax.swing.JTextField secondHour;
-    private javax.swing.JTextField secondHour1;
     private javax.swing.JTextField secondMinute;
-    private javax.swing.JTextField secondMinute1;
     private javax.swing.JTextField secondSecond;
-    private javax.swing.JTextField secondSecond1;
     private javax.swing.JPanel timeConverterPanel;
     private javax.swing.JLabel timerLabel;
     // End of variables declaration//GEN-END:variables

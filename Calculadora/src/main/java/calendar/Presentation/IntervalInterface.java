@@ -5,6 +5,7 @@
  */
 package calendar.Presentation;
 import calendar.Interfaces.Interval;
+import calendar.Interfaces.Options;
 import calendar.Modes.IntervalMode;
 import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
@@ -28,21 +31,25 @@ import javax.swing.Timer;
  */
 public class IntervalInterface extends javax.swing.JFrame {
 
-    Interval interval;
+    private Interval interval;
+    private Options options;
     /**
      * Creates new form Interval
      */
-    public IntervalInterface(Interval interval) {
+    public IntervalInterface(Interval interval, Options options) {
         this.interval = interval;
+        this.options = options;
         initComponents();
         updateTimer(timerLabel);
     }
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
-            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
         };
@@ -61,7 +68,7 @@ public class IntervalInterface extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jXDatePicker3 = new org.jdesktop.swingx.JXDatePicker();
+        startDatePicker = new org.jdesktop.swingx.JXDatePicker();
         firstHour = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         firstMinute = new javax.swing.JTextField();
@@ -72,7 +79,7 @@ public class IntervalInterface extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jXDatePicker4 = new org.jdesktop.swingx.JXDatePicker();
+        endDatePicker = new org.jdesktop.swingx.JXDatePicker();
         secondHour = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         secondMinute = new javax.swing.JTextField();
@@ -96,7 +103,7 @@ public class IntervalInterface extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        dateOperation = new org.jdesktop.swingx.JXDatePicker();
+        dateOperationPicker = new org.jdesktop.swingx.JXDatePicker();
         hourOperation = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         minuteOperation = new javax.swing.JTextField();
@@ -125,9 +132,9 @@ public class IntervalInterface extends javax.swing.JFrame {
             }
         });
 
-        jXDatePicker3.addActionListener(new java.awt.event.ActionListener() {
+        startDatePicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker3ActionPerformed(evt);
+                startDatePickerActionPerformed(evt);
             }
         });
 
@@ -232,7 +239,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(25, 25, 25)
-                                .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(secondHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
@@ -248,7 +255,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(firstHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
@@ -289,7 +296,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(firstHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(firstMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(firstSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,7 +306,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                     .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(secondHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(secondMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(secondSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,6 +322,9 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
+
+        startDatePicker.setFormats(options.getDateFormat());
+        endDatePicker.setFormats(options.getDateFormat());
 
         jButton4.setText("Exit");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -516,7 +526,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
-                                        .addComponent(dateOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dateOperationPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(hourOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(5, 5, 5)
@@ -552,7 +562,7 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateOperationPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hourOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minuteOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(secondOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,6 +579,8 @@ public class IntervalInterface extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        dateOperationPicker.setFormats(options.getDateFormat());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -692,8 +704,8 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Date firstDate = jXDatePicker3.getDate();
-        Date secondDate = jXDatePicker4.getDate();                
+        Date firstDate = startDatePicker.getDate();
+        Date secondDate = endDatePicker.getDate();                
         
         LocalDate firstLocalDate = firstDate.toInstant()
                                              .atZone(ZoneId.systemDefault())
@@ -730,12 +742,19 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        dateOperationPicker.setDate(date);
+        hourOperation.setText(String.valueOf(now.getHour()));
+        minuteOperation.setText(String.valueOf(now.getMinute()));
+        secondOperation.setText(String.valueOf(now.getSecond()));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         LocalDateTime result;
-        Date date = dateOperation.getDate();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+        
+        Date date = dateOperationPicker.getDate();
         LocalDate localDate = date.toInstant()
                                              .atZone(ZoneId.systemDefault())
                                              .toLocalDateTime()
@@ -754,7 +773,7 @@ public class IntervalInterface extends javax.swing.JFrame {
             result = interval.addDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
         else
             result = interval.subDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
-        jTextField27.setText(result.toString());
+        jTextField27.setText(result.format(format));
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void secondHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondHourActionPerformed
@@ -770,7 +789,12 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_secondSecondActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        startDatePicker.setDate(date);
+        firstHour.setText(String.valueOf(now.getHour()));
+        firstMinute.setText(String.valueOf(now.getMinute()));
+        firstSecond.setText(String.valueOf(now.getSecond()));
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void firstSecondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstSecondActionPerformed
@@ -786,53 +810,24 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_firstHourActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        LocalDateTime now = LocalDateTime.now();
+        Date date = Date.from(now.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        endDatePicker.setDate(date);
+        secondHour.setText(String.valueOf(now.getHour()));
+        secondMinute.setText(String.valueOf(now.getMinute()));
+        secondSecond.setText(String.valueOf(now.getSecond()));
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jXDatePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker3ActionPerformed
+    private void startDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDatePickerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker3ActionPerformed
+    }//GEN-LAST:event_startDatePickerActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IntervalInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IntervalInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IntervalInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IntervalInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        Interval interval = new IntervalMode();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IntervalInterface(interval).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField convertFinal;
     private javax.swing.JTextField convertInit;
-    private org.jdesktop.swingx.JXDatePicker dateOperation;
+    private org.jdesktop.swingx.JXDatePicker dateOperationPicker;
+    private org.jdesktop.swingx.JXDatePicker endDatePicker;
     private javax.swing.JTextField firstHour;
     private javax.swing.JTextField firstMinute;
     private javax.swing.JTextField firstSecond;
@@ -875,14 +870,13 @@ public class IntervalInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField27;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker3;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker4;
     private javax.swing.JTextField minuteOperation;
     private javax.swing.JComboBox<String> operationComboBox;
     private javax.swing.JTextField secondHour;
     private javax.swing.JTextField secondMinute;
     private javax.swing.JTextField secondOperation;
     private javax.swing.JTextField secondSecond;
+    private org.jdesktop.swingx.JXDatePicker startDatePicker;
     private javax.swing.JLabel timerLabel;
     private javax.swing.JTextField valueOperation;
     // End of variables declaration//GEN-END:variables

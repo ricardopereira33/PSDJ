@@ -5,6 +5,7 @@
  */
 package calendar.Presentation;
 import calendar.Interfaces.Calendar;
+import calendar.Interfaces.Options;
 import calendar.Modes.CalendarMode;
 import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
@@ -28,12 +30,14 @@ import javax.swing.Timer;
 public class CalendarInterface extends javax.swing.JFrame {
 
     private Calendar calendar;
+    private Options options;
 
     /**
      * Creates new form Interval
      */
-    public CalendarInterface(Calendar calendar) {
+    public CalendarInterface(Calendar calendar, Options options) {
         this.calendar = calendar;
+        this.options = options;
         initComponents();
         
         updateTimer(timerLabel);
@@ -41,9 +45,11 @@ public class CalendarInterface extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
-            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
         };
@@ -114,7 +120,7 @@ public class CalendarInterface extends javax.swing.JFrame {
             }
         });
 
-        firstDatePicker.setFormats("EEE dd-MM-yyyy");
+        firstDatePicker.setFormats(options.getDateFormat());
 
         jLabel2.setText("Start date");
 
@@ -134,7 +140,7 @@ public class CalendarInterface extends javax.swing.JFrame {
 
         jLabel3.setText("End date");
 
-        secondDatePicker.setFormats("EEE dd-MM-yyyy");
+        secondDatePicker.setFormats(options.getDateFormat());
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel5.setText("Difference between two dates");
@@ -245,9 +251,6 @@ public class CalendarInterface extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel6.setText("Time since/until");
 
-        for (ChronoUnit c : ChronoUnit.values())
-        jComboBox1.addItem(c.toString());
-        jComboBox1.setSelectedIndex(1);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day", "Week", "Month", "Year", "Decade", "Century" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,9 +338,6 @@ public class CalendarInterface extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel8.setText("First/Last Day Information");
 
-        for (ChronoUnit c : ChronoUnit.values())
-        jComboBox1.addItem(c.toString());
-        jComboBox1.setSelectedIndex(1);
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week", "Month", "Year", "Decade", "Century" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,7 +359,7 @@ public class CalendarInterface extends javax.swing.JFrame {
             }
         });
 
-        firstDatePicker1.setFormats("EEE dd-MM-yyyy");
+        firstDatePicker1.setFormats(options.getDateFormat());
         firstDatePicker1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstDatePicker1ActionPerformed(evt);
@@ -512,7 +512,8 @@ public class CalendarInterface extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
-        Duration result = calendar.timeUntil(ChronoUnit.valueOf(unit));
+        if (unit.equals("CENTURY")) unit = "CENTURIE";
+        Duration result = calendar.timeUntil(ChronoUnit.valueOf(unit+"S"));
         jTextField2.setText(result.toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -533,7 +534,8 @@ public class CalendarInterface extends javax.swing.JFrame {
                                              .toLocalDate();
         
         String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
-        LocalDate result = calendar.lastDayInfo(ChronoUnit.valueOf(unit), date);
+        if (unit.equals("CENTURY")) unit = "CENTURIE";
+        LocalDate result = calendar.lastDayInfo(ChronoUnit.valueOf(unit+"S"), date);
         jTextField3.setText(result.toString());
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -584,7 +586,8 @@ public class CalendarInterface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
-        Duration result = calendar.timeSince(ChronoUnit.valueOf(unit));
+        if (unit.equals("CENTURY")) unit = "CENTURIE";
+        Duration result = calendar.timeSince(ChronoUnit.valueOf(unit+"S"));
         jTextField2.setText(result.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -597,7 +600,8 @@ public class CalendarInterface extends javax.swing.JFrame {
                                              .toLocalDate();
         
         String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
-        LocalDate result = calendar.firstDayInfo(ChronoUnit.valueOf(unit), date);
+        if (unit.equals("CENTURY")) unit = "CENTURIE";
+        LocalDate result = calendar.firstDayInfo(ChronoUnit.valueOf(unit+"S"), date);
         jTextField3.setText(result.toString());
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -625,43 +629,6 @@ public class CalendarInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_firstDatePicker1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalendarInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalendarInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalendarInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalendarInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        Calendar calendar = new CalendarMode();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CalendarInterface(calendar).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
