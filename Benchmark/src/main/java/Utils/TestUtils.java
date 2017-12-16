@@ -2,6 +2,8 @@ package Utils;
 
 import Structure.TransCaixa;
 
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +18,7 @@ public class TestUtils implements Interfaces.Test{
     public List<TransCaixa> ltc;
 
     public TestUtils(List<TransCaixa> l, Tools t){
-        this.ltc = new ArrayList<TransCaixa>();
+        this.ltc = new ArrayList<>();
         this.ltc.addAll(l);
         this.t = t;
     }
@@ -27,42 +29,53 @@ public class TestUtils implements Interfaces.Test{
         double[] array = getArray(ltc);
 
         // 1. for
-        Crono.start();
-        double total = 0;
-        for(int i = 0; i < array.length; i++)
-            total += array[i];
-        System.out.println("Time: "+ Crono.stop());
+        Supplier<Double> supArray = () -> sumFor(array);
+        SimpleEntry<Double, Double> res = t.testeBoxGenW(supArray);
+        System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         // 2. forEach
-        Crono.start();
-        total = 0;
-        for(double v : array){
+        Supplier<Double> supArray2 = () -> sumForEach(array);
+        SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supArray2);
+        System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
+
+        /*** Sequenical ***/
+
+        // DoubleStream
+        Supplier<Double> supArray3 = () -> ltc.stream().mapToDouble(TransCaixa::getValor).sum();
+        SimpleEntry<Double, Double> res3 = t.testeBoxGenW(supArray3);
+        System.out.println("Time: "+ res3.getKey() +"\t | Res: " + res3.getValue());
+
+        // Stream<Double>
+        Supplier<Double> supArray4 = () -> ltc.stream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
+        SimpleEntry<Double, Double> res4 = t.testeBoxGenW(supArray4);
+        System.out.println("Time: "+ res4.getKey() +"\t | Res: " + res4.getValue());
+
+        /*** Parallel ***/
+
+        // DoubleStream
+        Supplier<Double> supArray5 = () -> ltc.parallelStream().mapToDouble(TransCaixa::getValor).sum();
+        SimpleEntry<Double, Double> res5 = t.testeBoxGenW(supArray5);
+        System.out.println("Time: "+ res5.getKey() +"\t | Res: " + res5.getValue());
+
+        // Stream<Double>
+        Supplier<Double> supArray6 = () -> ltc.parallelStream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
+        SimpleEntry<Double, Double> res6 = t.testeBoxGenW(supArray6);
+        System.out.println("Time: "+ res6.getKey() +"\t | Res: " + res6.getValue());
+    }
+
+    private double sumForEach(double[] array){
+        double total = 0;
+        for (double v : array) {
             total += v;
         }
-        System.out.println("Time: "+ Crono.stop());
-        /* Sequenical */
+        return total;
+    }
 
-        // DoubleStream
-        Crono.start();
-        double res = ltc.stream().mapToDouble(TransCaixa::getValor).sum();
-        System.out.println("Time: "+ Crono.stop());
-
-        // Stream<Double>
-        Crono.start();
-        double res2 = ltc.stream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
-        System.out.println("Time: "+ Crono.stop());
-
-        /* Parallel */
-
-        // DoubleStream
-        Crono.start();
-        double resPar = ltc.parallelStream().mapToDouble(TransCaixa::getValor).sum();
-        System.out.println("Time: "+ Crono.stop());
-
-        // Stream<Double>
-        Crono.start();
-        double res2Par = ltc.parallelStream().map(TransCaixa::getValor).reduce(0.0, (v1, v2) -> v1 + v2);
-        System.out.println("Time: "+ Crono.stop());
+    private double sumFor(double[] array){
+        double total = 0;
+        for (int i = 0; i < array.length; i++)
+            total += array[i];
+        return total;
     }
 
     private double[] getArray(List<TransCaixa> ltc) {
