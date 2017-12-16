@@ -121,7 +121,7 @@ public class OptionsInterface extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Time format");
 
-        timeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hh:mm:ss a", "HH:mm:ss", "hh:mm:ss.SSS a", "HH:mm:ss.SSS" }));
+        timeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HH:mm:ss", "hh:mm:ss a", "HH:mm:ss.SSS", "hh:mm:ss.SSS a" }));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("Custom Date format");
