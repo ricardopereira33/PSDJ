@@ -40,12 +40,14 @@ public class Benchmark {
         return null;
     }
 
-    private static List<TransCaixa> loadFile(String fileName, Tools t) {
+    private static List<TransCaixa> loadFile(String fileName, Tools t, BufferedReader br) throws IOException {
         Crono.start();
         List<TransCaixa> res = t.setupStream(fileName);
         out.println("Setup com Streams: " + Crono.stop()*1000 + " ms");
         out.println("Transacções lidas: " + res.size());
         t.memoryUsage();
+
+        pressToContinue(br);
 
         return res;
     }
@@ -61,44 +63,62 @@ public class Benchmark {
                     return;
                 case "1":
                     t.test1();
+                    pressToContinue(br);
                     break;
                 case "2":
                     t.test2();
+                    pressToContinue(br);
                     break;
                 case "3":
                     t.test3();
+                    pressToContinue(br);
                     break;
                 case "4":
                     t.test4();
+                    pressToContinue(br);
                     break;
                 case "5":
                     t.test5();
+                    pressToContinue(br);
                     break;
                 case "6":
                     t.test6();
+                    pressToContinue(br);
                     break;
                 case "7":
                     t.test7();
+                    pressToContinue(br);
                     break;
                 case "8":
                     t.test8();
+                    pressToContinue(br);
                     break;
                 case "9":
                     t.test9();
+                    pressToContinue(br);
                     break;
                 case "10":
                     t.test10();
+                    pressToContinue(br);
                     break;
                 case "11":
                     t.test11();
+                    pressToContinue(br);
                     break;
                 case "12":
                     t.test12();
+                    pressToContinue(br);
                     break;
                 default:
                     System.out.println("Comando inválido");
+                    pressToContinue(br);
             }
         }
+    }
+
+    private static void pressToContinue(BufferedReader br) throws IOException {
+        System.out.println("\t>Press Enter\n");
+        br.readLine();
     }
 
     public static void main (String args[]) throws IOException {
@@ -107,7 +127,7 @@ public class Benchmark {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String fileName = chooseFile(br, p);
-        List<TransCaixa> ltc = loadFile(fileName, tools);
+        List<TransCaixa> ltc = loadFile(fileName, tools, br);
 
         TestUtils t = new TestUtils(ltc, tools);
         processFile(t, p, br);
