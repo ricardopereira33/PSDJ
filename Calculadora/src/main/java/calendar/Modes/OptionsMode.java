@@ -6,6 +6,7 @@
 package calendar.Modes;
 
 import calendar.Interfaces.Options;
+import java.util.List;
 
 /**
  *
@@ -15,10 +16,12 @@ public class OptionsMode implements Options{
     
     String dateFormat;
     String timeFormat;
+    List<Integer> durationFormat;
     
-    public OptionsMode(String dateFormat, String timeFormat){
+    public OptionsMode(String dateFormat, String timeFormat, List<Integer> durationFormat){
         this.dateFormat = dateFormat;
         this.timeFormat = timeFormat;
+        this.durationFormat = durationFormat;
     }
 
     @Override
@@ -39,6 +42,16 @@ public class OptionsMode implements Options{
     @Override
     public void setTimeFormat(String dateTimeFormat) {
         this.timeFormat = dateTimeFormat;
+    }
+
+    @Override
+    public List<Integer> getDurationFormat() {
+        return durationFormat; 
+    }
+
+    @Override
+    public void setDurationFormat(List<Integer> durationFormat) {
+        this.durationFormat = durationFormat;
     }
     
     

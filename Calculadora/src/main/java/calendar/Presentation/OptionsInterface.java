@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -70,6 +72,12 @@ public class OptionsInterface extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        dayCheckBox = new javax.swing.JCheckBox();
+        hourCheckBox = new javax.swing.JCheckBox();
+        minuteCheckBox = new javax.swing.JCheckBox();
+        secondCheckBox = new javax.swing.JCheckBox();
+        miliCheckBox = new javax.swing.JCheckBox();
+        nanoCheckBox = new javax.swing.JCheckBox();
         timerLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,14 +102,17 @@ public class OptionsInterface extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Date format");
 
         dateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE dd-MM-yyyy", "EEE dd-MMM-yyyy", "EEE MM-dd-yyyy", "EEE yyyy-MM-dd", "dd-MM-yyyy", "dd-MMM-yyyy", "MM-dd-yyyy", "MMM-dd-yyyy", "yyyy-MM-dd" }));
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Time format");
 
         timeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hh:mm:ss a", "HH:mm:ss", "hh:mm:ss.SSS a", "HH:mm:ss.SSS" }));
 
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("Custom Date format");
 
         dateFormatTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -110,44 +121,81 @@ public class OptionsInterface extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("Custom Time format");
 
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel6.setText("Choose the format that you would like to see in dates, ");
 
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel7.setText("times and durations. Note that if you change the custom");
 
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("field for a format, it will be the chosen one.");
 
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel9.setText("Duration format");
+
+        dayCheckBox.setText("Days");
+        dayCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayCheckBoxActionPerformed(evt);
+            }
+        });
+
+        hourCheckBox.setText("Hours");
+
+        minuteCheckBox.setText("Minutes");
+
+        secondCheckBox.setText("Seconds");
+
+        miliCheckBox.setText("Milliseconds");
+
+        nanoCheckBox.setText("Nanoseconds");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(timeComboBox, 0, 174, Short.MAX_VALUE)
+                                    .addComponent(dateFormatTextField)
+                                    .addComponent(timeFormatTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(timeComboBox, 0, 174, Short.MAX_VALUE)
-                            .addComponent(dateFormatTextField)
-                            .addComponent(timeFormatTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                            .addComponent(dayCheckBox)
+                            .addComponent(secondCheckBox))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(miliCheckBox)
+                            .addComponent(hourCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(minuteCheckBox)
+                            .addComponent(nanoCheckBox))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -178,7 +226,17 @@ public class OptionsInterface extends javax.swing.JFrame {
                     .addComponent(timeFormatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dayCheckBox)
+                    .addComponent(hourCheckBox)
+                    .addComponent(minuteCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secondCheckBox)
+                    .addComponent(miliCheckBox)
+                    .addComponent(nanoCheckBox))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         timerLabel.setText("DateTime");
@@ -210,8 +268,8 @@ public class OptionsInterface extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -238,9 +296,17 @@ public class OptionsInterface extends javax.swing.JFrame {
         else
             timeFormat = timeFormatTextField.getText();
         
+        List<Integer> durationFormat = new ArrayList<Integer>(6);
+        durationFormat.add(0, (dayCheckBox.isSelected()) ? 1:0);
+        durationFormat.add(1, (hourCheckBox.isSelected() ? 1:0));
+        durationFormat.add(2, (minuteCheckBox.isSelected()? 1:0));
+        durationFormat.add(3, (secondCheckBox.isSelected()? 1:0));
+        durationFormat.add(4, (miliCheckBox.isSelected()? 1:0));
+        durationFormat.add(5, (nanoCheckBox.isSelected()? 1:0));
+        
         optionsMode.setDateFormat(dateFormat);
         optionsMode.setTimeFormat(timeFormat);
-        
+        optionsMode.setDurationFormat(durationFormat);
         
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -249,11 +315,17 @@ public class OptionsInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dateFormatTextFieldActionPerformed
 
+    private void dayCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dayCheckBoxActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> dateComboBox;
     private javax.swing.JTextField dateFormatTextField;
+    private javax.swing.JCheckBox dayCheckBox;
+    private javax.swing.JCheckBox hourCheckBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -266,6 +338,10 @@ public class OptionsInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JCheckBox miliCheckBox;
+    private javax.swing.JCheckBox minuteCheckBox;
+    private javax.swing.JCheckBox nanoCheckBox;
+    private javax.swing.JCheckBox secondCheckBox;
     private javax.swing.JComboBox<String> timeComboBox;
     private javax.swing.JTextField timeFormatTextField;
     private javax.swing.JLabel timerLabel;

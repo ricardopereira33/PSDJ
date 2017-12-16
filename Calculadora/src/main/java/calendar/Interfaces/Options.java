@@ -5,6 +5,9 @@
  */
 package calendar.Interfaces;
 
+import java.time.Duration;
+import java.util.List;
+
 /**
  *
  * @author dinispeixoto
@@ -15,4 +18,7 @@ public interface Options {
     public void setDateFormat(String dateFormat);
     public String getTimeFormat();
     public void setTimeFormat(String dateFormat);
+    public List<Integer> getDurationFormat();
+    public void setDurationFormat(List<Integer> durationFormat);
+    public String durationToString(Duration duration);
 }

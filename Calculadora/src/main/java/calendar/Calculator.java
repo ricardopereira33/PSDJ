@@ -9,6 +9,7 @@ import calendar.Modes.TimeZoneMode;
 import calendar.Presentation.CalendarInterface;
 import calendar.Presentation.Menu;
 import calendar.Util.*;
+import java.util.Arrays;
 
 /**
  *
@@ -25,7 +26,9 @@ public class Calculator {
         Calendar calendarMode = new CalendarMode();
         TimeZone timeZoneMode = new TimeZoneMode();
         Chronometer chronometerMode = new ChronometerMode();
-        Options optionsMode = new OptionsMode("EEE dd-MM-yyyy","HH:mm:ss");
+        
+        // Default options
+        Options optionsMode = new OptionsMode("EEE dd-MM-yyyy","HH:mm:ss",Arrays.asList(0,1,1,1,0,0));
         
         Menu home = new Menu(intervalMode, calendarMode, timeZoneMode, chronometerMode, optionsMode);
         home.setVisible(true);
