@@ -733,8 +733,8 @@ public class IntervalInterface extends javax.swing.JFrame {
         if(unitIn.equals("HALFDAYS")) unitIn = "HALF_DAYS";
         String unitOut = jComboBox5.getSelectedItem().toString().toUpperCase();
         if(unitOut.equals("HALFDAYS")) unitOut = "HALF_DAYS";
-        long result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value);   
-        convertFinal.setText(Long.toString(result));
+        double result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value);   
+        convertFinal.setText(Double.toString(result));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
