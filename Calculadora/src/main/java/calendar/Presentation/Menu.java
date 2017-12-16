@@ -48,10 +48,10 @@ public class Menu extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(optionsMode.getDateFormat()+" "+optionsMode.getTimeFormat());
 
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(optionsMode.getDateFormat()+" "+optionsMode.getTimeFormat());
             String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
