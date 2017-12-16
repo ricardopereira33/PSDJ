@@ -49,10 +49,10 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
 
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
             String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
@@ -678,7 +678,8 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String zone = (String) jComboBox1.getSelectedItem();
-        jTextField3.setText(timeZone.currentTimeIn(zone).toString());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+        jTextField3.setText(timeZone.currentTimeIn(zone).format(format));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void firstHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstHourActionPerformed
@@ -775,7 +776,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
         Date firstDate = initialDatePicker.getDate();
         
         LocalDate initalLocalDate = firstDate.toInstant()
@@ -790,7 +791,7 @@ public class TimeZoneInterface extends javax.swing.JFrame {
         String startZone = (String) jComboBox3.getSelectedItem();
         String endZone = (String) jComboBox2.getSelectedItem();
         ZonedDateTime result = timeZone.timeIn(initialLocalDateTime, startZone, endZone);
-        jTextField15.setText(result.toString());
+        jTextField15.setText(result.format(format));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void now1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_now1ActionPerformed

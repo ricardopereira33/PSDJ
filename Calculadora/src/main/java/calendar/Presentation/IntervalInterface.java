@@ -39,16 +39,17 @@ public class IntervalInterface extends javax.swing.JFrame {
     public IntervalInterface(Interval interval, Options options) {
         this.interval = interval;
         this.options = options;
+
         initComponents();
         updateTimer(timerLabel);
     }
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
-
+        
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
             String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
@@ -753,7 +754,6 @@ public class IntervalInterface extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         LocalDateTime result;
         DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
-        
         Date date = dateOperationPicker.getDate();
         LocalDate localDate = date.toInstant()
                                              .atZone(ZoneId.systemDefault())

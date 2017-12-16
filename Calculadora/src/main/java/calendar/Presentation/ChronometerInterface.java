@@ -25,12 +25,14 @@ public class ChronometerInterface extends javax.swing.JFrame {
     private Chronometer chrono;
     private Options options;
     
+    
     /**
      * Creates new form Chronometer
      */
     public ChronometerInterface(Chronometer chrono, Options options) {
         this.chrono = chrono;
         this.options = options;
+
         initComponents();
         chrono.setComponents(jTextField9, jTextField10, jTextField8, jTextField11);
         
@@ -40,6 +42,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
         DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
             String datetime = LocalDateTime.now().format(format);

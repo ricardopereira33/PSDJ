@@ -38,6 +38,7 @@ public class CalendarInterface extends javax.swing.JFrame {
     public CalendarInterface(Calendar calendar, Options options) {
         this.calendar = calendar;
         this.options = options;
+
         initComponents();
         
         updateTimer(timerLabel);
@@ -45,10 +46,10 @@ public class CalendarInterface extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
 
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
             String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
