@@ -32,6 +32,17 @@ public class OptionsInterface extends javax.swing.JFrame {
         dateFormatTextField.setText(optionsMode.getDateFormat());
         timeFormatTextField.setText(optionsMode.getTimeFormat());
         updateTimer(timerLabel);
+        updateDurationFields();
+    }
+    
+    public void updateDurationFields(){
+        List<Integer> fields = optionsMode.getDurationFormat();
+        if(fields.get(0) == 1) dayCheckBox.setSelected(true);
+        if(fields.get(1) == 1) hourCheckBox.setSelected(true);
+        if(fields.get(2) == 1) minuteCheckBox.setSelected(true);
+        if(fields.get(3) == 1) secondCheckBox.setSelected(true);
+        if(fields.get(4) == 1) miliCheckBox.setSelected(true);
+        if(fields.get(5) == 1) nanoCheckBox.setSelected(true);
     }
 
     public void updateTimer(JLabel label){
