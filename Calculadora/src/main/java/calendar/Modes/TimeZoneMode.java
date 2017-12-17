@@ -15,11 +15,20 @@ public class TimeZoneMode implements TimeZone {
     }
     
     @Override
-    public ZonedDateTime timeIn(String zone) {
+    public ZonedDateTime currentTimeIn(String zone) {
         LocalDateTime now = LocalDateTime.now();
         ZoneId zone_id = ZoneId.of(zone);
         ZonedDateTime zone_date_time = now.atZone(zone_id);
         return zone_date_time;
+    }
+    
+    @Override
+    public ZonedDateTime timeIn(LocalDateTime start, String startZone, String endZone){
+        ZoneId start_zone_id = ZoneId.of(startZone);
+        ZonedDateTime start_date_time = start.atZone(start_zone_id);
+        ZoneId end_zone_id = ZoneId.of(endZone);
+        ZonedDateTime end_date_time = start_date_time.withZoneSameInstant(end_zone_id);
+        return end_date_time;
     }
     
     @Override

@@ -13,10 +13,12 @@ import calendar.Modes.ChronometerMode;
 import calendar.Modes.IntervalMode;
 import calendar.Modes.TimeZoneMode;
 import calendar.Interfaces.Chronometer;
+import calendar.Interfaces.Options;
 import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -29,14 +31,16 @@ public class Menu extends javax.swing.JFrame {
     Calendar calendarMode;
     TimeZone timeZoneMode;
     Chronometer chronoMode;
+    Options optionsMode;
     /**
      * Creates new form Menu
      */
-    public Menu(Interval intervalMode, Calendar calendarMode, TimeZone timeZoneMode, Chronometer chronoMode) {
+    public Menu(Interval intervalMode, Calendar calendarMode, TimeZone timeZoneMode, Chronometer chronoMode, Options optionsMode) {
         this.intervalMode = intervalMode;
         this.calendarMode = calendarMode;
         this.timeZoneMode = timeZoneMode;
         this.chronoMode = chronoMode;
+        this.optionsMode = optionsMode;
         initComponents();
         
         updateTimer(timerLabel);
@@ -44,9 +48,11 @@ public class Menu extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
-            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(optionsMode.getDateFormat()+" "+optionsMode.getTimeFormat());
+            String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
         };
@@ -150,6 +156,11 @@ public class Menu extends javax.swing.JFrame {
         timerLabel.setText("DateTime");
 
         jButton2.setText("Options");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,62 +211,30 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CalendarInterface calendarMode = new CalendarInterface(this.calendarMode);
+        CalendarInterface calendarMode = new CalendarInterface(this.calendarMode, this.optionsMode);
         calendarMode.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        TimeZoneInterface timeZoneMode = new TimeZoneInterface(this.timeZoneMode);
+        TimeZoneInterface timeZoneMode = new TimeZoneInterface(this.timeZoneMode, this.optionsMode);
         timeZoneMode.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ChronometerInterface chronometerMode = new ChronometerInterface(this.chronoMode);
+        ChronometerInterface chronometerMode = new ChronometerInterface(this.chronoMode, this.optionsMode);
         chronometerMode.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        IntervalInterface intervalMode = new IntervalInterface(this.intervalMode);
+        IntervalInterface intervalMode = new IntervalInterface(this.intervalMode, this.optionsMode);
         intervalMode.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        IntervalMode intervalMode = new IntervalMode();
-        CalendarMode calendarMode = new CalendarMode();
-        TimeZoneMode timeZoneMode = new TimeZoneMode();
-        Chronometer chronoMode = new ChronometerMode();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu(intervalMode, calendarMode, timeZoneMode, chronoMode).setVisible(true);
-            }
-        });
-    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        OptionsInterface optionsMode = new OptionsInterface(this.optionsMode);
+        optionsMode.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

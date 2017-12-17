@@ -6,11 +6,13 @@
 package calendar.Presentation;
 
 import calendar.Interfaces.Chronometer;
+import calendar.Interfaces.Options;
 import calendar.Modes.ChronometerMode;
 import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -19,12 +21,18 @@ import javax.swing.Timer;
  * @author dinispeixoto
  */
 public class ChronometerInterface extends javax.swing.JFrame {
-    private static Chronometer chrono;
+    
+    private Chronometer chrono;
+    private Options options;
+    
+    
     /**
      * Creates new form Chronometer
      */
-    public ChronometerInterface(Chronometer chrono) {
+    public ChronometerInterface(Chronometer chrono, Options options) {
         this.chrono = chrono;
+        this.options = options;
+
         initComponents();
         chrono.setComponents(jTextField9, jTextField10, jTextField8, jTextField11);
         
@@ -33,9 +41,11 @@ public class ChronometerInterface extends javax.swing.JFrame {
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+
         ActionListener taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
-            String datetime = LocalDateTime.now().query(Util_Datas::actualHour);              
+            String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
           }
         };
@@ -308,7 +318,7 @@ public class ChronometerInterface extends javax.swing.JFrame {
                 .addComponent(timerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addGap(50, 50, 50))
         );
@@ -368,41 +378,6 @@ public class ChronometerInterface extends javax.swing.JFrame {
         chrono.off();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChronometerInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChronometerInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChronometerInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChronometerInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ChronometerInterface(chrono).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -43,7 +43,7 @@ public class IntervalMode implements Interval{
     }
     
     @Override
-    public long converterUnit(ChronoUnit in, ChronoUnit out, long value){
+    public double converterUnit(ChronoUnit in, ChronoUnit out, long value){
         LocalDateTime time = LocalDateTime.now();
         LocalDateTime time2= time.plus(value,in);
 
