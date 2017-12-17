@@ -33,7 +33,8 @@ public class Calculator {
         
         Options optionsMode;
         try {
-            optionsMode = Options.importOptions(configuration_file);
+            optionsMode = new OptionsMode();
+            optionsMode = optionsMode.importOptions(configuration_file);
         } catch (Exception ex) {
             optionsMode = new OptionsMode(configuration_file,"EEE dd-MM-yyyy","HH:mm:ss",Arrays.asList(0,1,1,1,0,0));
         }

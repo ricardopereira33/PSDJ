@@ -112,6 +112,14 @@ public class OptionsMode implements Options, Serializable{
         obj.close();
     }
     
+    @Override
+    public Options importOptions(String file) throws Exception{
+        ObjectInputStream obj = new ObjectInputStream(new FileInputStream(file));
+        Options options = (Options) obj.readObject();
+        obj.close();
+        return options;
+    }
+    
     
     
 }

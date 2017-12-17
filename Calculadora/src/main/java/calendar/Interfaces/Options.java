@@ -27,11 +27,5 @@ public interface Options {
     public void setDurationFormat(List<Integer> durationFormat);
     public String durationToString(Duration duration);
     public void exportOptions() throws Exception;
-    
-    public static Options importOptions(String file) throws Exception{
-        ObjectInputStream obj = new ObjectInputStream(new FileInputStream(file));
-        Options options = (Options) obj.readObject();
-        obj.close();
-        return options;
-    }
+    public Options importOptions(String file) throws Exception;
 }
