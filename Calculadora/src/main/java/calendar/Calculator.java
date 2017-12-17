@@ -8,8 +8,9 @@ import calendar.Modes.OptionsMode;
 import calendar.Modes.TimeZoneMode;
 import calendar.Presentation.CalendarInterface;
 import calendar.Presentation.Menu;
-import calendar.Util.*;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,15 +21,22 @@ public class Calculator {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
+        String configuration_file = "Calculator.conf";
         Interval intervalMode = new IntervalMode(); 
         Calendar calendarMode = new CalendarMode();
         TimeZone timeZoneMode = new TimeZoneMode();
         Chronometer chronometerMode = new ChronometerMode();
         
         // Default options
-        Options optionsMode = new OptionsMode("EEE dd-MM-yyyy","HH:mm:ss",Arrays.asList(0,1,1,1,0,0));
+        
+        Options optionsMode;
+        try {
+            optionsMode = Options.importOptions(configuration_file);
+        } catch (Exception ex) {
+            optionsMode = new OptionsMode(configuration_file,"EEE dd-MM-yyyy","HH:mm:ss",Arrays.asList(0,1,1,1,0,0));
+        }
         
         Menu home = new Menu(intervalMode, calendarMode, timeZoneMode, chronometerMode, optionsMode);
         home.setVisible(true);

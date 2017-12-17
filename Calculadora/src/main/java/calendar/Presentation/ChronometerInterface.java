@@ -8,11 +8,12 @@ package calendar.Presentation;
 import calendar.Interfaces.Chronometer;
 import calendar.Interfaces.Options;
 import calendar.Modes.ChronometerMode;
-import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -361,6 +362,11 @@ public class ChronometerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            options.exportOptions();
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         chrono.exit();
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed

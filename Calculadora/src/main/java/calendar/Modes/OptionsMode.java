@@ -6,6 +6,12 @@
 package calendar.Modes;
 
 import calendar.Interfaces.Options;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.List;
 
@@ -13,18 +19,31 @@ import java.util.List;
  *
  * @author dinispeixoto
  */
-public class OptionsMode implements Options{
+public class OptionsMode implements Options, Serializable{
     
+    String configurationFile;
     String dateFormat;
     String timeFormat;
     List<Integer> durationFormat;
     
-    public OptionsMode(String dateFormat, String timeFormat, List<Integer> durationFormat){
+    public OptionsMode(){    
+    }
+    
+    public OptionsMode(String configFile, String dateFormat, String timeFormat, List<Integer> durationFormat){
+        this.configurationFile = configFile;
         this.dateFormat = dateFormat;
         this.timeFormat = timeFormat;
         this.durationFormat = durationFormat;
     }
 
+    public String getConfigurationFile() {
+        return configurationFile;
+    }
+
+    public void setConfigurationFile(String configurationFile) {
+        this.configurationFile = configurationFile;
+    }
+    
     @Override
     public String getDateFormat() {
         return dateFormat;
@@ -78,6 +97,19 @@ public class OptionsMode implements Options{
         if(durationFormat.get(5) == 1)
             durationInfo.append("Nanoseconds: " + duration.toNanos() + "\n");
         return durationInfo.toString();
+    }
+
+    /**
+     *
+     * @param file
+     * @throws IOException
+     */
+    @Override
+    public void exportOptions() throws Exception{
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(configurationFile));
+        obj.writeObject(this);
+        obj.flush();
+        obj.close();
     }
     
     

@@ -7,7 +7,6 @@ package calendar.Presentation;
 import calendar.Interfaces.Interval;
 import calendar.Interfaces.Options;
 import calendar.Modes.IntervalMode;
-import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -22,6 +21,8 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -692,6 +693,11 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_valueOperationActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            options.exportOptions();
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 

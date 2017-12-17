@@ -14,11 +14,12 @@ import calendar.Modes.IntervalMode;
 import calendar.Modes.TimeZoneMode;
 import calendar.Interfaces.Chronometer;
 import calendar.Interfaces.Options;
-import calendar.Util.Util_Datas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -44,13 +45,14 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         
         updateTimer(timerLabel);
+        
     }
     
     public void updateTimer(JLabel label){
         int delay = 1000; //milliseconds
 
         ActionListener taskPerformer = new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
+          public void actionPerformed(ActionEvent evt) {  
             DateTimeFormatter format = DateTimeFormatter.ofPattern(optionsMode.getDateFormat()+" "+optionsMode.getTimeFormat());
             String datetime = LocalDateTime.now().format(format);
             label.setText(datetime);
@@ -58,6 +60,48 @@ public class Menu extends javax.swing.JFrame {
         };
         new Timer(delay, taskPerformer).start();
     }
+
+    public Interval getIntervalMode() {
+        return intervalMode;
+    }
+
+    public void setIntervalMode(Interval intervalMode) {
+        this.intervalMode = intervalMode;
+    }
+
+    public Calendar getCalendarMode() {
+        return calendarMode;
+    }
+
+    public void setCalendarMode(Calendar calendarMode) {
+        this.calendarMode = calendarMode;
+    }
+
+    public TimeZone getTimeZoneMode() {
+        return timeZoneMode;
+    }
+
+    public void setTimeZoneMode(TimeZone timeZoneMode) {
+        this.timeZoneMode = timeZoneMode;
+    }
+
+    public Chronometer getChronoMode() {
+        return chronoMode;
+    }
+
+    public void setChronoMode(Chronometer chronoMode) {
+        this.chronoMode = chronoMode;
+    }
+
+    public Options getOptionsMode() {
+        return optionsMode;
+    }
+
+    public void setOptionsMode(Options optionsMode) {
+        this.optionsMode = optionsMode;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -207,6 +251,11 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            optionsMode.exportOptions();
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 

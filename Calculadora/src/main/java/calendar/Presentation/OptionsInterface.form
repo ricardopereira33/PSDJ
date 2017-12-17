@@ -285,7 +285,7 @@
               <Font name="Lucida Grande" size="13" style="2"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Choose a format that you would like to see in dates, "/>
+            <Property name="text" type="java.lang.String" value="Choose a format that you would like to see on dates, "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">

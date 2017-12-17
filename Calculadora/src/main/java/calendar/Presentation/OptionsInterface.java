@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -137,7 +138,7 @@ public class OptionsInterface extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel6.setText("Choose a format that you would like to see in dates, ");
+        jLabel6.setText("Choose a format that you would like to see on dates, ");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel7.setText("times and durations. Note that if you change the custom");
@@ -318,7 +319,6 @@ public class OptionsInterface extends javax.swing.JFrame {
         optionsMode.setDateFormat(dateFormat);
         optionsMode.setTimeFormat(timeFormat);
         optionsMode.setDurationFormat(durationFormat);
-        
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
