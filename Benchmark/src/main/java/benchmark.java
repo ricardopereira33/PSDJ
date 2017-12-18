@@ -1,15 +1,13 @@
 import Interfaces.Test;
 import Structure.TransCaixa;
+import Tests.*;
 import Utils.Crono;
 import Utils.Printer;
-import Utils.TestUtils;
 import Utils.Tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.out;
@@ -52,7 +50,7 @@ public class Benchmark {
         return res;
     }
 
-    private static void processFile(TestUtils t, Printer p, BufferedReader br) throws IOException {
+    private static void processFile(List<TransCaixa> ltc, Tools tools, Printer p, BufferedReader br) throws IOException {
         String line = null;
 
         while(true) {
@@ -62,51 +60,63 @@ public class Benchmark {
                 case "0":
                     return;
                 case "1":
-                    t.test1();
+                    Test t1 = new Test1(ltc,tools);
+                    t1.exe();
                     pressToContinue(br);
                     break;
                 case "2":
-                    t.test2();
+                    Test t2 = new Test2(ltc,tools);
+                    t2.exe();
                     pressToContinue(br);
                     break;
                 case "3":
-                    t.test3();
+                    Test t3 = new Test3(ltc,tools);
+                    t3.exe();
                     pressToContinue(br);
                     break;
                 case "4":
-                    t.test4();
+                    Test t4 = new Test4(ltc,tools);
+                    t4.exe();
                     pressToContinue(br);
                     break;
                 case "5":
-                    t.test5();
+                    Test t5 = new Test5(ltc,tools);
+                    t5.exe();
                     pressToContinue(br);
                     break;
                 case "6":
-                    t.test6();
+                    Test t6 = new Test6(ltc,tools);
+                    t6.exe();
                     pressToContinue(br);
                     break;
                 case "7":
-                    t.test7();
+                    Test t7 = new Test7(ltc,tools);
+                    t7.exe();
                     pressToContinue(br);
                     break;
                 case "8":
-                    t.test8();
+                    Test t8 = new Test8(ltc,tools);
+                    t8.exe();
                     pressToContinue(br);
                     break;
                 case "9":
-                    t.test9();
+                    Test t9 = new Test9(ltc,tools);
+                    t9.exe();
                     pressToContinue(br);
                     break;
                 case "10":
-                    t.test10();
+                    Test t10 = new Test10(ltc,tools);
+                    t10.exe();
                     pressToContinue(br);
                     break;
                 case "11":
-                    t.test11();
+                    Test t11 = new Test11(ltc,tools);
+                    t11.exe();
                     pressToContinue(br);
                     break;
                 case "12":
-                    t.test12();
+                    Test t12 = new Test12(ltc,tools);
+                    t12.exe();
                     pressToContinue(br);
                     break;
                 default:
@@ -129,8 +139,7 @@ public class Benchmark {
         String fileName = chooseFile(br, p);
         List<TransCaixa> ltc = loadFile(fileName, tools, br);
 
-        TestUtils t = new TestUtils(ltc, tools);
-        processFile(t, p, br);
+        processFile(ltc, tools, p, br);
     }
 }
 
