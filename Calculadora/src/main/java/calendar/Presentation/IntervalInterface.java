@@ -353,8 +353,7 @@ public class IntervalInterface extends javax.swing.JFrame {
             }
         });
 
-        for (ChronoUnit c : ChronoUnit.values())
-        jComboBox4.addItem(c.toString());
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Micros", "Millis", "Seconds", "Minutes", "Hours" }));
         jComboBox4.setSelectedIndex(1);
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,8 +371,7 @@ public class IntervalInterface extends javax.swing.JFrame {
             }
         });
 
-        for (ChronoUnit c : ChronoUnit.values())
-        jComboBox5.addItem(c.toString());
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Micros", "Millis", "Seconds", "Minutes", "Hours" }));
         jComboBox5.setSelectedIndex(1);
 
         jButton9.setText("Convert");
@@ -736,11 +734,10 @@ public class IntervalInterface extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         long value = Long.parseLong(convertInit.getText());
         String unitIn = jComboBox4.getSelectedItem().toString().toUpperCase();
-        if(unitIn.equals("HALFDAYS")) unitIn = "HALF_DAYS";
         String unitOut = jComboBox5.getSelectedItem().toString().toUpperCase();
-        if(unitOut.equals("HALFDAYS")) unitOut = "HALF_DAYS";
-        double result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value);   
-        convertFinal.setText(Double.toString(result));
+        double result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value); 
+        String resultDouble = String.format("%.5f", result);
+        convertFinal.setText(resultDouble);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed

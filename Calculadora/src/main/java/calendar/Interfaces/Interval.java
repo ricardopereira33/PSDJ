@@ -9,21 +9,16 @@ import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 public interface Interval {
-    //Calcula um conjunto de datas ou tempos distanciadas entre si por um dado intervalo
-    public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates);
     
-    //Intervalo entre dois tempos, numa unidade dada
+    // Calcular o intervalo de tempo entre dois tempos, para uma dada unidade.
     public long getIntervalTimeUnit(Temporal t1, Temporal t2, ChronoUnit unit);
     
-    // Converter um valor dado em uma unidade para outra unidade 
+    // Converter um valor dado numa unidade para outra. 
     public double converterUnit(ChronoUnit in, ChronoUnit out, long value);
     
-    //Calcula o numero de vezes que um dia da semana existe num dado intervalo
-    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end);
-    
-    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    // Dado uma data/tempo adicionar uma determinada unidade de tempo (e.g. somar 2 horas). 
     public LocalDateTime addDateTime(LocalDateTime d, ChronoUnit unit, int value);
     
-    // Dado uma data/tempo, adiciona p.e. dias,minutos,hora, etc.. 
+    // Dado uma data/tempo subtrair uma determinada unidade de tempo (e.g. subtrair 2 horas).
     public LocalDateTime subDateTime(LocalDateTime d, ChronoUnit unit, int value);
 }

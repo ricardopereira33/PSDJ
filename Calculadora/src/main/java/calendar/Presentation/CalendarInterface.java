@@ -538,9 +538,9 @@ public class CalendarInterface extends javax.swing.JFrame {
         Date firstDate = firstDatePicker1.getDate();               
         
         LocalDate date = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDateTime()
+                                .toLocalDate();
         
         String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
         if (unit.equals("CENTURY")) unit = "CENTURIE";

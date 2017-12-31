@@ -493,6 +493,15 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox4">
               <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Micros"/>
+                    <StringItem index="1" value="Millis"/>
+                    <StringItem index="2" value="Seconds"/>
+                    <StringItem index="3" value="Minutes"/>
+                    <StringItem index="4" value="Hours"/>
+                  </StringArray>
+                </Property>
                 <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="1" type="code"/>
                 </Property>
@@ -501,7 +510,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox4ActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="for (ChronoUnit c : ChronoUnit.values())&#xa;    jComboBox4.addItem(c.toString());"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
@@ -524,14 +532,19 @@
             <Component class="javax.swing.JComboBox" name="jComboBox5">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="5">
+                    <StringItem index="0" value="Micros"/>
+                    <StringItem index="1" value="Millis"/>
+                    <StringItem index="2" value="Seconds"/>
+                    <StringItem index="3" value="Minutes"/>
+                    <StringItem index="4" value="Hours"/>
+                  </StringArray>
                 </Property>
                 <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="1" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="for (ChronoUnit c : ChronoUnit.values())&#xa;    jComboBox5.addItem(c.toString());"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>

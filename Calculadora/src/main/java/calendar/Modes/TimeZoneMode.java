@@ -10,8 +10,7 @@ import calendar.Interfaces.TimeZone;
 
 public class TimeZoneMode implements TimeZone {
 
-    public TimeZoneMode(){
-        
+    public TimeZoneMode(){ 
     }
     
     @Override

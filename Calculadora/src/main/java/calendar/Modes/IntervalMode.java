@@ -13,11 +13,6 @@ import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 public class IntervalMode implements Interval{
-
-//    @Override
-//    public Duration getIntervalDateTime(Temporal d1, Temporal d2){
-//        return Duration.between(d1, d2);
-//    }
     
     public IntervalMode(){
     }
@@ -47,31 +42,12 @@ public class IntervalMode implements Interval{
         LocalDateTime time = LocalDateTime.now();
         LocalDateTime time2= time.plus(value,in);
 
-        return out.between(time,time2);
+        return between(time, time2, out);
     }
-   
-    @Override
-    public ArrayList<Temporal> getDates(Temporal start, Duration interval, int numDates){
-        ArrayList<Temporal> dates = new ArrayList<>();
-        Temporal date = start.plus(interval);
-        dates.add(date);
-        for(int i=1;i<numDates;i++){
-            date = date.plus(interval);
-            dates.add(date);
-        }
-        return dates;
-    }
-
-    @Override
-    public int getNumDayOfWeek(DayOfWeek day, Temporal start, Temporal end){
-        LocalDate time1 = LocalDate.from(start);
-        LocalDate time2 = LocalDate.from(end);
-        int numDayOfWeek = 0;
-        while(time1.isBefore(time2)){
-            DayOfWeek dia = time1.getDayOfWeek();
-            if(dia.equals(day))  numDayOfWeek++;
-            time1 = time1.plus(1, ChronoUnit.DAYS);
-        }
-        return numDayOfWeek;
-    }
+    
+    public static double between(Temporal startInclusive, Temporal endExclusive, ChronoUnit unit) {
+        Duration duration = Duration.between(startInclusive, endExclusive);
+        long conversion = Duration.of(1, unit).toNanos();
+    return (double) duration.toNanos() / conversion;
+}
 }  
