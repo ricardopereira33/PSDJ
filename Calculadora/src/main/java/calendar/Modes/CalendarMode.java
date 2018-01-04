@@ -9,6 +9,7 @@ import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.List;
 import calendar.Interfaces.TimeZone;
+import calendar.Util.WeekendQuery;
 
 public class CalendarMode implements Calendar {
 
@@ -51,8 +52,7 @@ public class CalendarMode implements Calendar {
         int weekends = 0;
 
         while(time1.isBefore(time2)){
-            DayOfWeek dia = time1.getDayOfWeek();
-            if(dia.equals(SATURDAY) || dia.equals(SUNDAY)) {
+            if(time1.query(new WeekendQuery())) {
                 time1 = time1.plus(1, ChronoUnit.DAYS);
                 weekends++;
             }
@@ -184,3 +184,4 @@ public class CalendarMode implements Calendar {
         }
     }
 }
+
