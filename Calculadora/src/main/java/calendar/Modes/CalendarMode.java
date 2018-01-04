@@ -3,18 +3,12 @@ package calendar.Modes;
 import calendar.Interfaces.Calendar;
 
 import java.time.*;
-import static java.time.DayOfWeek.SATURDAY;
-import static java.time.DayOfWeek.SUNDAY;
 import java.time.temporal.*;
-import java.util.ArrayList;
-import java.util.List;
-import calendar.Interfaces.TimeZone;
 import calendar.Util.WeekendQuery;
 
 public class CalendarMode implements Calendar {
 
     public CalendarMode(){
-        
     }
     
     @Override
@@ -46,6 +40,7 @@ public class CalendarMode implements Calendar {
         return saturdays + sundays;
     }
 
+    @Override
     public int numWeekends(Temporal t1, Temporal t2){
         LocalDate time1 = LocalDate.from(t1);
         LocalDate time2 = LocalDate.from(t2);
@@ -126,6 +121,7 @@ public class CalendarMode implements Calendar {
         }
     }
 
+    @Override
     public LocalDate firstDayInfo(ChronoUnit unit, LocalDate date){
         if(unit == ChronoUnit.WEEKS){
             int day = date.getDayOfWeek().getValue();
@@ -154,6 +150,7 @@ public class CalendarMode implements Calendar {
         }
     }
 
+    @Override
     public LocalDate lastDayInfo(ChronoUnit unit, LocalDate date){
         if(unit == ChronoUnit.WEEKS){
             int day = date.getDayOfWeek().getValue();

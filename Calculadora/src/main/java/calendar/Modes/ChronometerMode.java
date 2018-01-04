@@ -101,6 +101,7 @@ public class ChronometerMode extends Thread implements Chronometer {
             }
         }
     }
+    
     private synchronized void waitOff(){
         try {
             wait();
@@ -108,6 +109,7 @@ public class ChronometerMode extends Thread implements Chronometer {
             System.out.println("Erro: " + ex.getMessage());
         }
     }
+    
     private void sleep(){
         try {
             Thread.sleep(10);

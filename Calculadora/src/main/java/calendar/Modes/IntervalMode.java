@@ -4,13 +4,8 @@ import calendar.Interfaces.Interval;
 
 import java.time.*;
 
-import static java.time.DayOfWeek.SATURDAY;
-import static java.time.DayOfWeek.SUNDAY;
-
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
-import java.util.ArrayList;
 
 public class IntervalMode implements Interval{
     
@@ -49,5 +44,5 @@ public class IntervalMode implements Interval{
         Duration duration = Duration.between(startInclusive, endExclusive);
         long conversion = Duration.of(1, unit).toNanos();
     return (double) duration.toNanos() / conversion;
-}
+    }
 }  

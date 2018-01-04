@@ -27,10 +27,12 @@ public class OptionsMode implements Options, Serializable{
         this.durationFormat = durationFormat;
     }
 
+    @Override
     public String getConfigurationFile() {
         return configurationFile;
     }
 
+    @Override
     public void setConfigurationFile(String configurationFile) {
         this.configurationFile = configurationFile;
     }
@@ -90,11 +92,6 @@ public class OptionsMode implements Options, Serializable{
         return durationInfo.toString();
     }
 
-    /**
-     *
-     * @param file
-     * @throws IOException
-     */
     @Override
     public void exportOptions() throws Exception{
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(configurationFile));

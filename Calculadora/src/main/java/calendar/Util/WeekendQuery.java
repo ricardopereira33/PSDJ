@@ -19,5 +19,4 @@ public class WeekendQuery implements TemporalQuery<Boolean> {
             return Boolean.FALSE;
         }
     }
-
 }
