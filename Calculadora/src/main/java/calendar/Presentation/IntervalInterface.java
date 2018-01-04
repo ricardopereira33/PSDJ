@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -704,40 +705,67 @@ public class IntervalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Date firstDate = startDatePicker.getDate();
-        Date secondDate = endDatePicker.getDate();                
         
-        LocalDate firstLocalDate = firstDate.toInstant()
+        try{
+            Date firstDate = startDatePicker.getDate();
+            Date secondDate = endDatePicker.getDate();
+            
+            LocalDate firstLocalDate = firstDate.toInstant()
                                              .atZone(ZoneId.systemDefault())
                                              .toLocalDateTime()
                                              .toLocalDate();
-        LocalTime firstLocalTime = LocalTime.of(Integer.parseInt(firstHour.getText()),
-                                                Integer.parseInt(firstMinute.getText()),
-                                                Integer.parseInt(firstSecond.getText()));
-        LocalDateTime firstLocalDateTime = LocalDateTime.of(firstLocalDate, firstLocalTime);
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
+            
+            LocalTime firstLocalTime = LocalTime.of(Integer.parseInt(firstHour.getText()),
+                                                    Integer.parseInt(firstMinute.getText()),
+                                                    Integer.parseInt(firstSecond.getText()));
+            LocalDateTime firstLocalDateTime = LocalDateTime.of(firstLocalDate, firstLocalTime);
+            
+            LocalDate secondLocalDate = secondDate.toInstant()
                                              .atZone(ZoneId.systemDefault())
                                              .toLocalDateTime()
                                              .toLocalDate();
-        LocalTime secondLocalTime = LocalTime.of(Integer.parseInt(secondHour.getText()),
-                                                Integer.parseInt(secondMinute.getText()),
-                                                Integer.parseInt(secondSecond.getText()));
-        LocalDateTime secondLocalDateTime = LocalDateTime.of(secondLocalDate, secondLocalTime);
-        
-        String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
-        if(unit.equals("HALFDAYS")) unit = "HALF_DAYS";
-        long result = interval.getIntervalTimeUnit(firstLocalDateTime, secondLocalDateTime, ChronoUnit.valueOf(unit));
-        jTextArea1.setText(Long.toString(result));
+            LocalTime secondLocalTime = LocalTime.of(Integer.parseInt(secondHour.getText()),
+                                                    Integer.parseInt(secondMinute.getText()),
+                                                    Integer.parseInt(secondSecond.getText()));
+            LocalDateTime secondLocalDateTime = LocalDateTime.of(secondLocalDate, secondLocalTime);
+
+            String unit = jComboBox1.getSelectedItem().toString().toUpperCase();
+            if(unit.equals("HALFDAYS")) unit = "HALF_DAYS";
+            long result = interval.getIntervalTimeUnit(firstLocalDateTime, secondLocalDateTime, ChronoUnit.valueOf(unit));
+            jTextArea1.setText(Long.toString(result));
+        }
+        catch(DateTimeException exception){
+            ExceptionInvalidTime error = new ExceptionInvalidTime(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NumberFormatException invalidNumberException){
+            ExceptionInvalidNumber error = new ExceptionInvalidNumber(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        long value = Long.parseLong(convertInit.getText());
-        String unitIn = jComboBox4.getSelectedItem().toString().toUpperCase();
-        String unitOut = jComboBox5.getSelectedItem().toString().toUpperCase();
-        double result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value); 
-        String resultDouble = String.format("%.5f", result);
-        convertFinal.setText(resultDouble);
+        
+        try{
+            long value = Long.parseLong(convertInit.getText());
+            String unitIn = jComboBox4.getSelectedItem().toString().toUpperCase();
+            String unitOut = jComboBox5.getSelectedItem().toString().toUpperCase();
+            double result = interval.converterUnit(ChronoUnit.valueOf(unitIn), ChronoUnit.valueOf(unitOut), value); 
+            String resultDouble = String.format("%.5f", result);
+            convertFinal.setText(resultDouble);
+        }
+        catch(NumberFormatException invalidNumberException){
+            ExceptionInvalidNumber error = new ExceptionInvalidNumber(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -751,27 +779,41 @@ public class IntervalInterface extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         LocalDateTime result;
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
-        Date date = dateOperationPicker.getDate();
-        LocalDate localDate = date.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        LocalTime localTime = LocalTime.of(Integer.parseInt(hourOperation.getText()),
-                                           Integer.parseInt(minuteOperation.getText()),
-                                           Integer.parseInt(secondOperation.getText()));
-        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
-        
-        String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
-        if(unit.equals("HALFDAYS")) unit = "HALF_DAYS";
-        
-        int value = Integer.parseInt(valueOperation.getText());
-        
-        if(operationComboBox.getSelectedIndex() == 0)
-            result = interval.addDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
-        else
-            result = interval.subDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
-        jTextArea2.setText(result.format(format));
+        try{
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+            Date date = dateOperationPicker.getDate();
+            LocalDate localDate = date.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+            LocalTime localTime = LocalTime.of(Integer.parseInt(hourOperation.getText()),
+                                               Integer.parseInt(minuteOperation.getText()),
+                                               Integer.parseInt(secondOperation.getText()));
+            LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+
+            String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
+            if(unit.equals("HALFDAYS")) unit = "HALF_DAYS";
+
+            int value = Integer.parseInt(valueOperation.getText());
+
+            if(operationComboBox.getSelectedIndex() == 0)
+                result = interval.addDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
+            else
+                result = interval.subDateTime(localDateTime, ChronoUnit.valueOf(unit), value);
+            jTextArea2.setText(result.format(format));
+        }
+        catch(DateTimeException invalidTimeException){
+            ExceptionInvalidTime error = new ExceptionInvalidTime(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NumberFormatException invalidNumberException){
+            ExceptionInvalidNumber error = new ExceptionInvalidNumber(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void secondHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondHourActionPerformed

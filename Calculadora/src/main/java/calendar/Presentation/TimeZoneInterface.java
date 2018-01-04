@@ -9,6 +9,7 @@ import calendar.Interfaces.TimeZone;
 import calendar.Modes.TimeZoneMode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -709,31 +710,45 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_secondSecondActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Date firstDate = firstDatePicker.getDate();
-        Date secondDate = secondDatePicker.getDate();                
-        
-        LocalDate firstLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        LocalTime firstLocalTime = LocalTime.of(Integer.parseInt(firstHour.getText()),
-                                                Integer.parseInt(firstMinute.getText()),
-                                                Integer.parseInt(firstSecond.getText()));
-        LocalDateTime firstLocalDateTime = LocalDateTime.of(firstLocalDate, firstLocalTime);
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        LocalTime secondLocalTime = LocalTime.of(Integer.parseInt(secondHour.getText()),
-                                                Integer.parseInt(secondMinute.getText()),
-                                                Integer.parseInt(secondSecond.getText()));
-        LocalDateTime secondLocalDateTime = LocalDateTime.of(secondLocalDate, secondLocalTime);
-        
-        String startZone = (String) jComboBox4.getSelectedItem();
-        String endZone = (String) jComboBox5.getSelectedItem();
-        Duration duration = timeZone.timeTravel(firstLocalDateTime, startZone, secondLocalDateTime, endZone);
-        jTextArea2.setText(options.durationToString(duration));
+        try{
+            Date firstDate = firstDatePicker.getDate();
+            Date secondDate = secondDatePicker.getDate();                
+
+            LocalDate firstLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+            LocalTime firstLocalTime = LocalTime.of(Integer.parseInt(firstHour.getText()),
+                                                    Integer.parseInt(firstMinute.getText()),
+                                                    Integer.parseInt(firstSecond.getText()));
+            LocalDateTime firstLocalDateTime = LocalDateTime.of(firstLocalDate, firstLocalTime);
+
+            LocalDate secondLocalDate = secondDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+            LocalTime secondLocalTime = LocalTime.of(Integer.parseInt(secondHour.getText()),
+                                                    Integer.parseInt(secondMinute.getText()),
+                                                    Integer.parseInt(secondSecond.getText()));
+            LocalDateTime secondLocalDateTime = LocalDateTime.of(secondLocalDate, secondLocalTime);
+
+            String startZone = (String) jComboBox4.getSelectedItem();
+            String endZone = (String) jComboBox5.getSelectedItem();
+            Duration duration = timeZone.timeTravel(firstLocalDateTime, startZone, secondLocalDateTime, endZone);
+            jTextArea2.setText(options.durationToString(duration));
+        }
+        catch(DateTimeException invalidTimeException){
+            ExceptionInvalidTime error = new ExceptionInvalidTime(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NumberFormatException invalidNumberException){
+            ExceptionInvalidNumber error = new ExceptionInvalidNumber(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -773,23 +788,37 @@ public class TimeZoneInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_initialSecondActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
-        Date firstDate = initialDatePicker.getDate();
+        try{
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat()+" "+options.getTimeFormat());
+            Date firstDate = initialDatePicker.getDate();
+
+            LocalDate initalLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+            LocalTime initialLocalTime = LocalTime.of(Integer.parseInt(initialHour.getText()),
+                                                    Integer.parseInt(initialMinute.getText()),
+                                                    Integer.parseInt(initialSecond.getText()));
+            LocalDateTime initialLocalDateTime = LocalDateTime.of(initalLocalDate, initialLocalTime);
+
+            String startZone = (String) jComboBox3.getSelectedItem();
+            String endZone = (String) jComboBox2.getSelectedItem();
+            ZonedDateTime result = timeZone.timeIn(initialLocalDateTime, startZone, endZone);
+            jTextArea1.setText(result.format(format));
+        }
         
-        LocalDate initalLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        LocalTime initialLocalTime = LocalTime.of(Integer.parseInt(initialHour.getText()),
-                                                Integer.parseInt(initialMinute.getText()),
-                                                Integer.parseInt(initialSecond.getText()));
-        LocalDateTime initialLocalDateTime = LocalDateTime.of(initalLocalDate, initialLocalTime);
-        
-        String startZone = (String) jComboBox3.getSelectedItem();
-        String endZone = (String) jComboBox2.getSelectedItem();
-        ZonedDateTime result = timeZone.timeIn(initialLocalDateTime, startZone, endZone);
-        jTextArea1.setText(result.format(format));
+        catch(DateTimeException invalidTimeException){
+            ExceptionInvalidTime error = new ExceptionInvalidTime(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NumberFormatException invalidNumberException){
+            ExceptionInvalidNumber error = new ExceptionInvalidNumber(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void now1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_now1ActionPerformed

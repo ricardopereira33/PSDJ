@@ -501,22 +501,27 @@ public class CalendarInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        Date firstDate = firstDatePicker.getDate();
-        Date secondDate = secondDatePicker.getDate();                
-        
-        LocalDate firstLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        int result = calendar.numNonWorkingDays(firstLocalDate, secondLocalDate);
-        jTextArea1.setText(Integer.toString(result));
+        try{
+            Date firstDate = firstDatePicker.getDate();
+            Date secondDate = secondDatePicker.getDate();                
+
+            LocalDate firstLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            LocalDate secondLocalDate = secondDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            int result = calendar.numNonWorkingDays(firstLocalDate, secondLocalDate);
+            jTextArea1.setText(Integer.toString(result));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -535,18 +540,24 @@ public class CalendarInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        Date firstDate = firstDatePicker1.getDate();               
-        
-        LocalDate date = firstDate.toInstant()
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDateTime()
-                                .toLocalDate();
-        
-        String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
-        if (unit.equals("CENTURY")) unit = "CENTURIE";
-        LocalDate result = calendar.lastDayInfo(ChronoUnit.valueOf(unit+"S"), date);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat());
-        jTextArea3.setText(result.format(format));
+        try{
+            Date firstDate = firstDatePicker1.getDate();               
+
+            LocalDate date = firstDate.toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime()
+                                    .toLocalDate();
+
+            String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
+            if (unit.equals("CENTURY")) unit = "CENTURIE";
+            LocalDate result = calendar.lastDayInfo(ChronoUnit.valueOf(unit+"S"), date);
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat());
+            jTextArea3.setText(result.format(format));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -563,40 +574,51 @@ public class CalendarInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Date firstDate = firstDatePicker.getDate();
-        Date secondDate = secondDatePicker.getDate();                
-        
-        LocalDate firstLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        int result = calendar.numWorkingDays(firstLocalDate, secondLocalDate);
-        jTextArea1.setText(Integer.toString(result));
+        try{
+            Date firstDate = firstDatePicker.getDate();
+            Date secondDate = secondDatePicker.getDate();                
+
+            LocalDate firstLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            LocalDate secondLocalDate = secondDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            int result = calendar.numWorkingDays(firstLocalDate, secondLocalDate);
+            jTextArea1.setText(Integer.toString(result));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Date firstDate = firstDatePicker.getDate();
-        Date secondDate = secondDatePicker.getDate();                
-        
-        LocalDate firstLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        int result = calendar.numWeekends(firstLocalDate, secondLocalDate);
-        jTextArea1.setText(Integer.toString(result));
+        try{
+            Date firstDate = firstDatePicker.getDate();
+            Date secondDate = secondDatePicker.getDate();                
+
+            LocalDate firstLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            LocalDate secondLocalDate = secondDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            int result = calendar.numWeekends(firstLocalDate, secondLocalDate);
+            jTextArea1.setText(Integer.toString(result));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -607,38 +629,50 @@ public class CalendarInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Date firstDate = firstDatePicker1.getDate();               
-        
-        LocalDate date = firstDate.toInstant()
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDateTime()
-                                .toLocalDate();
-        
-        String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
-        if (unit.equals("CENTURY")) unit = "CENTURIE";
-        LocalDate result = calendar.firstDayInfo(ChronoUnit.valueOf(unit+"S"), date);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat());
-        jTextArea3.setText(result.format(format));
+        try{
+            Date firstDate = firstDatePicker1.getDate();               
+
+            LocalDate date = firstDate.toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime()
+                                    .toLocalDate();
+
+            String unit = jComboBox3.getSelectedItem().toString().toUpperCase();
+            if (unit.equals("CENTURY")) unit = "CENTURIE";
+            LocalDate result = calendar.firstDayInfo(ChronoUnit.valueOf(unit+"S"), date);
+            DateTimeFormatter format = DateTimeFormatter.ofPattern(options.getDateFormat());
+            jTextArea3.setText(result.format(format));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Date firstDate = firstDatePicker.getDate();
-        Date secondDate = secondDatePicker.getDate();                
-        
-        LocalDate firstLocalDate = firstDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        LocalDate secondLocalDate = secondDate.toInstant()
-                                             .atZone(ZoneId.systemDefault())
-                                             .toLocalDateTime()
-                                             .toLocalDate();
-        
-        String dayOfWeek = jComboBox2.getSelectedItem().toString().toUpperCase();
-        
-        int result = calendar.numOfDaysOfWeek(firstLocalDate, secondLocalDate, DayOfWeek.valueOf(dayOfWeek));
-        jTextArea1.setText(Integer.toString(result));
+        try{
+            Date firstDate = firstDatePicker.getDate();
+            Date secondDate = secondDatePicker.getDate();                
+
+            LocalDate firstLocalDate = firstDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            LocalDate secondLocalDate = secondDate.toInstant()
+                                                 .atZone(ZoneId.systemDefault())
+                                                 .toLocalDateTime()
+                                                 .toLocalDate();
+
+            String dayOfWeek = jComboBox2.getSelectedItem().toString().toUpperCase();
+
+            int result = calendar.numOfDaysOfWeek(firstLocalDate, secondLocalDate, DayOfWeek.valueOf(dayOfWeek));
+            jTextArea1.setText(Integer.toString(result));
+        }
+        catch(NullPointerException invalidInput){
+            ExceptionNullInput error = new ExceptionNullInput(this, rootPaneCheckingEnabled);
+            error.setVisible(true);
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void firstDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstDatePicker1ActionPerformed

@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package calendar.Modes;
 
 import calendar.Interfaces.Chronometer;
 import javax.swing.JTextField;
 
-
-/**
- *
- * @author Ricardo
- */
 public class ChronometerMode extends Thread implements Chronometer {
     private int hour, min, sec;
     private long mili;
