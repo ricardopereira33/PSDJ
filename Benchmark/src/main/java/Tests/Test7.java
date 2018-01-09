@@ -8,8 +8,10 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
+import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
@@ -43,13 +45,14 @@ public class Test7 implements Test{
         Supplier<Double> supPStream = () -> ds2.sum();
         AbstractMap.SimpleEntry<Double, Double> res3 = t.testeBoxGenW(supPStream);
         System.out.println("Time: "+ res3.getKey() +"\t | Res: " + res3.getValue());
-        //4 partiçoes
-        Spliterator<TransCaixa> s = ltc.spliterator();
-        Spliterator<TransCaixa> s1 = s.trySplit();
-        Spliterator<TransCaixa> s2 = s.trySplit();
-        Spliterator<TransCaixa> s3 = s1.trySplit();
 
-        s.forEachRemaining(TransCaixa::getValor);
+        //4 partiçoes
+        Spliterator.OfDouble siOf = ltc.stream().mapToDouble(TransCaixa::getValor).spliterator();
+        Spliterator.OfDouble siOf1 = siOf.trySplit();
+        Spliterator.OfDouble siOf2 = siOf.trySplit();
+        Spliterator.OfDouble siOf3 = siOf1.trySplit();
+
+        
     }
 
     private double sumForEachList(List<Double> list){
