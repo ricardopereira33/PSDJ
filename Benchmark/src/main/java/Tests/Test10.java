@@ -26,23 +26,28 @@ public class Test10 implements Test{
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         //JAVA 8
-        Map<Month,Double> ivaByMonth = new HashMap<>();
 
-        Supplier<Map<Month,Double>> supStream = () -> {ltc.stream().forEach(x -> {double value = x.getValor();
-            double iva = 0;
-            Month month = x.getData().getMonth();
-            if(value < 20) iva = value*0.15;
-            else if(value >= 20 && value <= 29) iva = value*0.20;
-            else iva = value*0.23;
-            if(ivaByMonth.containsKey(month)) ivaByMonth.put(month,ivaByMonth.get(month)+iva);
-            else ivaByMonth.put(month,iva);
-        });return ivaByMonth;};
+        Supplier<Map<Month, Double>> supStream = () -> {
+            Map<Month,Double> ivaByMonth = new HashMap<>();
+            ltc.stream().forEach(x -> {
+                double value = x.getValor();
+                double iva = 0;
+                Month month = x.getData().getMonth();
+                if(value < 20) iva = value*0.15;
+                else if(value >= 20 && value <= 29) iva = value*0.20;
+                else iva = value*0.23;
+                if(ivaByMonth.containsKey(month))
+                    ivaByMonth.put(month,ivaByMonth.get(month)+iva);
+                else ivaByMonth.put(month,iva);
+            });
+            return ivaByMonth;
+        };
         //Supplier<Map<Integer,Double>> supStream = () -> ltc.stream().collect(toMap(x -> x.getData().getMonth().getValue(),x ->x.getValor()*0.20,(oldValue, newValue) -> oldValue + newValue));
         AbstractMap.SimpleEntry<Double, Map<Month,Double>> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
 
-    private Map<Month,Double> getIVAByMonth(List<TransCaixa> ltc){
+    private Map<Month, Double> getIVAByMonth(List<TransCaixa> ltc){
         Map<Month,Double> ivaByMonth = new HashMap<>();
         for(TransCaixa tc : ltc){
             LocalDateTime date = tc.getData();
