@@ -5,15 +5,11 @@ import Structure.TransCaixa;
 import Utils.Tools;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
-import java.util.stream.StreamSupport;
-
-import static java.util.stream.Collectors.toList;
 
 public class Test7 implements Test{
     private final Tools t;
@@ -28,36 +24,38 @@ public class Test7 implements Test{
     public void exe(){
         //Data set inteiro
         //List
-        List<Double> list = ltc.stream().map(TransCaixa::getValor).collect(toList());
-
-        Supplier<Double> supList = () -> sumForEachList(list);
+        System.out.println("forEach()");
+        Supplier<Double> supList = () -> sumForEach();
         AbstractMap.SimpleEntry<Double, Double> res = t.testeBoxGenW(supList);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         // DoubleStream Sequencial
-        DoubleStream ds = ltc.stream().mapToDouble(TransCaixa::getValor);
-        Supplier<Double> supStream = () -> ds.sum();
+        System.out.println("Stream Sequencial");
+        //DoubleStream ds = ltc.stream().mapToDouble(TransCaixa::getValor);
+        Supplier<Double> supStream = () -> ltc.stream().mapToDouble(TransCaixa::getValor).sum();
         AbstractMap.SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
 
         // DoubleStream Paralelo
-        DoubleStream ds2 = ltc.parallelStream().mapToDouble(TransCaixa::getValor);
-        Supplier<Double> supPStream = () -> ds2.sum();
+        System.out.println("Stream Paralela");
+        //DoubleStream ds2 = ltc.parallelStream().mapToDouble(TransCaixa::getValor);
+        Supplier<Double> supPStream = () -> ltc.parallelStream().mapToDouble(TransCaixa::getValor).sum();
         AbstractMap.SimpleEntry<Double, Double> res3 = t.testeBoxGenW(supPStream);
         System.out.println("Time: "+ res3.getKey() +"\t | Res: " + res3.getValue());
 
         //4 partiçoes
+        System.out.println("Spliterator");
         Spliterator.OfDouble siOf = ltc.stream().mapToDouble(TransCaixa::getValor).spliterator();
         Spliterator.OfDouble siOf1 = siOf.trySplit();
         Spliterator.OfDouble siOf2 = siOf.trySplit();
         Spliterator.OfDouble siOf3 = siOf1.trySplit();
-
         
     }
 
-    private double sumForEachList(List<Double> list){
+    private double sumForEach(){
         double total = 0;
-        for (double v : list) {
+        for (TransCaixa tc : ltc) {
+            double v = tc.getValor();
             total += v;
         }
         return total;

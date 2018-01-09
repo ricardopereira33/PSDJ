@@ -22,11 +22,13 @@ public class Test8 implements Test{
     @Override
     public void exe(){
         //JAVA 7
+        System.out.println("Java 7");
         Supplier<OptionalDouble> supForEach = () -> getTransCaixaBetweenHours(ltc);
         AbstractMap.SimpleEntry<Double, OptionalDouble> res = t.testeBoxGenW(supForEach);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         //JAVA 8
+        System.out.println("Java 8");
         Supplier<OptionalDouble> supStream = () -> ltc.stream().filter(tc -> isTransCaixaBetweenHours(tc)).mapToDouble(TransCaixa::getValor).max();
         AbstractMap.SimpleEntry<Double, OptionalDouble> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());

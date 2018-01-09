@@ -30,11 +30,13 @@ public class Test9 implements Test{
         List<List<TransCaixa>> tcOnWeek = getTcByWeekDays(30);
 
         //JAVA 7
+        System.out.println("Java 7");
         Supplier<Double> supForEach = () -> getTotalInWeek(tcOnWeek);
         AbstractMap.SimpleEntry<Double, Double> res = t.testeBoxGenW(supForEach);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         //JAVA 8
+        System.out.println("Java 8");
         Supplier<Double> supStream = () -> tcOnWeek.stream().mapToDouble(x -> {return x.stream().mapToDouble(TransCaixa::getValor).sum();}).sum();
         AbstractMap.SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());

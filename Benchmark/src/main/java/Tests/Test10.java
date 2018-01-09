@@ -9,6 +9,8 @@ import java.time.Month;
 import java.util.*;
 import java.util.function.Supplier;
 
+import static java.util.stream.Collectors.toMap;
+
 public class Test10 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
@@ -24,9 +26,7 @@ public class Test10 implements Test{
         Supplier<Map<Month,Double>> supForEach = () -> getIVAByMonth(ltc);
         AbstractMap.SimpleEntry<Double, Map<Month,Double>> res = t.testeBoxGenW(supForEach);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
-
         //JAVA 8
-
         Supplier<Map<Month, Double>> supStream = () -> {
             Map<Month,Double> ivaByMonth = new HashMap<>();
             ltc.stream().forEach(x -> {

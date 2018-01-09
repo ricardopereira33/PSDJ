@@ -7,6 +7,7 @@ import Utils.Tools;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Test12 implements Test{
     private final Tools t;
@@ -22,12 +23,14 @@ public class Test12 implements Test{
         Map<String,Map<Integer,Set<TransCaixa>>> transByCaixaMap = getTransByCaixa(false);
         Map<String,Map<Integer,Set<TransCaixa>>> transByCaixaConcMap = getTransByCaixa(true);
 
-        Supplier<Double> supStreamMap = () -> transByCaixaMap.values().stream().mapToDouble(x -> x.values().stream().mapToDouble(h -> h.stream().mapToDouble(i -> i.getValor()).sum()).sum()).sum();
-        AbstractMap.SimpleEntry<Double, Double> res = t.testeBoxGenW(supStreamMap);
+        System.out.println("Com Map<>");
+        Supplier<Map<String,Double>> supStreamMap = () -> transByCaixaMap.entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream().mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
+        AbstractMap.SimpleEntry<Double, Map<String,Double>> res = t.testeBoxGenW(supStreamMap);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
-        Supplier<Double> supStreamConcMap = () -> transByCaixaConcMap.values().stream().mapToDouble(x -> x.values().stream().mapToDouble(h -> h.stream().mapToDouble(i -> i.getValor()).sum()).sum()).sum();
-        AbstractMap.SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supStreamConcMap);
+        System.out.println("Com ConcurrentMap<>");
+        Supplier<Map<String,Double>> supStreamConcMap = () -> transByCaixaConcMap.entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream().mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
+        AbstractMap.SimpleEntry<Double, Map<String,Double>> res2 = t.testeBoxGenW(supStreamConcMap);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
 
