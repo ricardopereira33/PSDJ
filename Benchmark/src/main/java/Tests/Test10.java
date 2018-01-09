@@ -42,7 +42,6 @@ public class Test10 implements Test{
             });
             return ivaByMonth;
         };
-        //Supplier<Map<Integer,Double>> supStream = () -> ltc.stream().collect(toMap(x -> x.getData().getMonth().getValue(),x ->x.getValor()*0.20,(oldValue, newValue) -> oldValue + newValue));
         AbstractMap.SimpleEntry<Double, Map<Month,Double>> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
