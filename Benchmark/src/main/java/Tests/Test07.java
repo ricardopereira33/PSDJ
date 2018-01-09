@@ -32,16 +32,14 @@ public class Test07 implements Test{
         AbstractMap.SimpleEntry<Double, Double> res = t.testeBoxGenW(supList);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
-        // DoubleStream Sequencial
+        // Stream Sequencial
         System.out.println("Stream Sequencial");
-        //DoubleStream ds = ltc.stream().mapToDouble(TransCaixa::getValor);
         Supplier<Double> supStream = () -> ltc.stream().mapToDouble(TransCaixa::getValor).sum();
         AbstractMap.SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
 
-        // DoubleStream Paralelo
+        // Stream Paralelo
         System.out.println("Stream Paralela");
-        //DoubleStream ds2 = ltc.parallelStream().mapToDouble(TransCaixa::getValor);
         Supplier<Double> supPStream = () -> ltc.parallelStream().mapToDouble(TransCaixa::getValor).sum();
         AbstractMap.SimpleEntry<Double, Double> res3 = t.testeBoxGenW(supPStream);
         System.out.println("Time: "+ res3.getKey() +"\t | Res: " + res3.getValue());
