@@ -24,12 +24,16 @@ public class Test12 implements Test{
         Map<String,Map<Integer,Set<TransCaixa>>> transByCaixaConcMap = getTransByCaixa(true);
 
         System.out.println("Com Map<>");
-        Supplier<Map<String,Double>> supStreamMap = () -> transByCaixaMap.entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream().mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
+        Supplier<Map<String,Double>> supStreamMap = () -> transByCaixaMap.entrySet().stream()
+                .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream()
+                        .mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
         AbstractMap.SimpleEntry<Double, Map<String,Double>> res = t.testeBoxGenW(supStreamMap);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
 
         System.out.println("Com ConcurrentMap<>");
-        Supplier<Map<String,Double>> supStreamConcMap = () -> transByCaixaConcMap.entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream().mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
+        Supplier<Map<String,Double>> supStreamConcMap = () -> transByCaixaConcMap.entrySet().stream()
+                .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().values().stream()
+                        .mapToDouble(i -> i.stream().mapToDouble(h -> h.getValor()).sum()).sum()));
         AbstractMap.SimpleEntry<Double, Map<String,Double>> res2 = t.testeBoxGenW(supStreamConcMap);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
