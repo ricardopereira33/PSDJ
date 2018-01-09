@@ -25,16 +25,17 @@ public class Test05 implements Test{
 
     @Override
     public void exe(){
+
         // List
         System.out.println("# List");
-        Supplier<TreeSet<TransCaixa>> supTree = () -> ltc.stream().collect(toCollection(() -> new TreeSet<>(transPorData)));
-        AbstractMap.SimpleEntry<Double, TreeSet<TransCaixa>> res = t.testeBoxGenW(supTree);
-        System.out.println("Time: "+ res.getKey() +"\t Res: " + res.getValue().first());
-
-        // TreeSet
-        System.out.println("# TreeSet");
         Supplier<List<TransCaixa>> supList = () -> ltc.stream().sorted(transPorData).collect(toList());
         AbstractMap.SimpleEntry<Double, List<TransCaixa>> res2 = t.testeBoxGenW(supList);
         System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue().get(0));
+        
+        // TreeSet
+        System.out.println("# TreeSet");
+        Supplier<TreeSet<TransCaixa>> supTree = () -> ltc.stream().collect(toCollection(() -> new TreeSet<>(transPorData)));
+        AbstractMap.SimpleEntry<Double, TreeSet<TransCaixa>> res = t.testeBoxGenW(supTree);
+        System.out.println("Time: "+ res.getKey() +"\t Res: " + res.getValue().first());
     }
 }
