@@ -35,30 +35,37 @@ public class Test2 implements Test{
         // List
         List<TransCaixa> transOrdDataList = ltc.stream().sorted(transPorData)
                 .collect(toList());
+
         /*** Sequenical ***/
 
         // List
+        System.out.println("# Sequencial - List");
         Supplier<List<List<TransCaixa>>> supListSeq = () -> getSubSetsList(transOrdDataList, indexF20);
         AbstractMap.SimpleEntry<Double, List<List<TransCaixa>>> res = t.testeBoxGenW(supListSeq);
-        System.out.println("Time: "+ res.getKey() +"\t Res: " + res.getValue().get(0).get(0));
+        System.out.println("Time: "+ res.getKey() +"\t Res: " + res.getValue().get(0).get(0) + "\n");
 
         // TreeSet
+        System.out.println("# Sequencial - TreeSet");
         Supplier<List<TreeSet<TransCaixa>>> supTreeSeq = () -> getSubSetsTree(transOrdData, indexF20);
         AbstractMap.SimpleEntry<Double, List<TreeSet<TransCaixa>>> res2 = t.testeBoxGenW(supTreeSeq);
-        System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue().get(0).first());
+        System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue().get(0).first() + "\n");
 
         /*** Parallel ***/
 
         // List
+        System.out.println("# Parallel - List");
         Supplier<List<List<TransCaixa>>> supListPar = () -> getSubSetsListP(transOrdDataList, indexF20);
         AbstractMap.SimpleEntry<Double, List<List<TransCaixa>>> res3 = t.testeBoxGenW(supListPar);
-        System.out.println("Time: "+ res3.getKey() +"\t Res: " + res3.getValue().get(0).get(0));
+        System.out.println("Time: "+ res3.getKey() +"\t Res: " + res3.getValue().get(0).get(0) + "\n");
 
         // TreeSet
+        System.out.println("# Parallel - TreeSet");
         Supplier<List<TreeSet<TransCaixa>>> supTreePar2 = () -> getSubSetsTreeP(transOrdData, indexF20);
         AbstractMap.SimpleEntry<Double, List<TreeSet<TransCaixa>>> res4 = t.testeBoxGenW(supTreePar2);
-        System.out.println("Time: "+ res4.getKey() +"\t Res: " + res4.getValue().get(0).first());
+        System.out.println("Time: "+ res4.getKey() +"\t Res: " + res4.getValue().get(0).first() + "\n");
     }
+
+
 
     private List<TreeSet<TransCaixa>> getSubSetsTree(TreeSet<TransCaixa> transOrdDataTree, int indexF20){
         TreeSet<TransCaixa> first20T = transOrdDataTree.stream().limit(indexF20)
