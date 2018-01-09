@@ -23,28 +23,46 @@ public class Test4 implements Test{
 
     @Override
     public void exe(){
-        BiFunction<Integer, Integer, Integer> division =  (i1, i2) -> i1/i2;
+        BiFunction<Integer, Integer, Integer> division =  (i1, i2) -> i1 >= i2 ? i1/i2 : i2/i1;
         int[] list = creatRandomData();
 
         /*** Sequencial ***/
         // lambda
-        Supplier<Integer> sup1 = () -> Arrays.stream(list).reduce(0, (i1, i2) -> i1/i2);
+        System.out.println("# Sequencial - Lambda");
+        Supplier<Integer> sup1 = () -> Arrays.stream(list).reduce(1, (i1, i2) -> i1 >= i2 ? i1/i2 : i2/i1);
         SimpleEntry<Double, Integer> res1 = t.testeBoxGenW(sup1);
-        System.out.println("Time: "+ res1.getKey() +"\t Res: " + res1.getValue());
+        System.out.println("Time: "+ res1.getKey() +"\t Res: " + res1.getValue() +"\n");
 
         // Bifun
-        Supplier<Integer> sup2 = () -> Arrays.stream(list).reduce(0, (i1,i2) -> division.apply(i1,i2));
+        System.out.println("# Sequencial - BiFunction");
+        Supplier<Integer> sup2 = () -> Arrays.stream(list).reduce(1, (i1,i2) -> division.apply(i1,i2));
         SimpleEntry<Double, Integer> res2 = t.testeBoxGenW(sup2);
-        System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue());
+        System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue() +"\n");
 
         // metodo
-        Supplier<Integer> sup3 = () -> Arrays.stream(list).reduce(0, (i1,i2) -> div(i1,i2));
+        System.out.println("# Sequencial - Método");
+        Supplier<Integer> sup3 = () -> Arrays.stream(list).reduce(1, (i1,i2) -> div(i1,i2));
         SimpleEntry<Double, Integer> res3 = t.testeBoxGenW(sup3);
-        System.out.println("Time: "+ res3.getKey() +"\t Res: " + res3.getValue());
+        System.out.println("Time: "+ res3.getKey() +"\t Res: " + res3.getValue() +"\n");
 
         /*** Parallel ***/
+        // lambda
+        System.out.println("# Parallel - Lambda");
+        Supplier<Integer> sup4 = () -> Arrays.stream(list).parallel().reduce(1, (i1, i2) -> i1 >= i2 ? i1/i2 : i2/i1);
+        SimpleEntry<Double, Integer> res4 = t.testeBoxGenW(sup4);
+        System.out.println("Time: "+ res4.getKey() +"\t Res: " + res4.getValue() +"\n");
 
+        // Bifun
+        System.out.println("# Parallel - BiFunction");
+        Supplier<Integer> sup5 = () -> Arrays.stream(list).parallel().reduce(1, (i1,i2) -> division.apply(i1,i2));
+        SimpleEntry<Double, Integer> res5 = t.testeBoxGenW(sup5);
+        System.out.println("Time: "+ res5.getKey() +"\t Res: " + res4.getValue() +"\n");
 
+        // metodo
+        System.out.println("# Parallel - Método");
+        Supplier<Integer> sup6 = () -> Arrays.stream(list).parallel().reduce(1, (i1,i2) -> div(i1,i2));
+        SimpleEntry<Double, Integer> res6 = t.testeBoxGenW(sup6);
+        System.out.println("Time: "+ res6.getKey() +"\t Res: " + res4.getValue() +"\n");
     }
 
     private int[] creatRandomData() {
@@ -57,6 +75,6 @@ public class Test4 implements Test{
     }
 
     private static int div(int i1, int i2){
-        return i1/i2;
+        return i1 >= i2 ? i1/i2 : i2/i1;
     }
 }

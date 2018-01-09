@@ -60,6 +60,8 @@ public class Test2 implements Test{
         System.out.println("Time: "+ res4.getKey() +"\t Res: " + res4.getValue().get(0).first());
     }
 
+
+
     private List<TreeSet<TransCaixa>> getSubSetsTree(TreeSet<TransCaixa> transOrdDataTree, int indexF20){
         TreeSet<TransCaixa> first20T = transOrdDataTree.stream().limit(indexF20)
                 .collect(toCollection(() -> new TreeSet<>(transPorData)));
