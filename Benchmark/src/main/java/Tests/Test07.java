@@ -10,12 +10,15 @@ import java.util.Spliterator;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Supplier;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-public class Test7 implements Test{
+public class Test07 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test7(List<TransCaixa> l, Tools t){
+    public Test07(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }
@@ -44,12 +47,15 @@ public class Test7 implements Test{
         System.out.println("Time: "+ res3.getKey() +"\t | Res: " + res3.getValue());
 
         //4 partiçoes
-        System.out.println("Spliterator");
-        Spliterator.OfDouble siOf = ltc.stream().mapToDouble(TransCaixa::getValor).spliterator();
-        Spliterator.OfDouble siOf1 = siOf.trySplit();
-        Spliterator.OfDouble siOf2 = siOf.trySplit();
-        Spliterator.OfDouble siOf3 = siOf1.trySplit();
-        
+        System.out.println("Sequencial - Spliterator");
+        Supplier<Double> supSIStream = () -> splitTransCaixa(false);
+        AbstractMap.SimpleEntry<Double, Double> res4 = t.testeBoxGenW(supSIStream);
+        System.out.println("Time: "+ res4.getKey() +"\t | Res: " + res4.getValue());
+
+        System.out.println("Parallel - Spliterator");
+        Supplier<Double> supSIStreamP = () -> splitTransCaixa(true);
+        AbstractMap.SimpleEntry<Double, Double> res5 = t.testeBoxGenW(supSIStreamP);
+        System.out.println("Time: "+ res5.getKey() +"\t | Res: " + res5.getValue());
     }
 
     private double sumForEach(){
@@ -58,6 +64,25 @@ public class Test7 implements Test{
             double v = tc.getValor();
             total += v;
         }
+        return total;
+    }
+
+    private double splitTransCaixa(boolean isParallel){
+        List<Stream<TransCaixa>> list = new ArrayList<>();
+        Spliterator<TransCaixa> si1_4 = ltc.spliterator();
+        Spliterator<TransCaixa> si2_4 = si1_4.trySplit();
+        Spliterator<TransCaixa> si3_4 = si1_4.trySplit();
+        Spliterator<TransCaixa> si4_4 = si2_4.trySplit();
+
+        list.add(StreamSupport.stream(si1_4, isParallel));
+        list.add(StreamSupport.stream(si2_4, isParallel));
+        list.add(StreamSupport.stream(si3_4, isParallel));
+        list.add(StreamSupport.stream(si4_4, isParallel));
+
+        double total = 0;
+        for(Stream<TransCaixa> stc : list)
+            total += stc.mapToDouble(TransCaixa::getValor).sum();
+
         return total;
     }
 }

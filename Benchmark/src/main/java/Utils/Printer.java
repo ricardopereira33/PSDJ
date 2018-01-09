@@ -26,8 +26,8 @@ public class Printer {
         out.println("========= FILE ==========");
         out.println("1. 1M");
         out.println("2. 2M");
-        out.println("3. 4M");
-        out.println("4. 8M");
+        out.println("4. 4M");
+        out.println("8. 8M");
         out.print("Opção: ");
     }
 

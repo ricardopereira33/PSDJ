@@ -90,7 +90,7 @@ public class Benchmark {
                     pressToContinue(br);
                     break;
                 case "7":
-                    Test t7 = new Test7(ltc,tools);
+                    Test t7 = new Test07(ltc,tools);
                     t7.exe();
                     pressToContinue(br);
                     break;
