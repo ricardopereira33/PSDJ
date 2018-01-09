@@ -86,7 +86,8 @@ public class Test06 implements Test{
         return tableDay;
     }
 
-    private Map<Integer, Map<Integer, List<TransCaixa>>> getTableMonth(Map<Month, Map<Integer, Map<Integer, List<TransCaixa>>>> table, Month m) {
+    private Map<Integer, Map<Integer, List<TransCaixa>>> getTableMonth(Map<Month, Map<Integer, Map<Integer, 
+            List<TransCaixa>>>> table, Month m) {
         Map<Integer, Map<Integer, List<TransCaixa>>> tableMonth;
         if(table.containsKey(m))
             tableMonth = table.get(m);
