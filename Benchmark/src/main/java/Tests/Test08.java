@@ -29,7 +29,8 @@ public class Test08 implements Test{
 
         //JAVA 8
         System.out.println("Java 8");
-        Supplier<OptionalDouble> supStream = () -> ltc.stream().filter(tc -> isTransCaixaBetweenHours(tc)).mapToDouble(TransCaixa::getValor).max();
+        Supplier<OptionalDouble> supStream = () -> ltc.stream().filter(tc -> isTransCaixaBetweenHours(tc)).
+                mapToDouble(TransCaixa::getValor).max();
         AbstractMap.SimpleEntry<Double, OptionalDouble> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
