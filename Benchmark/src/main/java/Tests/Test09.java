@@ -37,7 +37,8 @@ public class Test09 implements Test{
 
         //JAVA 8
         System.out.println("Java 8");
-        Supplier<Double> supStream = () -> tcOnWeek.stream().mapToDouble(x -> {return x.stream().mapToDouble(TransCaixa::getValor).sum();}).sum();
+        Supplier<Double> supStream = () -> tcOnWeek.stream().mapToDouble(x -> {return x.stream()
+                .mapToDouble(TransCaixa::getValor).sum();}).sum();
         AbstractMap.SimpleEntry<Double, Double> res2 = t.testeBoxGenW(supStream);
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
