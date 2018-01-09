@@ -60,32 +60,32 @@ public class Benchmark {
                 case "0":
                     return;
                 case "1":
-                    Test t1 = new Test1(ltc,tools);
+                    Test t1 = new Test01(ltc,tools);
                     t1.exe();
                     pressToContinue(br);
                     break;
                 case "2":
-                    Test t2 = new Test2(ltc,tools);
+                    Test t2 = new Test02(ltc,tools);
                     t2.exe();
                     pressToContinue(br);
                     break;
                 case "3":
-                    Test t3 = new Test3(ltc,tools);
+                    Test t3 = new Test03(ltc,tools);
                     t3.exe();
                     pressToContinue(br);
                     break;
                 case "4":
-                    Test t4 = new Test4(ltc,tools);
+                    Test t4 = new Test04(ltc,tools);
                     t4.exe();
                     pressToContinue(br);
                     break;
                 case "5":
-                    Test t5 = new Test5(ltc,tools);
+                    Test t5 = new Test05(ltc,tools);
                     t5.exe();
                     pressToContinue(br);
                     break;
                 case "6":
-                    Test t6 = new Test6(ltc,tools);
+                    Test t6 = new Test06(ltc,tools);
                     t6.exe();
                     pressToContinue(br);
                     break;
@@ -95,12 +95,12 @@ public class Benchmark {
                     pressToContinue(br);
                     break;
                 case "8":
-                    Test t8 = new Test8(ltc,tools);
+                    Test t8 = new Test08(ltc,tools);
                     t8.exe();
                     pressToContinue(br);
                     break;
                 case "9":
-                    Test t9 = new Test9(ltc,tools);
+                    Test t9 = new Test09(ltc,tools);
                     t9.exe();
                     pressToContinue(br);
                     break;

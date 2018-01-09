@@ -11,11 +11,11 @@ import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
-public class Test1 implements Test{
+public class Test01 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test1(List<TransCaixa> l, Tools t){
+    public Test01(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }

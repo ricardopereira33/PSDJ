@@ -13,11 +13,11 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-public class Test3 implements Test{
+public class Test03 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test3(List<TransCaixa> l, Tools t){
+    public Test03(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }

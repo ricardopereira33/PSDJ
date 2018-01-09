@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.OptionalDouble;
 import java.util.function.Supplier;
 
-public class Test8 implements Test{
+public class Test08 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test8(List<TransCaixa> l, Tools t){
+    public Test08(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }
