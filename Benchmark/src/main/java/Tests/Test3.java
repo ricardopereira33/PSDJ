@@ -28,16 +28,19 @@ public class Test3 implements Test{
         int[] array = getArray(list);
 
         //int []
+        System.out.println("# int[]");
         Supplier<int[]> sup1 = () -> removeRep(array);
         SimpleEntry<Double, int[]> res1 = t.testeBoxGenW(sup1);
         System.out.println("Time: "+ res1.getKey() +"\t Res: " + res1.getValue().length);
 
         //IntStream
+        System.out.println("# IntStream");
         Supplier<IntStream> sup2 = () -> list.stream().mapToInt(i -> i).distinct();
         SimpleEntry<Double, IntStream> res2 = t.testeBoxGenW(sup2);
         System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue().count());
 
         //List<Integer>
+        System.out.println("# List<Integer>");
         Supplier<List<Integer>> sup3 = () -> list.stream().distinct().collect(toList());
         SimpleEntry<Double, List<Integer>> res3 = t.testeBoxGenW(sup3);
         System.out.println("Time: "+ res3.getKey() +"\t Res: " + res3.getValue().size());

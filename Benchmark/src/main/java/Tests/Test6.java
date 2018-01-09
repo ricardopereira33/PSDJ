@@ -24,7 +24,8 @@ public class Test6 implements Test{
     @Override
     public void exe(){
         /*** Streams ***/
-        // Tabela contendo todas as transacções catalogadas por Mês, Dia, Hora efectivos,
+        // Tabela contendo todas as transacções catalogadas por Mês, Dia, Hora efectivos
+        System.out.println("# Streams");
         Supplier<Map<Month, Map<Integer, Map<Integer, List<TransCaixa>>>>> supTable = () ->
                 ltc.stream().collect(groupingBy(t -> t.getData().getMonth(),
                                      groupingBy(t -> t.getData().getDayOfMonth(),
@@ -34,6 +35,7 @@ public class Test6 implements Test{
         System.out.println("Time: "+ res.getKey() +"\t Res: " + res.getValue().size());
 
         /*** Java 7 ***/
+        System.out.println("# Java 7");
         Supplier<Map<Month, Map<Integer, Map<Integer, List<TransCaixa>>>>> supTableJava7 = () -> getTable();
         AbstractMap.SimpleEntry<Double, Map<Month, Map<Integer, Map<Integer, List<TransCaixa>>>>> res2 = t.testeBoxGenW(supTableJava7);
         System.out.println("Time: "+ res2.getKey() +"\t Res: " + res2.getValue().size());

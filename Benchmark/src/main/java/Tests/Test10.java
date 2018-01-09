@@ -23,23 +23,21 @@ public class Test10 implements Test{
     @Override
     public void exe(){
         //JAVA 7
-        System.out.println("Java 7");
         Supplier<Map<Month,Double>> supForEach = () -> getIVAByMonth(ltc);
         AbstractMap.SimpleEntry<Double, Map<Month,Double>> res = t.testeBoxGenW(supForEach);
         System.out.println("Time: "+ res.getKey() +"\t | Res: " + res.getValue());
-
         //JAVA 8
-        System.out.println("Java 8");
-
-        Supplier<Map<Month,Double>> supStream = () -> {
+        Supplier<Map<Month, Double>> supStream = () -> {
             Map<Month,Double> ivaByMonth = new HashMap<>();
-            ltc.stream().forEach(x -> {double value = x.getValor();
+            ltc.stream().forEach(x -> {
+                double value = x.getValor();
                 double iva = 0;
                 Month month = x.getData().getMonth();
                 if(value < 20) iva = value*0.15;
                 else if(value >= 20 && value <= 29) iva = value*0.20;
                 else iva = value*0.23;
-                if(ivaByMonth.containsKey(month)) {double actual = ivaByMonth.get(month);ivaByMonth.put(month,actual+iva);}
+                if(ivaByMonth.containsKey(month))
+                    ivaByMonth.put(month,ivaByMonth.get(month)+iva);
                 else ivaByMonth.put(month,iva);
             });
             return ivaByMonth;
@@ -49,7 +47,7 @@ public class Test10 implements Test{
         System.out.println("Time: "+ res2.getKey() +"\t | Res: " + res2.getValue());
     }
 
-    private Map<Month,Double> getIVAByMonth(List<TransCaixa> ltc){
+    private Map<Month, Double> getIVAByMonth(List<TransCaixa> ltc){
         Map<Month,Double> ivaByMonth = new HashMap<>();
         for(TransCaixa tc : ltc){
             LocalDateTime date = tc.getData();
