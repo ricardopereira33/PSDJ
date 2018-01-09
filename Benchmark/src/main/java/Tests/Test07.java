@@ -14,11 +14,11 @@ import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class Test7 implements Test{
+public class Test07 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test7(List<TransCaixa> l, Tools t){
+    public Test07(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }

@@ -12,11 +12,11 @@ import static Structure.Caixa.transPorData;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toCollection;
 
-public class Test6 implements Test{
+public class Test06 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test6(List<TransCaixa> l, Tools t){
+    public Test06(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }

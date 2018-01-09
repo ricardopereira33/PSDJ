@@ -12,11 +12,11 @@ import java.util.Random;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-public class Test4 implements Test{
+public class Test04 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test4(List<TransCaixa> l, Tools t){
+    public Test04(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }

@@ -15,11 +15,11 @@ import java.util.function.Supplier;
 
 import static java.time.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR;
 
-public class Test9 implements Test{
+public class Test09 implements Test{
     private final Tools t;
     public List<TransCaixa> ltc;
 
-    public Test9(List<TransCaixa> l, Tools t){
+    public Test09(List<TransCaixa> l, Tools t){
         this.ltc = l;
         this.t = t;
     }
